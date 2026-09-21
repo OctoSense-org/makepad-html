@@ -514,6 +514,41 @@
         "vertical-align",
         "word-wrap"
       ]
+    },
+    {
+      "case": "16-text-shadows",
+      "tags": [
+        "body",
+        "div",
+        "em",
+        "h2",
+        "head",
+        "html",
+        "meta",
+        "section",
+        "span",
+        "strong",
+        "style",
+        "title"
+      ],
+      "inline_css_properties": [
+        "background",
+        "box-sizing",
+        "color",
+        "font",
+        "font-size",
+        "line-height",
+        "margin",
+        "max-width",
+        "overflow",
+        "padding",
+        "text-decoration",
+        "text-shadow",
+        "transform",
+        "white-space",
+        "width",
+        "word-wrap"
+      ]
     }
   ],
   "all_tags": [
@@ -526,6 +561,7 @@
     "colgroup",
     "defs",
     "del",
+    "div",
     "em",
     "figcaption",
     "figure",

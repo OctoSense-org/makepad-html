@@ -1,0 +1,212 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 782,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 782,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 350,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 166
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 264
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 362
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 442
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 522
+        },
+        {
+          "height" : 62,
+          "width" : 264,
+          "x" : 20,
+          "y" : 602
+        },
+        {
+          "height" : 80.232666015625,
+          "width" : 352.76513671875,
+          "x" : 18.617416381835938,
+          "y" : 672.8836669921875
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 782,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 166
+        },
+        {
+          "height" : 80,
+          "width" : 350,
+          "x" : 20,
+          "y" : 264
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 362
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 442
+        },
+        {
+          "height" : 62,
+          "width" : 350,
+          "x" : 20,
+          "y" : 522
+        },
+        {
+          "height" : 62,
+          "width" : 264,
+          "x" : 20,
+          "y" : 602
+        },
+        {
+          "height" : 80.232666015625,
+          "width" : 352.76513671875,
+          "x" : 18.617416381835938,
+          "y" : 672.8836669921875
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "文字阴影与继承回归",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 390
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 2083,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/16-text-shadows.html",
+  "source_sha256" : "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    },
+    {
+      "file" : "webview-original-tile-82.png",
+      "y_css" : 82
+    }
+  ],
+  "width_css" : 390
+}

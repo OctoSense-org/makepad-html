@@ -50,3 +50,20 @@ sources. This is not complete CSS table support: automatic column widths,
 spanning-edge height metrics, baseline sharing, vertical writing modes and exact
 dash/corner rasterization remain incomplete. Nine regressions live in
 `tests/table_regressions.rs`; validation is in `docs/table-parity-validation.json`.
+
+## Patch set: text-shadow-3 (applies after table-2)
+
+- Resolve the computed inherited shadow list once, including currentColor and
+  none overrides. Render every shadow pass before the inline context's text.
+- Reuse foreground glyph/decoration geometry. Group adjacent runs with equal
+  shadows, reverse the CSS list, and apply Gaussian blur with radius/2 sigma.
+- Retain shadow-casting subtrees during geometric culling without changing
+  layout or scrollable overflow. Existing clipping layers still apply.
+- The host manifest enables `anyrender_vello_cpu/filters`; this is required for
+  blur and intentionally uses the single-threaded backend.
+
+`text-shadow-3.patch` is incremental against makepad-html `c2b7c08`'s vendor
+sources. Eight pixel regressions live in `tests/text_shadow_regressions.rs`.
+Native positive/control captures and WKWebView comparisons are described in
+`docs/text-shadow-parity.md`. Full text-decoration, filter-chain and glyph metric
+parity are not claimed.

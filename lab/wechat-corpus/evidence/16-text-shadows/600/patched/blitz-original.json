@@ -1,0 +1,190 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 785.203125,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 166.40625
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 264.796875
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 363.203125
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 443.59375
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 524.0
+      },
+      {
+        "height": 62.40625,
+        "width": 264.0,
+        "x": 20.0,
+        "y": 604.40625
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 684.796875
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 785.203125,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 166.40625
+      },
+      {
+        "height": 80.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 264.796875
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 363.203125
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 443.59375
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 524.0
+      },
+      {
+        "height": 62.40625,
+        "width": 264.0,
+        "x": 20.0,
+        "y": 604.40625
+      },
+      {
+        "height": 62.40625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 684.796875
+      }
+    ],
+    "table": [],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1570,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:49528/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:49528/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:49528/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:49528/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "WebP",
+      "height": 240,
+      "url": "http://127.0.0.1:49528/assets/chart.webp",
+      "width": 400
+    }
+  ],
+  "local_patch": "wechat-css-1+table-2+text-shadow-3",
+  "product_admission": "accepted",
+  "resource_requests": [],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 785.0,
+  "scale": 2,
+  "width_css": 600,
+  "width_px": 1200
+}

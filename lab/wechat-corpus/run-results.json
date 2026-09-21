@@ -478,5 +478,35 @@
     "webview": {
       "exit_code": 0
     }
+  },
+  {
+    "case": "16-text-shadows",
+    "width": 390,
+    "height": 700,
+    "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+    "media": {
+      "exit_code": 0
+    },
+    "extended": {
+      "exit_code": 0
+    },
+    "webview": {
+      "exit_code": 0
+    }
+  },
+  {
+    "case": "16-text-shadows",
+    "width": 600,
+    "height": 700,
+    "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+    "media": {
+      "exit_code": 0
+    },
+    "extended": {
+      "exit_code": 0
+    },
+    "webview": {
+      "exit_code": 0
+    }
   }
 ]

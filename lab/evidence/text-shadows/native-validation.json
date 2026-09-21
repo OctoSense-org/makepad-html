@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+  "binary_sha256": "216b4e10a06c0a538c5d48a68440507e0a985a578cd896a8fe3a100001e557df",
+  "window": [
+    {
+      "i": 0,
+      "t": "Makepad [remote]",
+      "sz": [
+        440,
+        880
+      ],
+      "px": [
+        880,
+        1760
+      ],
+      "dpi": 2,
+      "pos": [
+        536,
+        63
+      ]
+    }
+  ],
+  "pixels_differing_over_24_rgb": 53138,
+  "control": "Identical HTML with text-shadow declarations set to none; no layout rewriting",
+  "screenshots": {
+    "native-shadows.png": "69c552a36080f340b70a705154d08538054c9f5284dfa158dd115f6adedc3b2f",
+    "native-none-control.png": "cd084df5ece8d6ccfe4fec47ada4965d2a5310628e2ac66d0dea42ebec95a72c"
+  },
+  "ocr": "Makepad [remote] Makepad HTML 文字阴影与继承回归 标题 Hard shadow 清晰偏移．正文字形不被覆盖 *7A5 Bold 模糊•嵌套字重•透明色 多重阴影 Layers 列表首项在上•两个方向 继承 currentColor无阴影 下划线 取消阴影 Abg 透明文字保留阴影 裁剪 overflow boundar 旅转文字及阴影 Ready • Offline HTML/CSS",
+  "personal_accounts_used": false,
+  "qualification": "Native texture feature check, not a WebKit similarity score"
+}

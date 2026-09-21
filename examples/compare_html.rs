@@ -221,7 +221,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Err(error) => serde_json::json!({"url":url,"format":format!("{format:?}"),"decoded":false,"error":error.to_string()}),
         })
     }).collect();
-    let report = serde_json::json!({"engine":"Blitz raw HTML/CSS (no JS)","revision":BLITZ_REVISION,"local_patch":option_env!("MAKEPAD_HTML_PATCHSET").unwrap_or("wechat-css-1+table-2"),"width_css":width,"height_css":height,"scale":scale,"width_px":width_px,"height_px":height*scale,"full_height_px":height_px,"product_admission":product_admission,"card_rect_css":card,"denied_resources":denied,"resource_requests":requests,"elements":elements,"root_content_height_css":root_height,"image_decode_probes":decoded_images});
+    let report = serde_json::json!({"engine":"Blitz raw HTML/CSS (no JS)","revision":BLITZ_REVISION,"local_patch":option_env!("MAKEPAD_HTML_PATCHSET").unwrap_or("wechat-css-1+table-2+text-shadow-3"),"width_css":width,"height_css":height,"scale":scale,"width_px":width_px,"height_px":height*scale,"full_height_px":height_px,"product_admission":product_admission,"card_rect_css":card,"denied_resources":denied,"resource_requests":requests,"elements":elements,"root_content_height_css":root_height,"image_decode_probes":decoded_images});
     fs::write(
         out.join(format!("blitz-{label}.json")),
         serde_json::to_vec_pretty(&report)?,

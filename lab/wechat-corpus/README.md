@@ -1,8 +1,14 @@
 # 公众号 HTML/CSS：Blitz 与 WKWebView 实测
 
-2026-09-21。打开 [交互对照页](index.html)，可切换 15 个样本、390/600 CSS px、三种 Blitz 构建，以及并排/差异图。原文、来源和 SHA-256 在 [corpus.json](corpus.json)，所有测量在 [results.json](results.json)。
+2026-09-21。打开 [交互对照页](index.html)，可切换 16 个样本、390/600 CSS px、三种 Blitz 构建，以及并排/差异图。原文、来源和 SHA-256 在 [corpus.json](corpus.json)，所有测量在 [results.json](results.json)。
 
 结论：Blitz 可以作为原生公众号文章渲染的基础，但当前不能称为完整兼容。本轮已修复 CSS 表格标题丢字、仅含卡片的 nowrap 图集纵排、SVG 的 HTML 颜色继承。第二批已补表格跨度边界、冲突边框和单元格对齐；自动列宽、注音、行内装饰和更完整的 SVG 样式仍有缺口。当前 Robrix 接入还只是静态位图预览。
+
+**第三批：文字阴影（text-shadow-3）**
+
+新增 text-shadow 的偏移、Gaussian 模糊、多重阴影顺序、currentColor 继承、none 覆盖和文字装饰阴影。兼容 1×/2× DPI，阴影跟随变换并遵守 overflow 裁剪。离开视口的文字仍可投影到视口内；不会将阴影计入滚动范围。Vello CPU 开启 filters，使用单个 blur 原语；这不表示复合 CSS filter 全部兼容。
+
+新增 16 号独立样本；原 15 个 HTML 文件未改。32 组捕获完成，原有 26 张无文字阴影的整页 PNG 与 table-2 逐字节相同。标题/效果卡片的差异降低，新样本仍暴露字体、空白和下划线度量问题。[实现、测量及限制](../../docs/text-shadow-parity.md)。
 
 **第二批：表格边界与对齐（table-2）**
 
@@ -77,7 +83,7 @@ HTML 文件 SHA-256、资源、视口和 WKWebView 参考截图保持不变。
 
 点击对照页可以看到每个结论对应的原始图。SVG CSS 和图集尤其说明：元素存在、尺寸接近或进程正常退出，都不能证明视觉兼容。
 
-[coverage.json](coverage.json)枚举了探针实际出现的 46 种标签（含 HTML 文档包装及 SVG 标签）和 50 种内联 CSS 属性；这只是本轮覆盖库存，不表示每种属性的全部取值和组合已测完。
+[coverage.json](coverage.json)枚举了探针实际出现的 47 种标签（含 HTML 文档包装及 SVG 标签）和 50 种内联 CSS 属性；这只是本轮覆盖库存，不表示每种属性的全部取值和组合已测完。
 
 **建议修改路线**
 

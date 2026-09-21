@@ -18,6 +18,11 @@ jobs:
         run: cargo +1.98.0 build --locked --features makepad --example viewer
       - name: Verify native rendering and scrolling
         run: python3 lab/verify_native.py target/debug/examples/viewer
+      - name: Verify native text shadows against a none control
+        run: |
+          python3 -m venv target/native-validation-venv
+          target/native-validation-venv/bin/pip install Pillow==11.3.0
+          target/native-validation-venv/bin/python lab/verify_text_shadows.py target/debug/examples/viewer
       - uses: actions/upload-artifact@v4
         if: always()
         with:

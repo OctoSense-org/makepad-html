@@ -7,7 +7,8 @@
     "nice": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js",
     "syntax": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
     "blitz": "https://blitz.is/status/css",
-    "tables": "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
+    "tables": "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution",
+    "text-shadow": "https://www.w3.org/TR/css-text-decor-3/#text-shadow-property"
   },
   "cases": [
     {
@@ -280,6 +281,26 @@
         "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
       ],
       "provenance": "authored CSS table regression; not a published WeChat acceptance claim"
+    },
+    {
+      "id": "16-text-shadows",
+      "title": "文字阴影与继承回归",
+      "file": "fixtures/16-text-shadows.html",
+      "sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+      "features": [
+        "text-shadow offsets",
+        "Gaussian blur",
+        "multiple shadows",
+        "currentColor inheritance",
+        "nested overrides",
+        "decoration shadows",
+        "overflow clipping",
+        "transformed shadows"
+      ],
+      "sources": [
+        "https://www.w3.org/TR/css-text-decor-3/#text-shadow-property"
+      ],
+      "provenance": "authored CSS text-shadow regression; not a published WeChat acceptance claim"
     }
   ],
   "viewports": [

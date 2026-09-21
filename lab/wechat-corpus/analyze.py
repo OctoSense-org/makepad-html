@@ -27,13 +27,16 @@ NOTES={
  '11-ruby':'严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。',
  '12-effects':'渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。',
  '13-layout':'未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。',
+ '16-text-shadows':'原版完全缺失文字阴影，包括透明文字的可见阴影。',
  '15-table-edges':'表格边界回归：原版未解析混合边框冲突，合并单元格与对齐存在错误。',
  '14-lazy-image':'两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。',
 }
 PATCH_NOTES={
  '04-tables':'已修复合并单元格内横线、单元格居中与混合边框；自动列宽和虚线节奏仍与 WebKit 不完全一致。原生内部横向滚动仍未接入。',
  '15-table-edges':'新增覆盖：边框冲突、hidden、dashed/dotted/double、行列组、RTL 和 top/middle/bottom。具体几何与像素差见测量；不是完整 CSS 表格认证。',
- '02-headings-quotes':'已修复 display:table 标题丢字；圆角引用边框和文字阴影仍有差异。',
+ '02-headings-quotes':'已修复 display:table 标题丢字并补文字阴影；圆角引用边框、字体和装饰度量仍有差异。',
+ '12-effects':'已补文字阴影的偏移、模糊和颜色。渐变、圆角、裁剪与变换仍需逐项对照，不能视为完整 CSS 兼容。',
+ '16-text-shadows':'已补偏移、模糊、多重阴影、currentColor 继承、none 覆盖、透明文字和文字装饰阴影。字体、空白处理、下划线位置仍与 WebKit 不同。',
  '08-carousel':'已修复仅含卡片的 nowrap 图集纵排；Makepad 内部横向滚动交互尚未接入。混合文本与卡片的完整换行规则仍待补齐。',
  '10-svg-css':'已修复 HTML 继承的 currentColor；覆盖 SVG 属性、内联样式、内部 CSS 和动态颜色回归测试。生产入口仍拒绝 SVG。',
 }

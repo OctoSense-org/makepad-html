@@ -6,7 +6,7 @@ mod form_controls;
 mod mask;
 
 use std::cell::RefCell;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
 
 use super::kurbo_css::CssBox;
@@ -121,6 +121,8 @@ pub struct BlitzDomPainter<'dom, 'a> {
     pub(crate) layer_manager: LayerManager,
     /// Reusable scratch allocations shared by all text layouts painted for this document.
     pub(crate) draw_text_context: RefCell<DrawTextContext>,
+    /// Branches requiring ink-overflow-aware culling for CSS text shadows.
+    text_shadow_subtrees: HashSet<NodeId>,
     /// Cached selection ranges for O(1) lookup: node_id -> (start_offset, end_offset)
     pub(crate) selection_ranges: HashMap<NodeId, (usize, usize)>,
 
@@ -162,6 +164,7 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
             scrollbar_drag_target: dom.scrollbar_drag_target(),
             layer_manager,
             draw_text_context: RefCell::new(DrawTextContext::default()),
+            text_shadow_subtrees: crate::text::shadowed_subtrees(dom),
             selection_ranges,
             custom_widget_scenes,
         }
@@ -393,10 +396,11 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
         // Cull elements that fall entirely outside the current clip rectangle. In addition to
         // the viewport, `clip_rect` is narrowed by any ancestor scrollport (see below), so this
         // also culls elements scrolled out of view inside a clipping/scrolling container.
-        if screen_bbox.x1 < clip_rect.x0
-            || screen_bbox.x0 > clip_rect.x1
-            || screen_bbox.y1 < clip_rect.y0
-            || screen_bbox.y0 > clip_rect.y1
+        if !self.text_shadow_subtrees.contains(&node_id)
+            && (screen_bbox.x1 < clip_rect.x0
+                || screen_bbox.x0 > clip_rect.x1
+                || screen_bbox.y1 < clip_rect.y0
+                || screen_bbox.y0 > clip_rect.y1)
         {
             return;
         }
@@ -863,6 +867,7 @@ impl ElementCx<'_, '_> {
                 self.scale,
                 self.node.id,
                 &mut draw_text_context,
+                &self.context.layer_manager,
             );
         }
     }
@@ -929,6 +934,7 @@ impl ElementCx<'_, '_> {
                 self.scale,
                 self.node.id,
                 &mut draw_text_context,
+                &self.context.layer_manager,
             );
         }
     }
@@ -977,6 +983,7 @@ impl ElementCx<'_, '_> {
                 self.scale,
                 self.node.id,
                 &mut draw_text_context,
+                &self.context.layer_manager,
             );
         }
     }

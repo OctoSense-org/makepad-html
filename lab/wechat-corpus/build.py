@@ -15,7 +15,7 @@ args = parser.parse_args()
 source = ROOT
 target = Path(os.environ.get('CARGO_TARGET_DIR', ROOT / 'target/html-corpus-build')).resolve()
 env = {**os.environ, 'CARGO_TARGET_DIR': str(target),
-       'MAKEPAD_HTML_PATCHSET': 'wechat-css-1+table-2' if args.variant == 'patched' else 'none'}
+       'MAKEPAD_HTML_PATCHSET': 'wechat-css-1+table-2+text-shadow-3' if args.variant == 'patched' else 'none'}
 features = 'blitz-dom/woff,image/gif'
 if args.variant != 'media':
     features += ',blitz-paint/svg,blitz-dom/floats'
@@ -32,6 +32,7 @@ with tempfile.TemporaryDirectory(prefix='makepad-html-upstream-') as temporary:
         shutil.copy2(source / 'Cargo.lock', isolated / 'Cargo.lock')
         manifest = isolated / 'Cargo.toml'
         text = (source / 'Cargo.toml').read_text().split('# Pinned upstream workspace metadata')[0]
+        text = text.replace('anyrender_vello_cpu = { version = "=0.17.0", features = ["filters"] }', 'anyrender_vello_cpu = "=0.17.0"')
         text = text.replace('members = [".", "vendor/blitz/packages/*"]', 'members = ["."]')
         for name in ['blitz-dom', 'blitz-html', 'blitz-paint', 'blitz-traits']:
             text = text.replace(f'path = "vendor/blitz/packages/{name}"',

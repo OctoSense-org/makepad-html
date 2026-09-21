@@ -1,3 +1,6 @@
+mod shadow;
+pub(crate) use shadow::shadowed_subtrees;
+
 use anyrender::PaintScene;
 use blitz_dom::{BaseDocument, NodeId, node::TextBrush, util::ToColorColor};
 use kurbo::{Affine, BezPath, Cap, Circle, Rect, Stroke};
@@ -11,7 +14,9 @@ use style::values::computed::{
 use style::values::generics::text::{GenericTextDecorationInset, GenericTextDecorationLength};
 
 use crate::color::{Color, ToColorColor as _};
+use crate::layers::LayerManager;
 use crate::{FONT_EMBOLDEN_ENABLED, SELECTION_COLOR};
+use shadow::{ResolvedTextShadow, ShadowGroup};
 
 /// Draw the backgrounds of inline elements (e.g. `<span style="background: ...">`).
 ///
@@ -146,6 +151,7 @@ struct DecorationStackEntry {
     /// This node's (inherited) text colour, used for the glyphs of runs whose
     /// innermost node is this one.
     text_color: Color,
+    shadows: Vec<ResolvedTextShadow>,
     /// The decoration this node introduces as a decorating box, if any.
     decoration: Option<ResolvedDecoration>,
 }
@@ -156,6 +162,7 @@ fn resolve_decoration_entry(doc: &BaseDocument, node_id: NodeId) -> DecorationSt
         return DecorationStackEntry {
             node_id,
             text_color: Color::BLACK,
+            shadows: Vec::new(),
             decoration: None,
         };
     };
@@ -196,6 +203,7 @@ fn resolve_decoration_entry(doc: &BaseDocument, node_id: NodeId) -> DecorationSt
     DecorationStackEntry {
         node_id,
         text_color,
+        shadows: shadow::resolve_shadows(&styles),
         decoration,
     }
 }
@@ -223,6 +231,7 @@ struct DecorationRunGeometry {
 /// The `text-decoration-*` properties describe the whole box, so we gather the horizontal
 /// extent it covers on the line (`min_x`/`max_x`) and the font geometry to draw with, then
 /// paint a single line spanning the box rather than one segment per run.
+#[derive(Clone)]
 struct LineDecoration {
     node_id: NodeId,
     deco: ResolvedDecoration,
@@ -391,6 +400,7 @@ fn flush_line_decorations(
     scale: f64,
     deco_boxes: &[LineDecoration],
     win_ascent_ratios: &mut WinAscentCache,
+    color_override: Option<Color>,
 ) {
     // Draw innermost boxes first so ancestors' decorations paint on top, matching the
     // per-run drawing order this replaced (`stack.iter().rev()`).
@@ -404,7 +414,7 @@ fn flush_line_decorations(
         if width <= 0.0 {
             continue;
         }
-        let brush = anyrender::Paint::from(deco.color);
+        let brush = anyrender::Paint::from(color_override.unwrap_or(deco.color));
 
         // `text-decoration-inset` shortens (or, when negative, extends) the line from the
         // inline-start/end edges. Percentages resolve against the decoration line length
@@ -538,7 +548,57 @@ fn flush_line_decorations(
     }
 }
 
+/// Shadows precede every foreground run in this inline formatting context, so a
+/// large offset from a later run/line cannot cover text already painted.
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn stroke_text<'a>(
+    scene: &mut impl PaintScene,
+    lines: impl Iterator<Item = Line<'a, TextBrush>> + Clone,
+    doc: &BaseDocument,
+    transform: Affine,
+    scale: f64,
+    inline_root_id: NodeId,
+    context: &mut DrawTextContext,
+    layers: &LayerManager,
+) {
+    let has_shadows = lines.clone().any(|line| {
+        line.items().any(|item| {
+            let PositionedLayoutItem::GlyphRun(run) = item else {
+                return false;
+            };
+            doc.get_node(run.style().brush.id)
+                .and_then(|node| node.primary_styles())
+                .is_some_and(|style| !style.get_inherited_text().text_shadow.0.is_empty())
+        })
+    });
+    if has_shadows {
+        paint_text_pass(
+            scene,
+            lines.clone(),
+            doc,
+            transform,
+            scale,
+            inline_root_id,
+            context,
+            layers,
+            true,
+        );
+    }
+    paint_text_pass(
+        scene,
+        lines,
+        doc,
+        transform,
+        scale,
+        inline_root_id,
+        context,
+        layers,
+        false,
+    );
+}
+
+#[allow(clippy::too_many_arguments)]
+fn paint_text_pass<'a>(
     scene: &mut impl PaintScene,
     lines: impl Iterator<Item = Line<'a, TextBrush>>,
     doc: &BaseDocument,
@@ -546,6 +606,8 @@ pub(crate) fn stroke_text<'a>(
     scale: f64,
     inline_root_id: NodeId,
     context: &mut DrawTextContext,
+    layers: &LayerManager,
+    shadow_pass: bool,
 ) {
     let DrawTextContext {
         stack,
@@ -570,6 +632,7 @@ pub(crate) fn stroke_text<'a>(
         // draws one decoration per box rather than one stepped segment per differently-sized
         // run. Clearing preserves the allocation for the next line and inline context.
         deco_boxes.clear();
+        let mut shadow_groups: Vec<ShadowGroup<'_>> = Vec::new();
 
         for item in line.items() {
             if let PositionedLayoutItem::GlyphRun(glyph_run) = item {
@@ -578,11 +641,6 @@ pub(crate) fn stroke_text<'a>(
                 let font_size = run.font_size();
                 let metrics = run.metrics();
                 let style = glyph_run.style();
-                let synthesis = run.synthesis();
-                let glyph_xform = synthesis
-                    .skew()
-                    .map(|angle| Affine::skew(angle.to_radians().tan() as f64, 0.0));
-
                 let css_font_size = font_size as f64 / scale;
 
                 // Reconcile the stack with this run's ancestor path. Build the path
@@ -613,30 +671,9 @@ pub(crate) fn stroke_text<'a>(
                 // inherits, so the innermost inline element already carries the right value.
                 let text_color = stack.last().map(|e| e.text_color).unwrap_or(Color::BLACK);
 
-                let embolden = if FONT_EMBOLDEN_ENABLED {
-                    let fs = font_size as f64 / scale;
-                    kurbo::Vec2::new((0.015125 * fs).min(0.3), (0.0121 * fs).min(0.3))
-                } else {
-                    kurbo::Vec2::default()
-                };
-
-                scene.draw_glyphs(
-                    font,
-                    font_size,
-                    !FONT_EMBOLDEN_ENABLED, // hint
-                    run.normalized_coords(),
-                    embolden,
-                    Fill::NonZero,
-                    &anyrender::Paint::from(text_color),
-                    1.0, // alpha
-                    transform,
-                    glyph_xform,
-                    glyph_run.positioned_glyphs().map(|glyph| anyrender::Glyph {
-                        id: glyph.id as _,
-                        x: glyph.x,
-                        y: glyph.y,
-                    }),
-                );
+                if !shadow_pass {
+                    draw_glyph_run(scene, &glyph_run, transform, scale, text_color);
+                }
 
                 // Accumulate this run's contribution to each decorating box on its ancestor
                 // path. The decoration is drawn once per box after the whole line has been
@@ -687,11 +724,69 @@ pub(crate) fn stroke_text<'a>(
                         acc.own = Some(geometry.clone());
                     }
                 }
+                if shadow_pass {
+                    let shadows = stack
+                        .last()
+                        .map(|entry| entry.shadows.as_slice())
+                        .unwrap_or(&[]);
+                    ShadowGroup::push(&mut shadow_groups, glyph_run, shadows);
+                }
             }
         }
 
-        flush_line_decorations(scene, transform, scale, deco_boxes, win_ascent_ratios);
+        if shadow_pass {
+            for group in &shadow_groups {
+                group.paint(
+                    scene,
+                    transform,
+                    scale,
+                    deco_boxes,
+                    win_ascent_ratios,
+                    layers,
+                );
+            }
+        } else {
+            flush_line_decorations(scene, transform, scale, deco_boxes, win_ascent_ratios, None);
+        }
     }
+}
+
+fn draw_glyph_run(
+    scene: &mut impl PaintScene,
+    glyph_run: &parley::GlyphRun<'_, TextBrush>,
+    transform: Affine,
+    scale: f64,
+    color: Color,
+) {
+    let run = glyph_run.run();
+    let font_size = run.font_size();
+    let glyph_xform = run
+        .synthesis()
+        .skew()
+        .map(|angle| Affine::skew(angle.to_radians().tan() as f64, 0.0));
+    let embolden = if FONT_EMBOLDEN_ENABLED {
+        let fs = font_size as f64 / scale;
+        kurbo::Vec2::new((0.015125 * fs).min(0.3), (0.0121 * fs).min(0.3))
+    } else {
+        kurbo::Vec2::default()
+    };
+    scene.draw_glyphs(
+        run.font(),
+        font_size,
+        !FONT_EMBOLDEN_ENABLED,
+        run.normalized_coords(),
+        embolden,
+        Fill::NonZero,
+        &anyrender::Paint::from(color),
+        1.0,
+        transform,
+        glyph_xform,
+        glyph_run.positioned_glyphs().map(|glyph| anyrender::Glyph {
+            id: glyph.id as _,
+            x: glyph.x,
+            y: glyph.y,
+        }),
+    );
 }
 
 /// Draw selection highlight rectangles for the given byte range in a layout.

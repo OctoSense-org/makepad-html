@@ -1,0 +1,143 @@
+{
+  "date": "2026-09-21",
+  "baseline_commit": "c2b7c086028d25776753589346592541a439074a",
+  "patches": [
+    "wechat-css-1",
+    "table-2",
+    "text-shadow-3"
+  ],
+  "platform": "aarch64 macOS",
+  "rust": "1.98.0",
+  "default_tests_passed": 35,
+  "extended_tests_passed": 37,
+  "shadow_regressions": {
+    "passed": 8,
+    "failed_on_baseline": 8
+  },
+  "captures_completed": 32,
+  "unchanged_previous_html_sources": 15,
+  "unchanged_previous_non_shadow_full_page_pngs": 26,
+  "comparisons": [
+    {
+      "case": "02-headings-quotes",
+      "width": 390,
+      "source_sha256": "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+      "before_content_pixels_differing_over_24_rgb_pct": 15.818,
+      "after_content_pixels_differing_over_24_rgb_pct": 14.872
+    },
+    {
+      "case": "02-headings-quotes",
+      "width": 600,
+      "source_sha256": "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+      "before_content_pixels_differing_over_24_rgb_pct": 11.921,
+      "after_content_pixels_differing_over_24_rgb_pct": 11.287
+    },
+    {
+      "case": "12-effects",
+      "width": 390,
+      "source_sha256": "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
+      "before_content_pixels_differing_over_24_rgb_pct": 6.144,
+      "after_content_pixels_differing_over_24_rgb_pct": 5.389
+    },
+    {
+      "case": "12-effects",
+      "width": 600,
+      "source_sha256": "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
+      "before_content_pixels_differing_over_24_rgb_pct": 4.424,
+      "after_content_pixels_differing_over_24_rgb_pct": 3.88
+    },
+    {
+      "case": "16-text-shadows",
+      "width": 390,
+      "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+      "before_content_pixels_differing_over_24_rgb_pct": 74.659,
+      "after_content_pixels_differing_over_24_rgb_pct": 62.368
+    },
+    {
+      "case": "16-text-shadows",
+      "width": 600,
+      "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+      "before_content_pixels_differing_over_24_rgb_pct": 74.655,
+      "after_content_pixels_differing_over_24_rgb_pct": 62.358
+    }
+  ],
+  "native_general": {
+    "passed": true,
+    "ocr": {
+      "top_contains_chinese_title": true,
+      "bottom_contains_table": true,
+      "table_markers_matched": [
+        "标题与正文",
+        "图片与样式",
+        "文章阅读",
+        "PingFang",
+        "RGBA"
+      ]
+    },
+    "binary_sha256": "216b4e10a06c0a538c5d48a68440507e0a985a578cd896a8fe3a100001e557df",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          64
+        ]
+      }
+    ],
+    "screenshots": {
+      "native-top.png": "ef603532b4802f28a2b61df42d985366fead544cad46e427aaaa9bd0932b4a1c",
+      "native-bottom.png": "107da78c1b2bfc9d8e9757bb5f2462d4afce4cc1544fad3b6ed62225b6f10747"
+    },
+    "checks": [
+      "isolated fixture process and owned loopback bridge",
+      "native Makepad widget ready",
+      "Blitz RGBA uploaded as native texture",
+      "native scroll changes displayed article pixels"
+    ],
+    "personal_accounts_used": false
+  },
+  "native_shadows": {
+    "passed": true,
+    "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+    "binary_sha256": "216b4e10a06c0a538c5d48a68440507e0a985a578cd896a8fe3a100001e557df",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          63
+        ]
+      }
+    ],
+    "pixels_differing_over_24_rgb": 53138,
+    "control": "Identical HTML with text-shadow declarations set to none; no layout rewriting",
+    "screenshots": {
+      "native-shadows.png": "69c552a36080f340b70a705154d08538054c9f5284dfa158dd115f6adedc3b2f",
+      "native-none-control.png": "cd084df5ece8d6ccfe4fec47ada4965d2a5310628e2ac66d0dea42ebec95a72c"
+    },
+    "ocr": "Makepad [remote] Makepad HTML 文字阴影与继承回归 标题 Hard shadow 清晰偏移．正文字形不被覆盖 *7A5 Bold 模糊•嵌套字重•透明色 多重阴影 Layers 列表首项在上•两个方向 继承 currentColor无阴影 下划线 取消阴影 Abg 透明文字保留阴影 裁剪 overflow boundar 旅转文字及阴影 Ready • Offline HTML/CSS",
+    "personal_accounts_used": false,
+    "qualification": "Native texture feature check, not a WebKit similarity score"
+  },
+  "qualification": "Authored probes and WKWebView references, not complete WeChat support or a 9/10 score"
+}

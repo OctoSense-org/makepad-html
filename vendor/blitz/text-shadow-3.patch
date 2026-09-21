@@ -1,0 +1,536 @@
+diff --git a/packages/blitz-paint/src/render.rs b/packages/blitz-paint/src/render.rs
+index 837351d..b09ae5b 100644
+--- a/packages/blitz-paint/src/render.rs
++++ b/packages/blitz-paint/src/render.rs
+@@ -6,7 +6,7 @@ mod form_controls;
+ mod mask;
+ 
+ use std::cell::RefCell;
+-use std::collections::HashMap;
++use std::collections::{HashMap, HashSet};
+ use std::sync::Arc;
+ 
+ use super::kurbo_css::CssBox;
+@@ -121,6 +121,8 @@ pub struct BlitzDomPainter<'dom, 'a> {
+     pub(crate) layer_manager: LayerManager,
+     /// Reusable scratch allocations shared by all text layouts painted for this document.
+     pub(crate) draw_text_context: RefCell<DrawTextContext>,
++    /// Branches requiring ink-overflow-aware culling for CSS text shadows.
++    text_shadow_subtrees: HashSet<NodeId>,
+     /// Cached selection ranges for O(1) lookup: node_id -> (start_offset, end_offset)
+     pub(crate) selection_ranges: HashMap<NodeId, (usize, usize)>,
+ 
+@@ -162,6 +164,7 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
+             scrollbar_drag_target: dom.scrollbar_drag_target(),
+             layer_manager,
+             draw_text_context: RefCell::new(DrawTextContext::default()),
++            text_shadow_subtrees: crate::text::shadowed_subtrees(dom),
+             selection_ranges,
+             custom_widget_scenes,
+         }
+@@ -393,10 +396,11 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
+         // Cull elements that fall entirely outside the current clip rectangle. In addition to
+         // the viewport, `clip_rect` is narrowed by any ancestor scrollport (see below), so this
+         // also culls elements scrolled out of view inside a clipping/scrolling container.
+-        if screen_bbox.x1 < clip_rect.x0
+-            || screen_bbox.x0 > clip_rect.x1
+-            || screen_bbox.y1 < clip_rect.y0
+-            || screen_bbox.y0 > clip_rect.y1
++        if !self.text_shadow_subtrees.contains(&node_id)
++            && (screen_bbox.x1 < clip_rect.x0
++                || screen_bbox.x0 > clip_rect.x1
++                || screen_bbox.y1 < clip_rect.y0
++                || screen_bbox.y0 > clip_rect.y1)
+         {
+             return;
+         }
+@@ -863,6 +867,7 @@ impl ElementCx<'_, '_> {
+                 self.scale,
+                 self.node.id,
+                 &mut draw_text_context,
++                &self.context.layer_manager,
+             );
+         }
+     }
+@@ -929,6 +934,7 @@ impl ElementCx<'_, '_> {
+                 self.scale,
+                 self.node.id,
+                 &mut draw_text_context,
++                &self.context.layer_manager,
+             );
+         }
+     }
+@@ -977,6 +983,7 @@ impl ElementCx<'_, '_> {
+                 self.scale,
+                 self.node.id,
+                 &mut draw_text_context,
++                &self.context.layer_manager,
+             );
+         }
+     }
+diff --git a/packages/blitz-paint/src/text.rs b/packages/blitz-paint/src/text.rs
+index 358c558..7a8fef4 100644
+--- a/packages/blitz-paint/src/text.rs
++++ b/packages/blitz-paint/src/text.rs
+@@ -1,3 +1,6 @@
++mod shadow;
++pub(crate) use shadow::shadowed_subtrees;
++
+ use anyrender::PaintScene;
+ use blitz_dom::{BaseDocument, NodeId, node::TextBrush, util::ToColorColor};
+ use kurbo::{Affine, BezPath, Cap, Circle, Rect, Stroke};
+@@ -11,7 +14,9 @@ use style::values::computed::{
+ use style::values::generics::text::{GenericTextDecorationInset, GenericTextDecorationLength};
+ 
+ use crate::color::{Color, ToColorColor as _};
++use crate::layers::LayerManager;
+ use crate::{FONT_EMBOLDEN_ENABLED, SELECTION_COLOR};
++use shadow::{ResolvedTextShadow, ShadowGroup};
+ 
+ /// Draw the backgrounds of inline elements (e.g. `<span style="background: ...">`).
+ ///
+@@ -146,6 +151,7 @@ struct DecorationStackEntry {
+     /// This node's (inherited) text colour, used for the glyphs of runs whose
+     /// innermost node is this one.
+     text_color: Color,
++    shadows: Vec<ResolvedTextShadow>,
+     /// The decoration this node introduces as a decorating box, if any.
+     decoration: Option<ResolvedDecoration>,
+ }
+@@ -156,6 +162,7 @@ fn resolve_decoration_entry(doc: &BaseDocument, node_id: NodeId) -> DecorationSt
+         return DecorationStackEntry {
+             node_id,
+             text_color: Color::BLACK,
++            shadows: Vec::new(),
+             decoration: None,
+         };
+     };
+@@ -196,6 +203,7 @@ fn resolve_decoration_entry(doc: &BaseDocument, node_id: NodeId) -> DecorationSt
+     DecorationStackEntry {
+         node_id,
+         text_color,
++        shadows: shadow::resolve_shadows(&styles),
+         decoration,
+     }
+ }
+@@ -223,6 +231,7 @@ struct DecorationRunGeometry {
+ /// The `text-decoration-*` properties describe the whole box, so we gather the horizontal
+ /// extent it covers on the line (`min_x`/`max_x`) and the font geometry to draw with, then
+ /// paint a single line spanning the box rather than one segment per run.
++#[derive(Clone)]
+ struct LineDecoration {
+     node_id: NodeId,
+     deco: ResolvedDecoration,
+@@ -391,6 +400,7 @@ fn flush_line_decorations(
+     scale: f64,
+     deco_boxes: &[LineDecoration],
+     win_ascent_ratios: &mut WinAscentCache,
++    color_override: Option<Color>,
+ ) {
+     // Draw innermost boxes first so ancestors' decorations paint on top, matching the
+     // per-run drawing order this replaced (`stack.iter().rev()`).
+@@ -404,7 +414,7 @@ fn flush_line_decorations(
+         if width <= 0.0 {
+             continue;
+         }
+-        let brush = anyrender::Paint::from(deco.color);
++        let brush = anyrender::Paint::from(color_override.unwrap_or(deco.color));
+ 
+         // `text-decoration-inset` shortens (or, when negative, extends) the line from the
+         // inline-start/end edges. Percentages resolve against the decoration line length
+@@ -538,7 +548,57 @@ fn flush_line_decorations(
+     }
+ }
+ 
++/// Shadows precede every foreground run in this inline formatting context, so a
++/// large offset from a later run/line cannot cover text already painted.
++#[allow(clippy::too_many_arguments)]
+ pub(crate) fn stroke_text<'a>(
++    scene: &mut impl PaintScene,
++    lines: impl Iterator<Item = Line<'a, TextBrush>> + Clone,
++    doc: &BaseDocument,
++    transform: Affine,
++    scale: f64,
++    inline_root_id: NodeId,
++    context: &mut DrawTextContext,
++    layers: &LayerManager,
++) {
++    let has_shadows = lines.clone().any(|line| {
++        line.items().any(|item| {
++            let PositionedLayoutItem::GlyphRun(run) = item else {
++                return false;
++            };
++            doc.get_node(run.style().brush.id)
++                .and_then(|node| node.primary_styles())
++                .is_some_and(|style| !style.get_inherited_text().text_shadow.0.is_empty())
++        })
++    });
++    if has_shadows {
++        paint_text_pass(
++            scene,
++            lines.clone(),
++            doc,
++            transform,
++            scale,
++            inline_root_id,
++            context,
++            layers,
++            true,
++        );
++    }
++    paint_text_pass(
++        scene,
++        lines,
++        doc,
++        transform,
++        scale,
++        inline_root_id,
++        context,
++        layers,
++        false,
++    );
++}
++
++#[allow(clippy::too_many_arguments)]
++fn paint_text_pass<'a>(
+     scene: &mut impl PaintScene,
+     lines: impl Iterator<Item = Line<'a, TextBrush>>,
+     doc: &BaseDocument,
+@@ -546,6 +606,8 @@ pub(crate) fn stroke_text<'a>(
+     scale: f64,
+     inline_root_id: NodeId,
+     context: &mut DrawTextContext,
++    layers: &LayerManager,
++    shadow_pass: bool,
+ ) {
+     let DrawTextContext {
+         stack,
+@@ -570,6 +632,7 @@ pub(crate) fn stroke_text<'a>(
+         // draws one decoration per box rather than one stepped segment per differently-sized
+         // run. Clearing preserves the allocation for the next line and inline context.
+         deco_boxes.clear();
++        let mut shadow_groups: Vec<ShadowGroup<'_>> = Vec::new();
+ 
+         for item in line.items() {
+             if let PositionedLayoutItem::GlyphRun(glyph_run) = item {
+@@ -578,11 +641,6 @@ pub(crate) fn stroke_text<'a>(
+                 let font_size = run.font_size();
+                 let metrics = run.metrics();
+                 let style = glyph_run.style();
+-                let synthesis = run.synthesis();
+-                let glyph_xform = synthesis
+-                    .skew()
+-                    .map(|angle| Affine::skew(angle.to_radians().tan() as f64, 0.0));
+-
+                 let css_font_size = font_size as f64 / scale;
+ 
+                 // Reconcile the stack with this run's ancestor path. Build the path
+@@ -613,30 +671,9 @@ pub(crate) fn stroke_text<'a>(
+                 // inherits, so the innermost inline element already carries the right value.
+                 let text_color = stack.last().map(|e| e.text_color).unwrap_or(Color::BLACK);
+ 
+-                let embolden = if FONT_EMBOLDEN_ENABLED {
+-                    let fs = font_size as f64 / scale;
+-                    kurbo::Vec2::new((0.015125 * fs).min(0.3), (0.0121 * fs).min(0.3))
+-                } else {
+-                    kurbo::Vec2::default()
+-                };
+-
+-                scene.draw_glyphs(
+-                    font,
+-                    font_size,
+-                    !FONT_EMBOLDEN_ENABLED, // hint
+-                    run.normalized_coords(),
+-                    embolden,
+-                    Fill::NonZero,
+-                    &anyrender::Paint::from(text_color),
+-                    1.0, // alpha
+-                    transform,
+-                    glyph_xform,
+-                    glyph_run.positioned_glyphs().map(|glyph| anyrender::Glyph {
+-                        id: glyph.id as _,
+-                        x: glyph.x,
+-                        y: glyph.y,
+-                    }),
+-                );
++                if !shadow_pass {
++                    draw_glyph_run(scene, &glyph_run, transform, scale, text_color);
++                }
+ 
+                 // Accumulate this run's contribution to each decorating box on its ancestor
+                 // path. The decoration is drawn once per box after the whole line has been
+@@ -687,13 +724,71 @@ pub(crate) fn stroke_text<'a>(
+                         acc.own = Some(geometry.clone());
+                     }
+                 }
++                if shadow_pass {
++                    let shadows = stack
++                        .last()
++                        .map(|entry| entry.shadows.as_slice())
++                        .unwrap_or(&[]);
++                    ShadowGroup::push(&mut shadow_groups, glyph_run, shadows);
++                }
+             }
+         }
+ 
+-        flush_line_decorations(scene, transform, scale, deco_boxes, win_ascent_ratios);
++        if shadow_pass {
++            for group in &shadow_groups {
++                group.paint(
++                    scene,
++                    transform,
++                    scale,
++                    deco_boxes,
++                    win_ascent_ratios,
++                    layers,
++                );
++            }
++        } else {
++            flush_line_decorations(scene, transform, scale, deco_boxes, win_ascent_ratios, None);
++        }
+     }
+ }
+ 
++fn draw_glyph_run(
++    scene: &mut impl PaintScene,
++    glyph_run: &parley::GlyphRun<'_, TextBrush>,
++    transform: Affine,
++    scale: f64,
++    color: Color,
++) {
++    let run = glyph_run.run();
++    let font_size = run.font_size();
++    let glyph_xform = run
++        .synthesis()
++        .skew()
++        .map(|angle| Affine::skew(angle.to_radians().tan() as f64, 0.0));
++    let embolden = if FONT_EMBOLDEN_ENABLED {
++        let fs = font_size as f64 / scale;
++        kurbo::Vec2::new((0.015125 * fs).min(0.3), (0.0121 * fs).min(0.3))
++    } else {
++        kurbo::Vec2::default()
++    };
++    scene.draw_glyphs(
++        run.font(),
++        font_size,
++        !FONT_EMBOLDEN_ENABLED,
++        run.normalized_coords(),
++        embolden,
++        Fill::NonZero,
++        &anyrender::Paint::from(color),
++        1.0,
++        transform,
++        glyph_xform,
++        glyph_run.positioned_glyphs().map(|glyph| anyrender::Glyph {
++            id: glyph.id as _,
++            x: glyph.x,
++            y: glyph.y,
++        }),
++    );
++}
++
+ /// Draw selection highlight rectangles for the given byte range in a layout.
+ /// Uses Parley's Selection type for accurate geometry calculation.
+ pub(crate) fn draw_text_selection(
+diff --git a/packages/blitz-paint/src/text/shadow.rs b/packages/blitz-paint/src/text/shadow.rs
+new file mode 100644
+index 0000000..dd99c4d
+--- /dev/null
++++ b/packages/blitz-paint/src/text/shadow.rs
+@@ -0,0 +1,196 @@
++//! CSS text shadows reuse the foreground glyph and decoration geometry. The
++//! computed list is inherited once; walking ancestors would duplicate shadows.
++use super::{
++    Color, LineDecoration, TextBrush, WinAscentCache, draw_glyph_run, flush_line_decorations,
++};
++use crate::layers::LayerManager;
++use anyrender::{Filter, PaintScene, filters::FilterEffect};
++use blitz_dom::util::ToColorColor;
++use kurbo::{Affine, Rect, Vec2};
++use parley::GlyphRun;
++use std::sync::Arc;
++use style::properties::ComputedValues;
++
++#[derive(Clone, Debug, PartialEq)]
++pub(super) struct ResolvedTextShadow {
++    offset: Vec2,
++    blur: f64,
++    color: Color,
++}
++
++pub(super) fn resolve_shadows(style: &ComputedValues) -> Vec<ResolvedTextShadow> {
++    let current_color = style.clone_color();
++    style
++        .get_inherited_text()
++        .text_shadow
++        .0
++        .iter()
++        .map(|shadow| ResolvedTextShadow {
++            offset: Vec2::new(shadow.horizontal.px() as f64, shadow.vertical.px() as f64),
++            blur: shadow.blur.px() as f64,
++            color: shadow
++                .color
++                .resolve_to_absolute(&current_color)
++                .as_color_color(),
++        })
++        .collect()
++}
++
++/// Adjacent runs sharing a computed shadow list use one mask per shadow. Font
++/// fallback, bold spans and nested inherited spans therefore do not introduce
++/// extra blur seams or reverse the shadow-list order at run boundaries.
++pub(super) struct ShadowGroup<'a> {
++    shadows: Vec<ResolvedTextShadow>,
++    runs: Vec<GlyphRun<'a, TextBrush>>,
++    bounds: Rect,
++    x0: f64,
++    x1: f64,
++}
++
++impl<'a> ShadowGroup<'a> {
++    pub(super) fn push(
++        groups: &mut Vec<Self>,
++        run: GlyphRun<'a, TextBrush>,
++        shadows: &[ResolvedTextShadow],
++    ) {
++        let x0 = run.offset() as f64;
++        let x1 = x0 + run.advance() as f64;
++        let metrics = run.run().metrics();
++        let baseline = run.baseline() as f64;
++        // Room for synthetic italics and font ink beyond typographic advances.
++        let overhang = run.run().font_size() as f64 * 2.0;
++        let bounds = Rect::new(
++            x0,
++            baseline - metrics.ascent as f64,
++            x1,
++            baseline + metrics.descent as f64,
++        )
++        .inflate(overhang, overhang);
++        if let Some(last) = groups
++            .last_mut()
++            .filter(|group| group.shadows == shadows && (group.x1 - x0).abs() < 0.01)
++        {
++            last.bounds = last.bounds.union(bounds);
++            last.x0 = last.x0.min(x0);
++            last.x1 = last.x1.max(x1);
++            last.runs.push(run);
++        } else {
++            groups.push(Self {
++                shadows: shadows.to_vec(),
++                runs: vec![run],
++                bounds,
++                x0,
++                x1,
++            });
++        }
++    }
++
++    #[allow(clippy::too_many_arguments)]
++    pub(super) fn paint(
++        &self,
++        scene: &mut impl PaintScene,
++        transform: Affine,
++        scale: f64,
++        decorations: &[LineDecoration],
++        ascent_cache: &mut WinAscentCache,
++        layers: &LayerManager,
++    ) {
++        if self.shadows.is_empty() {
++            return;
++        }
++        // Decorations retain the decorating ancestor's metrics, while their
++        // shadow is determined by the inline descendant under that segment.
++        let decorations: Vec<_> = decorations
++            .iter()
++            .filter_map(|deco| {
++                let mut deco = deco.clone();
++                deco.min_x = deco.min_x.max(self.x0);
++                deco.max_x = deco.max_x.min(self.x1);
++                (deco.min_x < deco.max_x).then_some(deco)
++            })
++            .collect();
++        let mut bounds = self.bounds;
++        for deco in &decorations {
++            if let Some(geom) = deco.own.as_ref().or(deco.first.as_ref()) {
++                let offset = deco
++                    .deco
++                    .underline_offset
++                    .as_ref()
++                    .map(|offset| {
++                        offset
++                            .resolve(style::values::computed::Length::new(
++                                geom.css_font_size as f32,
++                            ))
++                            .px()
++                            .abs() as f64
++                            * scale
++                    })
++                    .unwrap_or(0.0);
++                bounds = bounds.inflate(0.0, offset);
++            }
++        }
++        // CSS lists are front-to-back. Paint the last entry first, then text.
++        for shadow in self.shadows.iter().rev() {
++            if shadow.color.components[3] == 0.0 {
++                continue;
++            }
++            let transform = transform * Affine::translate(shadow.offset * scale);
++            // CSS shadow blur radius is twice the Gaussian standard deviation.
++            let sigma = shadow.blur * scale * 0.5;
++            let filter =
++                (sigma > 0.0).then(|| Arc::new(Filter::single(FilterEffect::blur(sigma as f32))));
++            layers.maybe_with_layer(
++                scene,
++                filter.is_some(),
++                1.0,
++                transform,
++                &bounds.inflate(sigma * 3.0, sigma * 3.0),
++                filter,
++                None,
++                |scene| {
++                    for run in &self.runs {
++                        draw_glyph_run(scene, run, transform, scale, shadow.color);
++                    }
++                    flush_line_decorations(
++                        scene,
++                        transform,
++                        scale,
++                        &decorations,
++                        ascent_cache,
++                        Some(shadow.color),
++                    );
++                },
++            );
++        }
++    }
++}
++
++/// Text shadows are ink overflow, not scrollable overflow. Until the engine has
++/// cached subtree ink bounds, conservatively retain branches with shadows when
++/// culling offscreen boxes. Ancestor/scrollport clip layers still apply. Walking
++/// both trees also covers anonymous table and inline formatting boxes.
++pub(crate) fn shadowed_subtrees(
++    doc: &blitz_dom::BaseDocument,
++) -> std::collections::HashSet<blitz_dom::NodeId> {
++    let mut retained = std::collections::HashSet::new();
++    let mut pending = Vec::new();
++    for (_, node) in doc.tree().iter() {
++        if !node
++            .primary_styles()
++            .is_some_and(|style| !style.get_inherited_text().text_shadow.0.is_empty())
++        {
++            continue;
++        }
++        pending.push(node.id);
++        while let Some(id) = pending.pop() {
++            if !retained.insert(id) {
++                continue;
++            }
++            if let Some(node) = doc.get_node(id) {
++                pending.extend(node.parent);
++                pending.extend(node.layout_parent.get());
++            }
++        }
++    }
++    retained
++}

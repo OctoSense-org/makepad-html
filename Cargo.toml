@@ -26,7 +26,7 @@ blitz-html = { path = "vendor/blitz/packages/blitz-html", default-features = fal
 blitz-paint = { path = "vendor/blitz/packages/blitz-paint", default-features = false }
 blitz-traits = { path = "vendor/blitz/packages/blitz-traits", default-features = false }
 anyrender = "=0.13.0"
-anyrender_vello_cpu = "=0.17.0"
+anyrender_vello_cpu = { version = "=0.17.0", features = ["filters"] }
 peniko = "=0.6.1"
 html5ever = "=0.39.0"
 image = { version = "0.25.9", default-features = false, features = ["png", "jpeg"] }

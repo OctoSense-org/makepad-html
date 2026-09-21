@@ -22,6 +22,7 @@ SOURCES={
  'syntax':NICE+'src/template/content.md',
  'blitz':'https://blitz.is/status/css',
  'tables':'https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution',
+ 'text-shadow':'https://www.w3.org/TR/css-text-decor-3/#text-shadow-property',
 }
 pattern=Image.new('RGB',(400,240),'#ebf4fa'); d=ImageDraw.Draw(pattern)
 for i,c in enumerate(['#d45849','#e8b54b','#56a688','#5079bd']):
@@ -130,6 +131,19 @@ add('15-table-edges','表格边界与对齐回归',
  p('验证合并单元格、冲突边框、逻辑方向和单元格内对齐。'),
  ['collapsed border conflicts','rowspan/colspan','top/middle/bottom cell alignment','RTL','row/column group borders','hidden/dashed/dotted/double'],['tables'],
  'authored CSS table regression; not a published WeChat acceptance claim')
+
+add('16-text-shadows','文字阴影与继承回归',
+ '<style>.shadowcase{margin:18px 0;padding:12px;background:#f5f7f6;font:24px/1.6 "PingFang SC",Arial,sans-serif}.caption{font:12px/1.5 sans-serif;color:#666;text-shadow:none}</style>'+
+ '<section class="shadowcase" data-probe style="text-shadow:3px 3px 0 #db795e">标题 Hard shadow<div class="caption">清晰偏移 · 正文字形不被覆盖</div></section>'+
+ '<section class="shadowcase" data-probe style="text-shadow:2px 3px 6px #16836a88">柔和阴影 <strong>Bold</strong><div class="caption">模糊 · 嵌套字重 · 透明色</div></section>'+
+ '<section class="shadowcase" data-probe style="color:#333;text-shadow:2px 2px 0 #f49946,-2px -2px 0 #648de0">多重阴影 Layers<div class="caption">列表首项在上 · 两个方向</div></section>'+
+ '<section class="shadowcase" data-probe style="color:#16836a;text-shadow:3px 3px 2px currentColor"><span style="color:#3468bf">继承 currentColor</span><span style="text-shadow:none"> 无阴影</span></section>'+
+ '<section class="shadowcase" data-probe style="text-decoration:underline;text-shadow:3px 4px 2px #dd634b">下划线 <span style="text-shadow:none">取消阴影</span> <em>Abg</em></section>'+
+ '<section class="shadowcase" data-probe style="color:transparent;text-shadow:2px 2px 0 #16836a">透明文字保留阴影</section>'+
+ '<section class="shadowcase" data-probe style="width:240px;overflow:hidden;white-space:nowrap;text-shadow:40px 0 4px #dd634b">裁剪 overflow boundary</section>'+
+ '<section class="shadowcase" data-probe style="transform:rotate(-3deg);text-shadow:3px 3px 3px #3468bf">旋转文字及阴影</section>',
+ ['text-shadow offsets','Gaussian blur','multiple shadows','currentColor inheritance','nested overrides','decoration shadows','overflow clipping','transformed shadows'],['text-shadow'],
+ 'authored CSS text-shadow regression; not a published WeChat acceptance claim')
 
 (ROOT/'corpus.json').write_text(json.dumps({'description':'Authored representative probes, not an exhaustive or official WeChat subset.',
  'sources':SOURCES,'cases':cases,'viewports':[[390,700],[600,700]],'scale':2},ensure_ascii=False,indent=2))
