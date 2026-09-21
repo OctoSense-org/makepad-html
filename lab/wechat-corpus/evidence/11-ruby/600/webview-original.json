@@ -1,0 +1,142 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 221.53125,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 560,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 36,
+          "width" : 560,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 22,
+          "width" : 32,
+          "x" : 100,
+          "y" : 79
+        },
+        {
+          "height" : 22,
+          "width" : 59.796875,
+          "x" : 148,
+          "y" : 79
+        },
+        {
+          "height" : 28,
+          "width" : 560,
+          "x" : 20,
+          "y" : 116
+        },
+        {
+          "height" : 33.53125,
+          "width" : 560,
+          "x" : 20,
+          "y" : 156
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 221.53125,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "中文注音与行内对齐",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 600
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 918,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/11-ruby.html",
+  "source_sha256" : "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 600
+}

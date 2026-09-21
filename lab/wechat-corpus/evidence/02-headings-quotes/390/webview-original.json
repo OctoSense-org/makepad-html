@@ -1,0 +1,159 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 379,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 350,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 44,
+          "width" : 169.53125,
+          "x" : 110.234375,
+          "y" : 70
+        },
+        {
+          "height" : 33,
+          "width" : 350,
+          "x" : 20,
+          "y" : 134
+        },
+        {
+          "height" : 142,
+          "width" : 350,
+          "x" : 20,
+          "y" : 187
+        },
+        {
+          "height" : 28,
+          "width" : 318,
+          "x" : 38,
+          "y" : 213
+        },
+        {
+          "height" : 52,
+          "width" : 298,
+          "x" : 48,
+          "y" : 253
+        },
+        {
+          "height" : 2,
+          "width" : 350,
+          "x" : 20,
+          "y" : 349
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+        {
+          "height" : 142,
+          "width" : 350,
+          "x" : 20,
+          "y" : 187
+        },
+        {
+          "height" : 52,
+          "width" : 298,
+          "x" : 48,
+          "y" : 253
+        }
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 379,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "标题、引用与阴影",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 390
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1329,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/02-headings-quotes.html",
+  "source_sha256" : "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 390
+}

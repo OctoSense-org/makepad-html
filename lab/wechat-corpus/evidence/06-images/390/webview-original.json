@@ -1,0 +1,218 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 493,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 350,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 162,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 140,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 101,
+          "width" : 350,
+          "x" : 20,
+          "y" : 246
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 20,
+          "y" : 246
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 140,
+          "y" : 246
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 260,
+          "y" : 246
+        },
+        {
+          "height" : 90,
+          "width" : 90,
+          "x" : 150,
+          "y" : 365
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+        {
+          "height" : 140,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 20,
+          "y" : 246
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 140,
+          "y" : 246
+        },
+        {
+          "height" : 80,
+          "width" : 110,
+          "x" : 260,
+          "y" : 246
+        },
+        {
+          "height" : 90,
+          "width" : 90,
+          "x" : 150,
+          "y" : 365
+        }
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 493,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 101,
+          "width" : 350,
+          "x" : 20,
+          "y" : 246
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.png"
+      },
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.jpg"
+      },
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.gif"
+      },
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.webp"
+      },
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.png"
+      }
+    ],
+    "title" : "插图、图注与图片格式",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 390
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1730,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/06-images.html",
+  "source_sha256" : "63a3b6013a5f5f51f39ddade03c4f795b51f1bc7eecba9a7399bc7935a4c6ad0",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 390
+}

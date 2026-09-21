@@ -1,0 +1,149 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 374.0,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 106.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 120.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 204.0
+      },
+      {
+        "height": 120.0,
+        "width": 120.0,
+        "x": 20.0,
+        "y": 204.0
+      },
+      {
+        "height": 120.0,
+        "width": 120.0,
+        "x": 160.0,
+        "y": 204.0
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [
+      {
+        "height": 120.0,
+        "width": 120.0,
+        "x": 20.0,
+        "y": 204.0
+      },
+      {
+        "height": 120.0,
+        "width": 120.0,
+        "x": 160.0,
+        "y": 204.0
+      }
+    ],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 374.0,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 106.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 120.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 204.0
+      }
+    ],
+    "table": [],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1400,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:61834/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:61834/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:61834/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:61834/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "WebP",
+      "height": 240,
+      "url": "http://127.0.0.1:61834/assets/chart.webp",
+      "width": 400
+    }
+  ],
+  "local_patch": "wechat-css-1",
+  "product_admission": "accepted",
+  "resource_requests": [
+    {
+      "bytes": 2244,
+      "served": true,
+      "url": "http://127.0.0.1:61834/assets/chart.png"
+    }
+  ],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 374.0,
+  "scale": 2,
+  "width_css": 600,
+  "width_px": 1200
+}

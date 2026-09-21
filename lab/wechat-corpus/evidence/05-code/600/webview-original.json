@@ -1,0 +1,135 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 272,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 560,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 28,
+          "width" : 560,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 124,
+          "width" : 560,
+          "x" : 20,
+          "y" : 112
+        },
+        {
+          "height" : 96,
+          "width" : 532,
+          "x" : 34,
+          "y" : 126
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+        {
+          "height" : 124,
+          "width" : 560,
+          "x" : 20,
+          "y" : 112
+        }
+      ],
+      "section" : [
+        {
+          "height" : 272,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "代码高亮与旧式 WebKit 布局",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 600
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1164,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/05-code.html",
+  "source_sha256" : "352e86eb811f00a0553751c2b3c6900564d0ce3bd57625fee84dae0908bff1c5",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 600
+}

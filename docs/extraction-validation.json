@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-21",
+  "platform": "aarch64 macOS",
+  "rust": "1.98.0",
+  "standalone_extended_tests": {
+    "passed": 20
+  },
+  "standalone_default_tests": {
+    "passed": 18
+  },
+  "native_default_fixture": "passed screenshot OCR and native scroll checks",
+  "native_explicit_html_and_asset_grants": "passed screenshot OCR and native scroll checks",
+  "patched_corpus_captures": 28,
+  "wkwebview_reference": "identical source/viewport captures reused",
+  "workspace_packages": 7,
+  "robrix_path_consumer_check": "passed with html_preview",
+  "limitations": [
+    "Static bitmap widget; interaction roadmap unchanged",
+    "No complete WeChat compatibility score",
+    "Remote CI status is not claimed by this local record"
+  ]
+}

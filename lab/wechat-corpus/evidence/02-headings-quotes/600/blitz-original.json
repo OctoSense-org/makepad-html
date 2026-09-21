@@ -1,0 +1,141 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 347.765625,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 12.0,
+        "width": 36.0,
+        "x": 282.0,
+        "y": 70.0
+      },
+      {
+        "height": 33.765625,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 102.0
+      },
+      {
+        "height": 142.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 155.765625
+      },
+      {
+        "height": 28.0,
+        "width": 528.0,
+        "x": 38.0,
+        "y": 181.765625
+      },
+      {
+        "height": 52.0,
+        "width": 508.0,
+        "x": 48.0,
+        "y": 221.765625
+      },
+      {
+        "height": 2.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 317.765625
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [
+      {
+        "height": 142.0,
+        "width": 560.0,
+        "x": 20.0,
+        "y": 155.765625
+      },
+      {
+        "height": 52.0,
+        "width": 508.0,
+        "x": 48.0,
+        "y": 221.765625
+      }
+    ],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 347.765625,
+        "width": 600.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    ],
+    "table": [],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1400,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:60507/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:60507/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:60507/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:60507/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": false,
+      "error": "The image format WebP is not supported",
+      "format": "WebP",
+      "url": "http://127.0.0.1:60507/assets/chart.webp"
+    }
+  ],
+  "product_admission": "accepted",
+  "resource_requests": [],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 348.0,
+  "scale": 2,
+  "width_css": 600,
+  "width_px": 1200
+}

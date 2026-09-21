@@ -1,0 +1,25 @@
+name: makepad-html
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  renderer-and-native-view:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.98.0 --profile minimal
+      - name: Test production renderer
+        run: cargo +1.98.0 test --locked
+      - name: Test CSS and SVG engine regressions
+        run: cargo +1.98.0 test --locked --features test-svg,blitz-dom/floats
+      - name: Build standalone Makepad viewer
+        run: cargo +1.98.0 build --locked --features makepad --example viewer
+      - name: Verify native rendering and scrolling
+        run: python3 lab/verify_native.py target/debug/examples/viewer
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-render-evidence
+          path: lab/evidence/

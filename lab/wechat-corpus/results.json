@@ -1,0 +1,5328 @@
+{
+  "method": "Raw-engine diagnostic, exact identical fixture bytes and resources. Real macOS WKWebView; page JS disabled. 2x. No registration or alignment. CSS font-family PingFang SC in both.",
+  "scope": "Source-derived authored fixtures; not published WeChat captures, not an official exhaustive allowlist, not iOS/Android WeChat certification.",
+  "variants": {
+    "patched": "Same extended features + repository vendor/blitz patches wechat-css-1",
+    "media": "woff + gif; other product defaults",
+    "extended": "woff + gif + blitz-paint/svg + blitz-dom/floats; WebP decoder enabled transitively by SVG"
+  },
+  "metric_limits": "Pixel difference is measured only over the union of nonwhite content, threshold 24/255; it is not similarity or a 9/10 score. Font rasterization affects pixels. Probe rectangles can differ for transforms even when pixels agree. Exit 0 only means capture completed.",
+  "results": [
+    {
+      "case": "01-typography",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "中文正文与混合排版",
+      "features": [
+        "PingFang SC",
+        "CJK line breaking",
+        "justify",
+        "text-indent",
+        "letter-spacing",
+        "inline decorations",
+        "sub/sup"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "正文可见，但中文两端对齐、换行、斜体、行内圆角及上下标与 WebKit 不同。",
+      "patched_note": "正文可见，但中文两端对齐、换行、斜体、行内圆角及上下标与 WebKit 不同。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 95839,
+          "content_pixels_differing_over_24_rgb_pct": 79.054,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            416.0,
+            421.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 95839,
+          "content_pixels_differing_over_24_rgb_pct": 79.054,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            416.0,
+            421.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 95839,
+          "content_pixels_differing_over_24_rgb_pct": 79.054,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            416.0,
+            421.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "01-typography",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "中文正文与混合排版",
+      "features": [
+        "PingFang SC",
+        "CJK line breaking",
+        "justify",
+        "text-indent",
+        "letter-spacing",
+        "inline decorations",
+        "sub/sup"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "正文可见，但中文两端对齐、换行、斜体、行内圆角及上下标与 WebKit 不同。",
+      "patched_note": "正文可见，但中文两端对齐、换行、斜体、行内圆角及上下标与 WebKit 不同。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 104158,
+          "content_pixels_differing_over_24_rgb_pct": 84.45,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            332.0,
+            337.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 104158,
+          "content_pixels_differing_over_24_rgb_pct": 84.45,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            332.0,
+            337.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 104158,
+          "content_pixels_differing_over_24_rgb_pct": 84.45,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 5.531,
+          "median_probe_delta_css": 2.766,
+          "article_height_css": [
+            332.0,
+            337.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "02-headings-quotes",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "标题、引用与阴影",
+      "features": [
+        "display:table heading",
+        "auto margins",
+        "border styles",
+        "border-radius",
+        "box-shadow",
+        "text-shadow",
+        "gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "严重：display:table 标题文字消失；圆角引用的左边框缺失，text-shadow 未呈现。",
+      "patched_note": "已修复 display:table 标题丢字；圆角引用边框和文字阴影仍有差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 295211,
+          "content_pixels_differing_over_24_rgb_pct": 27.804,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 133.531,
+          "median_probe_delta_css": 31.234,
+          "article_height_css": [
+            347.765625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 295211,
+          "content_pixels_differing_over_24_rgb_pct": 27.804,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 133.531,
+          "median_probe_delta_css": 31.234,
+          "article_height_css": [
+            347.765625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 258564,
+          "content_pixels_differing_over_24_rgb_pct": 15.818,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 2.031,
+          "median_probe_delta_css": 1.516,
+          "article_height_css": [
+            380.515625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "02-headings-quotes",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "标题、引用与阴影",
+      "features": [
+        "display:table heading",
+        "auto margins",
+        "border styles",
+        "border-radius",
+        "box-shadow",
+        "text-shadow",
+        "gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "严重：display:table 标题文字消失；圆角引用的左边框缺失，text-shadow 未呈现。",
+      "patched_note": "已修复 display:table 标题丢字；圆角引用边框和文字阴影仍有差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 443890,
+          "content_pixels_differing_over_24_rgb_pct": 20.693,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 133.531,
+          "median_probe_delta_css": 31.234,
+          "article_height_css": [
+            347.765625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 443890,
+          "content_pixels_differing_over_24_rgb_pct": 20.693,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 133.531,
+          "median_probe_delta_css": 31.234,
+          "article_height_css": [
+            347.765625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 383710,
+          "content_pixels_differing_over_24_rgb_pct": 11.921,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 2.031,
+          "median_probe_delta_css": 1.516,
+          "article_height_css": [
+            380.515625,
+            379
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "03-lists",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "98c71ce2dd97c11037572fe4e591a31272f3aa1258a48188222f6634bf845dfe",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "嵌套列表与手工编号",
+      "features": [
+        "ul/ol/li/section",
+        "nested list markers",
+        "start attribute",
+        "manual list prefixes"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "嵌套项目符号、有序编号、section 包装与手工前缀均可见，测量到的块级边界一致；文字像素仍有差异。",
+      "patched_note": "嵌套项目符号、有序编号、section 包装与手工前缀均可见，测量到的块级边界一致；文字像素仍有差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            393.0,
+            393
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            393.0,
+            393
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            393.0,
+            393
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "03-lists",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "98c71ce2dd97c11037572fe4e591a31272f3aa1258a48188222f6634bf845dfe",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "嵌套列表与手工编号",
+      "features": [
+        "ul/ol/li/section",
+        "nested list markers",
+        "start attribute",
+        "manual list prefixes"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "嵌套项目符号、有序编号、section 包装与手工前缀均可见，测量到的块级边界一致；文字像素仍有差异。",
+      "patched_note": "嵌套项目符号、有序编号、section 包装与手工前缀均可见，测量到的块级边界一致；文字像素仍有差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            365.0,
+            365
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            365.0,
+            365
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 49942,
+          "content_pixels_differing_over_24_rgb_pct": 61.359,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            365.0,
+            365
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "04-tables",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "3055218678500f40cded0f2bc6913d5291bc83e3731d436a1ea13c5d40ec5976",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "表格、合并单元格与滚动",
+      "features": [
+        "table",
+        "colspan/rowspan",
+        "border-collapse",
+        "nonuniform borders",
+        "overflow:auto"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "patched_note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 104905,
+          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 104905,
+          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 104905,
+          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "04-tables",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "3055218678500f40cded0f2bc6913d5291bc83e3731d436a1ea13c5d40ec5976",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "表格、合并单元格与滚动",
+      "features": [
+        "table",
+        "colspan/rowspan",
+        "border-collapse",
+        "nonuniform borders",
+        "overflow:auto"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "patched_note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 138439,
+          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 138439,
+          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 138439,
+          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "05-code",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "352e86eb811f00a0553751c2b3c6900564d0ce3bd57625fee84dae0908bff1c5",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "代码高亮与旧式 WebKit 布局",
+      "features": [
+        "pre/code/span",
+        "syntax colors",
+        "monospace",
+        "white-space:pre",
+        "display:-webkit-box",
+        "horizontal overflow"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "代码文字与高亮可见；旧式 -webkit-box、长行裁剪和行内背景存在差异。",
+      "patched_note": "代码文字与高亮可见；旧式 -webkit-box、长行裁剪和行内背景存在差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 45013,
+          "content_pixels_differing_over_24_rgb_pct": 67.023,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 171.078,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 45013,
+          "content_pixels_differing_over_24_rgb_pct": 67.023,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 171.078,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 45013,
+          "content_pixels_differing_over_24_rgb_pct": 67.023,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 171.078,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "05-code",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "352e86eb811f00a0553751c2b3c6900564d0ce3bd57625fee84dae0908bff1c5",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "代码高亮与旧式 WebKit 布局",
+      "features": [
+        "pre/code/span",
+        "syntax colors",
+        "monospace",
+        "white-space:pre",
+        "display:-webkit-box",
+        "horizontal overflow"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "代码文字与高亮可见；旧式 -webkit-box、长行裁剪和行内背景存在差异。",
+      "patched_note": "代码文字与高亮可见；旧式 -webkit-box、长行裁剪和行内背景存在差异。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 49502,
+          "content_pixels_differing_over_24_rgb_pct": 69.23,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 38.922,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 49502,
+          "content_pixels_differing_over_24_rgb_pct": 69.23,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 38.922,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 49502,
+          "content_pixels_differing_over_24_rgb_pct": 69.23,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 38.922,
+          "median_probe_delta_css": 16.0,
+          "article_height_css": [
+            288.0,
+            272
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "06-images",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "63a3b6013a5f5f51f39ddade03c4f795b51f1bc7eecba9a7399bc7935a4c6ad0",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "插图、图注与图片格式",
+      "features": [
+        "PNG",
+        "JPEG",
+        "static GIF",
+        "WebP",
+        "object-fit",
+        "percentage width",
+        "border-radius",
+        "figure/figcaption"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "扩展构建恢复 WebP；PNG/JPEG/GIF、object-fit、圆角与阴影整体接近，仍有细节差异。GIF 此处为静态图。",
+      "patched_note": "扩展构建恢复 WebP；PNG/JPEG/GIF、object-fit、圆角与阴影整体接近，仍有细节差异。GIF 此处为静态图。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 284700,
+          "content_pixels_differing_over_24_rgb_pct": 12.413,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 285348,
+          "content_pixels_differing_over_24_rgb_pct": 6.331,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 285348,
+          "content_pixels_differing_over_24_rgb_pct": 6.331,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "06-images",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "63a3b6013a5f5f51f39ddade03c4f795b51f1bc7eecba9a7399bc7935a4c6ad0",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "插图、图注与图片格式",
+      "features": [
+        "PNG",
+        "JPEG",
+        "static GIF",
+        "WebP",
+        "object-fit",
+        "percentage width",
+        "border-radius",
+        "figure/figcaption"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "扩展构建恢复 WebP；PNG/JPEG/GIF、object-fit、圆角与阴影整体接近，仍有细节差异。GIF 此处为静态图。",
+      "patched_note": "扩展构建恢复 WebP；PNG/JPEG/GIF、object-fit、圆角与阴影整体接近，仍有细节差异。GIF 此处为静态图。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 397373,
+          "content_pixels_differing_over_24_rgb_pct": 11.722,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 398311,
+          "content_pixels_differing_over_24_rgb_pct": 5.344,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 398311,
+          "content_pixels_differing_over_24_rgb_pct": 5.344,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            493.75,
+            493
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "07-links-footnotes",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "链接、脚注与上下标",
+      "features": [
+        "inline border",
+        "link styling",
+        "superscript",
+        "flex footnote",
+        "word-break",
+        "vertical-align"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "链接边框、sup 和 vertical-align 存在可见差异；flex 脚注基本成形。",
+      "patched_note": "链接边框、sup 和 vertical-align 存在可见差异；flex 脚注基本成形。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 42157,
+          "content_pixels_differing_over_24_rgb_pct": 57.9,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 42157,
+          "content_pixels_differing_over_24_rgb_pct": 57.9,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 42157,
+          "content_pixels_differing_over_24_rgb_pct": 57.9,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "07-links-footnotes",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "链接、脚注与上下标",
+      "features": [
+        "inline border",
+        "link styling",
+        "superscript",
+        "flex footnote",
+        "word-break",
+        "vertical-align"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "链接边框、sup 和 vertical-align 存在可见差异；flex 脚注基本成形。",
+      "patched_note": "链接边框、sup 和 vertical-align 存在可见差异；flex 脚注基本成形。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 41722,
+          "content_pixels_differing_over_24_rgb_pct": 56.263,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 41722,
+          "content_pixels_differing_over_24_rgb_pct": 56.263,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 41722,
+          "content_pixels_differing_over_24_rgb_pct": 56.263,
+          "probe_count": [
+            9,
+            9
+          ],
+          "max_probe_delta_css": 5.0,
+          "median_probe_delta_css": 1.0,
+          "article_height_css": [
+            251.0,
+            250
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "08-carousel",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "f7a54d37d07848d0258e450735483ed33d54a5b2bc9560dcebb0ed1c58619bf0",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "横向滑动图片",
+      "features": [
+        "inline-block",
+        "nowrap",
+        "overflow-x:scroll",
+        "nested scroll container",
+        "imageflow"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "严重：nowrap + inline-block 图集在 Blitz 中变成纵向排列。还需要给 Makepad 接入容器内部的横向滚动事件。",
+      "patched_note": "已修复仅含卡片的 nowrap 图集纵排；Makepad 内部横向滚动交互尚未接入。混合文本与卡片的完整换行规则仍待补齐。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 692237,
+          "content_pixels_differing_over_24_rgb_pct": 52.7,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 700.0,
+          "median_probe_delta_css": 480.0,
+          "article_height_css": [
+            892.0,
+            412
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 692237,
+          "content_pixels_differing_over_24_rgb_pct": 52.7,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 700.0,
+          "median_probe_delta_css": 480.0,
+          "article_height_css": [
+            892.0,
+            412
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 244904,
+          "content_pixels_differing_over_24_rgb_pct": 5.816,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            412.0,
+            412
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "08-carousel",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "f7a54d37d07848d0258e450735483ed33d54a5b2bc9560dcebb0ed1c58619bf0",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "横向滑动图片",
+      "features": [
+        "inline-block",
+        "nowrap",
+        "overflow-x:scroll",
+        "nested scroll container",
+        "imageflow"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "note": "严重：nowrap + inline-block 图集在 Blitz 中变成纵向排列。还需要给 Makepad 接入容器内部的横向滚动事件。",
+      "patched_note": "已修复仅含卡片的 nowrap 图集纵排；Makepad 内部横向滚动交互尚未接入。混合文本与卡片的完整换行规则仍待补齐。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 1012782,
+          "content_pixels_differing_over_24_rgb_pct": 65.543,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 1120.0,
+          "median_probe_delta_css": 480.0,
+          "article_height_css": [
+            864.0,
+            384
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 1012782,
+          "content_pixels_differing_over_24_rgb_pct": 65.543,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 1120.0,
+          "median_probe_delta_css": 480.0,
+          "article_height_css": [
+            864.0,
+            384
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 350575,
+          "content_pixels_differing_over_24_rgb_pct": 4.574,
+          "probe_count": [
+            8,
+            8
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            384.0,
+            384
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "09-svg-attributes",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "119dd005bcdf6c7e5a280e9193bca57f1aa357a05dfe0cc716e8aed9cfc156f1",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "SVG 图标与公式图形",
+      "features": [
+        "inline SVG",
+        "path",
+        "viewBox",
+        "presentation attributes",
+        "SVG gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "启用 SVG 后，属性形式的路径、渐变与描边恢复；行盒高度仍有偏差。",
+      "patched_note": "启用 SVG 后，属性形式的路径、渐变与描边恢复；行盒高度仍有偏差。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 171963,
+          "content_pixels_differing_over_24_rgb_pct": 96.811,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            336.0,
+            344
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 171965,
+          "content_pixels_differing_over_24_rgb_pct": 21.325,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            336.0,
+            344
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 171965,
+          "content_pixels_differing_over_24_rgb_pct": 21.325,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            336.0,
+            344
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "09-svg-attributes",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "119dd005bcdf6c7e5a280e9193bca57f1aa357a05dfe0cc716e8aed9cfc156f1",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "SVG 图标与公式图形",
+      "features": [
+        "inline SVG",
+        "path",
+        "viewBox",
+        "presentation attributes",
+        "SVG gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "启用 SVG 后，属性形式的路径、渐变与描边恢复；行盒高度仍有偏差。",
+      "patched_note": "启用 SVG 后，属性形式的路径、渐变与描边恢复；行盒高度仍有偏差。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 171970,
+          "content_pixels_differing_over_24_rgb_pct": 96.822,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 171972,
+          "content_pixels_differing_over_24_rgb_pct": 21.338,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 171972,
+          "content_pixels_differing_over_24_rgb_pct": 21.338,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 4.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "10-svg-css",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "257bfb7b23cc5a07808bea0a69826f54e6c03938830639994233da4fd0554c97",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "SVG 的 CSS 样式",
+      "features": [
+        "SVG CSS",
+        "currentColor inheritance",
+        "SVG internal stylesheet",
+        "inline style"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts"
+      ],
+      "note": "启用 SVG 后仍错误：继承自 HTML 父级的 currentColor 变成黑色。SVG 内部 CSS 的部分样式能生效。",
+      "patched_note": "已修复 HTML 继承的 currentColor；覆盖 SVG 属性、内联样式、内部 CSS 和动态颜色回归测试。生产入口仍拒绝 SVG。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 158604,
+          "content_pixels_differing_over_24_rgb_pct": 97.964,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 158625,
+          "content_pixels_differing_over_24_rgb_pct": 86.664,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 158604,
+          "content_pixels_differing_over_24_rgb_pct": 14.798,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            308.0,
+            316
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "10-svg-css",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "257bfb7b23cc5a07808bea0a69826f54e6c03938830639994233da4fd0554c97",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "SVG 的 CSS 样式",
+      "features": [
+        "SVG CSS",
+        "currentColor inheritance",
+        "SVG internal stylesheet",
+        "inline style"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts"
+      ],
+      "note": "启用 SVG 后仍错误：继承自 HTML 父级的 currentColor 变成黑色。SVG 内部 CSS 的部分样式能生效。",
+      "patched_note": "已修复 HTML 继承的 currentColor；覆盖 SVG 属性、内联样式、内部 CSS 和动态颜色回归测试。生产入口仍拒绝 SVG。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 158573,
+          "content_pixels_differing_over_24_rgb_pct": 97.952,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            280.0,
+            288
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 158594,
+          "content_pixels_differing_over_24_rgb_pct": 86.65,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            280.0,
+            288
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 158573,
+          "content_pixels_differing_over_24_rgb_pct": 14.77,
+          "probe_count": [
+            5,
+            5
+          ],
+          "max_probe_delta_css": 8.0,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            280.0,
+            288
+          ],
+          "production_admission": "unsupported active/document element: svg",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "11-ruby",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "中文注音与行内对齐",
+      "features": [
+        "ruby/rt",
+        "ruby line metrics",
+        "sup/sub baseline"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。",
+      "patched_note": "严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "11-ruby",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "中文注音与行内对齐",
+      "features": [
+        "ruby/rt",
+        "ruby line metrics",
+        "sup/sub baseline"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。",
+      "patched_note": "严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 41621,
+          "content_pixels_differing_over_24_rgb_pct": 86.649,
+          "probe_count": [
+            7,
+            7
+          ],
+          "max_probe_delta_css": 47.984,
+          "median_probe_delta_css": 8.0,
+          "article_height_css": [
+            208.0,
+            221.53125
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "12-effects",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "背景、圆角、裁剪与变换",
+      "features": [
+        "gradient",
+        "box-shadow",
+        "text-shadow",
+        "clip-path",
+        "transform",
+        "border-radius"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://blitz.is/status/css"
+      ],
+      "note": "渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。",
+      "patched_note": "渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 256308,
+          "content_pixels_differing_over_24_rgb_pct": 6.144,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 256308,
+          "content_pixels_differing_over_24_rgb_pct": 6.144,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 256308,
+          "content_pixels_differing_over_24_rgb_pct": 6.144,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "12-effects",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "背景、圆角、裁剪与变换",
+      "features": [
+        "gradient",
+        "box-shadow",
+        "text-shadow",
+        "clip-path",
+        "transform",
+        "border-radius"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://blitz.is/status/css"
+      ],
+      "note": "渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。",
+      "patched_note": "渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 356267,
+          "content_pixels_differing_over_24_rgb_pct": 4.424,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 356267,
+          "content_pixels_differing_over_24_rgb_pct": 4.424,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 356267,
+          "content_pixels_differing_over_24_rgb_pct": 4.424,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 15.533,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            374.0,
+            374
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "13-layout",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "25d5e35ba63e6a745f1f7c5e87a0fe8ee48e35946f3ff1aa13e456e5bdeec26d",
+      "media": {
+        "exit_code": null,
+        "timeout_seconds": 15,
+        "last_phase": "PHASE product_admission"
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "浮动与定位边界",
+      "features": [
+        "float/clear",
+        "flow-root",
+        "absolute containing block"
+      ],
+      "sources": [
+        "https://blitz.is/status/css"
+      ],
+      "note": "未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。",
+      "patched_note": "未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。",
+      "variants": {
+        "media": {
+          "render_failed": true,
+          "exit_code": null,
+          "timeout_seconds": 15,
+          "last_phase": "PHASE product_admission"
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 310498,
+          "content_pixels_differing_over_24_rgb_pct": 21.353,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 36.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            480.0,
+            480
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60961/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 310498,
+          "content_pixels_differing_over_24_rgb_pct": 21.353,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 36.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            480.0,
+            480
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "13-layout",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "25d5e35ba63e6a745f1f7c5e87a0fe8ee48e35946f3ff1aa13e456e5bdeec26d",
+      "media": {
+        "exit_code": null,
+        "timeout_seconds": 15,
+        "last_phase": "PHASE product_admission"
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0,
+        "reused_identical_source_capture": true
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "浮动与定位边界",
+      "features": [
+        "float/clear",
+        "flow-root",
+        "absolute containing block"
+      ],
+      "sources": [
+        "https://blitz.is/status/css"
+      ],
+      "note": "未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。",
+      "patched_note": "未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。",
+      "variants": {
+        "media": {
+          "render_failed": true,
+          "exit_code": null,
+          "timeout_seconds": 15,
+          "last_phase": "PHASE product_admission"
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 438215,
+          "content_pixels_differing_over_24_rgb_pct": 15.028,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 36.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            396.0,
+            396
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60961/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60961/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 438215,
+          "content_pixels_differing_over_24_rgb_pct": 15.028,
+          "probe_count": [
+            6,
+            6
+          ],
+          "max_probe_delta_css": 36.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            396.0,
+            396
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "14-lazy-image",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "306caceb48961a3b522fbff4b80d234650b76338702cc1133082659e1e2c3938",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "微信图片属性的宿主处理",
+      "features": [
+        "data-src",
+        "data-ratio",
+        "data-w",
+        "host import normalization"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。",
+      "patched_note": "两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 38873,
+          "content_pixels_differing_over_24_rgb_pct": 69.269,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            356.0,
+            356
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 38873,
+          "content_pixels_differing_over_24_rgb_pct": 69.269,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            356.0,
+            356
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 38873,
+          "content_pixels_differing_over_24_rgb_pct": 69.269,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            356.0,
+            356
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "14-lazy-image",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "306caceb48961a3b522fbff4b80d234650b76338702cc1133082659e1e2c3938",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "微信图片属性的宿主处理",
+      "features": [
+        "data-src",
+        "data-ratio",
+        "data-w",
+        "host import normalization"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "note": "两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。",
+      "patched_note": "两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 39786,
+          "content_pixels_differing_over_24_rgb_pct": 70.135,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            328.0,
+            328
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:60507/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 39786,
+          "content_pixels_differing_over_24_rgb_pct": 70.135,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            328.0,
+            328
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:60507/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:60507/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 39786,
+          "content_pixels_differing_over_24_rgb_pct": 70.135,
+          "probe_count": [
+            4,
+            4
+          ],
+          "max_probe_delta_css": 0.0,
+          "median_probe_delta_css": 0.0,
+          "article_height_css": [
+            328.0,
+            328
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

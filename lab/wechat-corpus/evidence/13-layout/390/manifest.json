@@ -1,0 +1,11 @@
+{
+  "base_url": "http://127.0.0.1:60961/",
+  "full_page": true,
+  "resources": {
+    "http://127.0.0.1:60961/assets/chart.jpg": "/Users/ychen/home/octosense-org/robrix2/lab/article-blitz/wechat-corpus/assets/chart.jpg",
+    "http://127.0.0.1:60961/assets/chart.png": "/Users/ychen/home/octosense-org/robrix2/lab/article-blitz/wechat-corpus/assets/chart.png",
+    "http://127.0.0.1:60961/assets/chart.webp": "/Users/ychen/home/octosense-org/robrix2/lab/article-blitz/wechat-corpus/assets/chart.webp",
+    "http://127.0.0.1:60961/assets/animated.gif": "/Users/ychen/home/octosense-org/robrix2/lab/article-blitz/wechat-corpus/assets/animated.gif",
+    "http://127.0.0.1:60961/assets/chart.gif": "/Users/ychen/home/octosense-org/robrix2/lab/article-blitz/wechat-corpus/assets/chart.gif"
+  }
+}

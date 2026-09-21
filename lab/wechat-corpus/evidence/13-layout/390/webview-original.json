@@ -1,0 +1,164 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 480,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 350,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 224,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 100,
+          "width" : 100,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 152,
+          "width" : 350,
+          "x" : 20,
+          "y" : 308
+        },
+        {
+          "height" : 36,
+          "width" : 88,
+          "x" : 282,
+          "y" : 308
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+        {
+          "height" : 100,
+          "width" : 100,
+          "x" : 20,
+          "y" : 68
+        }
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 480,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 224,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 152,
+          "width" : 350,
+          "x" : 20,
+          "y" : 308
+        },
+        {
+          "height" : 48,
+          "width" : 278,
+          "x" : 56,
+          "y" : 344
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+      {
+        "complete" : true,
+        "naturalHeight" : 240,
+        "naturalWidth" : 400,
+        "src" : "\/assets\/chart.png"
+      }
+    ],
+    "title" : "浮动与定位边界",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 390
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1419,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/13-layout.html",
+  "source_sha256" : "25d5e35ba63e6a745f1f7c5e87a0fe8ee48e35946f3ff1aa13e456e5bdeec26d",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 390
+}

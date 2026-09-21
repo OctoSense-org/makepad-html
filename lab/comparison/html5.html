@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>HTML5 Example Page — Blitz / WebKit</title>
+<style>body{font:16px system-ui;margin:24px;background:#eef1f5;color:#192333}h1{font-size:24px}img{max-width:100%;background:white}button{padding:9px;margin:5px}code{font-size:12px}.note{background:white;padding:16px;border-radius:10px;line-height:1.7}a{color:#1460a8}</style>
+<h1>你贴出的 HTML5 Example Page · 真实渲染对照</h1>
+<div class="note">左侧：Blitz 当前集成；右侧：macOS WKWebView。原文未经改写，两边使用 html5example.com 的原始资源快照，页面脚本关闭。<br>
+600 × 600 CSS px，2× 截图。Blitz 总高 1510px；WebKit 总高 2247px。<br>
+当前 Blitz 未启用 WOFF/GIF 解码，因此字体回退、两张 GIF 占位图高度归零；三个外部图片地址本身返回 404。表单尺寸也不同。<br>
+这次是原始引擎诊断；产品 article-blitz 入口仍拒绝 button/form/script，本图不代表已接入 Robrix 的可交互页面。<br>
+<a href="evidence/html5-user/comparison.json">测量结果</a> · <a href="evidence/html5-user/source.json">原文和资源哈希</a></div>
+<p><button onclick="show('top')">顶部</button><button onclick="show('full')">完整页面</button><button onclick="show('images')">图片区域对齐</button><button onclick="show('controls')">表格、表单对齐</button></p>
+<img id="comparison" src="evidence/html5-user/side-by-side-top.png">
+<script>function show(part){document.getElementById('comparison').src='evidence/html5-user/side-by-side-'+part+'.png'}</script>

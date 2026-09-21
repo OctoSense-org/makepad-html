@@ -1,0 +1,136 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 288,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 560,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 148,
+          "width" : 560,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 140,
+          "width" : 280,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 28,
+          "width" : 560,
+          "x" : 20,
+          "y" : 228
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 288,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 148,
+          "width" : 560,
+          "x" : 20,
+          "y" : 68
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "SVG 的 CSS 样式",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 600
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1005,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/10-svg-css.html",
+  "source_sha256" : "257bfb7b23cc5a07808bea0a69826f54e6c03938830639994233da4fd0554c97",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 600
+}

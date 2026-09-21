@@ -1,0 +1,277 @@
+{
+  "description": "Authored representative probes, not an exhaustive or official WeChat subset.",
+  "sources": {
+    "theme": "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+    "grace": "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+    "renderer": "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+    "nice": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js",
+    "syntax": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
+    "blitz": "https://blitz.is/status/css"
+  },
+  "cases": [
+    {
+      "id": "01-typography",
+      "title": "中文正文与混合排版",
+      "file": "fixtures/01-typography.html",
+      "sha256": "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
+      "features": [
+        "PingFang SC",
+        "CJK line breaking",
+        "justify",
+        "text-indent",
+        "letter-spacing",
+        "inline decorations",
+        "sub/sup"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "02-headings-quotes",
+      "title": "标题、引用与阴影",
+      "file": "fixtures/02-headings-quotes.html",
+      "sha256": "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
+      "features": [
+        "display:table heading",
+        "auto margins",
+        "border styles",
+        "border-radius",
+        "box-shadow",
+        "text-shadow",
+        "gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "03-lists",
+      "title": "嵌套列表与手工编号",
+      "file": "fixtures/03-lists.html",
+      "sha256": "98c71ce2dd97c11037572fe4e591a31272f3aa1258a48188222f6634bf845dfe",
+      "features": [
+        "ul/ol/li/section",
+        "nested list markers",
+        "start attribute",
+        "manual list prefixes"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "04-tables",
+      "title": "表格、合并单元格与滚动",
+      "file": "fixtures/04-tables.html",
+      "sha256": "3055218678500f40cded0f2bc6913d5291bc83e3731d436a1ea13c5d40ec5976",
+      "features": [
+        "table",
+        "colspan/rowspan",
+        "border-collapse",
+        "nonuniform borders",
+        "overflow:auto"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "05-code",
+      "title": "代码高亮与旧式 WebKit 布局",
+      "file": "fixtures/05-code.html",
+      "sha256": "352e86eb811f00a0553751c2b3c6900564d0ce3bd57625fee84dae0908bff1c5",
+      "features": [
+        "pre/code/span",
+        "syntax colors",
+        "monospace",
+        "white-space:pre",
+        "display:-webkit-box",
+        "horizontal overflow"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "06-images",
+      "title": "插图、图注与图片格式",
+      "file": "fixtures/06-images.html",
+      "sha256": "63a3b6013a5f5f51f39ddade03c4f795b51f1bc7eecba9a7399bc7935a4c6ad0",
+      "features": [
+        "PNG",
+        "JPEG",
+        "static GIF",
+        "WebP",
+        "object-fit",
+        "percentage width",
+        "border-radius",
+        "figure/figcaption"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "07-links-footnotes",
+      "title": "链接、脚注与上下标",
+      "file": "fixtures/07-links-footnotes.html",
+      "sha256": "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
+      "features": [
+        "inline border",
+        "link styling",
+        "superscript",
+        "flex footnote",
+        "word-break",
+        "vertical-align"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "08-carousel",
+      "title": "横向滑动图片",
+      "file": "fixtures/08-carousel.html",
+      "sha256": "f7a54d37d07848d0258e450735483ed33d54a5b2bc9560dcebb0ed1c58619bf0",
+      "features": [
+        "inline-block",
+        "nowrap",
+        "overflow-x:scroll",
+        "nested scroll container",
+        "imageflow"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "09-svg-attributes",
+      "title": "SVG 图标与公式图形",
+      "file": "fixtures/09-svg-attributes.html",
+      "sha256": "119dd005bcdf6c7e5a280e9193bca57f1aa357a05dfe0cc716e8aed9cfc156f1",
+      "features": [
+        "inline SVG",
+        "path",
+        "viewBox",
+        "presentation attributes",
+        "SVG gradient"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "10-svg-css",
+      "title": "SVG 的 CSS 样式",
+      "file": "fixtures/10-svg-css.html",
+      "sha256": "257bfb7b23cc5a07808bea0a69826f54e6c03938830639994233da4fd0554c97",
+      "features": [
+        "SVG CSS",
+        "currentColor inheritance",
+        "SVG internal stylesheet",
+        "inline style"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/default.css",
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "11-ruby",
+      "title": "中文注音与行内对齐",
+      "file": "fixtures/11-ruby.html",
+      "sha256": "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+      "features": [
+        "ruby/rt",
+        "ruby line metrics",
+        "sup/sub baseline"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "provenance": "source-derived pattern"
+    },
+    {
+      "id": "12-effects",
+      "title": "背景、圆角、裁剪与变换",
+      "file": "fixtures/12-effects.html",
+      "sha256": "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
+      "features": [
+        "gradient",
+        "box-shadow",
+        "text-shadow",
+        "clip-path",
+        "transform",
+        "border-radius"
+      ],
+      "sources": [
+        "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/shared/src/configs/theme-css/grace.css",
+        "https://blitz.is/status/css"
+      ],
+      "provenance": "source-derived theme plus exploratory CSS probes; publish acceptance not verified"
+    },
+    {
+      "id": "13-layout",
+      "title": "浮动与定位边界",
+      "file": "fixtures/13-layout.html",
+      "sha256": "25d5e35ba63e6a745f1f7c5e87a0fe8ee48e35946f3ff1aa13e456e5bdeec26d",
+      "features": [
+        "float/clear",
+        "flow-root",
+        "absolute containing block"
+      ],
+      "sources": [
+        "https://blitz.is/status/css"
+      ],
+      "provenance": "exploratory CSS layout probe; publish acceptance not verified"
+    },
+    {
+      "id": "14-lazy-image",
+      "title": "微信图片属性的宿主处理",
+      "file": "fixtures/14-lazy-image.html",
+      "sha256": "306caceb48961a3b522fbff4b80d234650b76338702cc1133082659e1e2c3938",
+      "features": [
+        "data-src",
+        "data-ratio",
+        "data-w",
+        "host import normalization"
+      ],
+      "sources": [
+        "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
+      ],
+      "provenance": "host-integration probe; not a claim of browser-native lazy loading"
+    }
+  ],
+  "viewports": [
+    [
+      390,
+      700
+    ],
+    [
+      600,
+      700
+    ]
+  ],
+  "scale": 2
+}

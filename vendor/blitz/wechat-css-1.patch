@@ -1,0 +1,294 @@
+--- a/packages/blitz-dom/src/layout/construct.rs
++++ b/packages/blitz-dom/src/layout/construct.rs
+@@ -134,7 +134,7 @@
+             .push(child_id);
+     }
+ 
+-    fn create_anonymous_block(&mut self, container_node_id: NodeId, doc: &mut BaseDocument) {
++    pub(super) fn create_anonymous_block(&mut self, container_node_id: NodeId, doc: &mut BaseDocument) {
+         use style::selector_parser::PseudoElement;
+ 
+         const NAME: QualName = QualName {
+@@ -546,7 +546,19 @@
+                     outer_html.replace("<svg", "<svg xmlns=\"http://www.w3.org/2000/svg\"");
+             }
+ 
+-            // Remove contruction damage from subtree
++            // Inline SVG is parsed separately by usvg. Carry the inherited HTML
++            // color across that boundary without changing the document or
++            // overriding SVG presentation attributes / its own CSS cascade.
++            let svg_node = &doc.nodes[container_node_id];
++            if svg_node.attr(local_name!("color")).is_none() {
++                use style_traits::ToCss;
++                if let Some(style) = svg_node.primary_styles() {
++                    let color = style.clone_color().to_css_string();
++                    outer_html.insert_str(4, &format!(" color=\"{color}\""));
++                }
++            }
++
++            // Remove construction damage from subtree
+             doc.iter_subtree_mut(container_node_id, |id: NodeId, doc: &mut BaseDocument| {
+                 doc.nodes[id].remove_damage(CONSTRUCT_BOX | CONSTRUCT_DESCENDENT | CONSTRUCT_FC);
+             });
+@@ -651,7 +663,7 @@
+         }
+ 
+         DisplayInside::Table => {
+-            let (table_context, tlayout_children) = build_table_context(doc, container_node_id);
++            let (table_context, tlayout_children) = build_table_context(doc, container_node_id, out);
+             #[allow(clippy::arc_with_non_send_sync)]
+             let data = SpecialElementData::TableRoot(Arc::new(table_context));
+             doc.nodes[container_node_id]
+--- a/packages/blitz-dom/src/layout/damage.rs
++++ b/packages/blitz-dom/src/layout/damage.rs
+@@ -104,6 +104,16 @@
+ 
+         // Put children back
+         node.children = children;
++
++        // usvg caches a separate SVG tree. Reparse it when inherited color or
++        // descendant styles change, even if Stylo only requests a repaint/layout.
++        #[cfg(feature = "svg")]
++        if !damage.is_empty()
++            && node.element_data().is_some_and(|el| el.name.local == markup5ever::local_name!("svg"))
++        {
++            damage.insert(CONSTRUCT_BOX);
++        }
++
+ 
+         if damage.contains(CONSTRUCT_BOX) {
+             damage.insert(RestyleDamage::RELAYOUT);
+--- a/packages/blitz-dom/src/layout/inline.rs
++++ b/packages/blitz-dom/src/layout/inline.rs
+@@ -341,6 +341,20 @@
+             },
+         );
+ 
++        // Parley 0.11 starts a line with Wrap and only updates it on a text
++        // cluster. An inline context made exclusively of atomic boxes has no
++        // cluster to carry CSS nowrap. For that case, inspect each box's
++        // containing inline (not its own internal white-space style).
++        let boxes_do_not_wrap = inline_layout.text.is_empty()
++            && !inline_layout.layout.inline_boxes().is_empty()
++            && inline_layout.layout.inline_boxes().iter().all(|ibox| {
++                ibox.kind == parley::InlineBoxKind::InFlow
++                    && self.nodes[NodeId::from_u64(ibox.id)].layout_parent.get()
++                        .and_then(|id| self.nodes[id].primary_styles())
++                        .is_some_and(|style| style.clone_text_wrap_mode()
++                            == style::computed_values::text_wrap_mode::T::Nowrap)
++            });
++
+         let pbw = container_pb.horizontal_components().sum() * scale;
+         let width = known_dimensions
+             .width
+@@ -352,7 +366,7 @@
+                 // and a min-content or max-content constraint. So if we want to compute both widths in one pass then
+                 // we need to store both a min-content and max-content size on each box.
+                 let content_sizes = inline_layout.layout.calculate_content_widths();
+-                let min_content_width = content_sizes.min;
++                let min_content_width = if boxes_do_not_wrap { content_sizes.max } else { content_sizes.min };
+                 let max_content_width = content_sizes.max;
+ 
+                 #[cfg(feature = "floats")]
+@@ -501,7 +515,7 @@
+ 
+         #[cfg(not(feature = "floats"))]
+         {
+-            inline_layout.layout.break_all_lines(Some(width));
++            inline_layout.layout.break_all_lines(if boxes_do_not_wrap { None } else { Some(width) });
+         }
+ 
+         // Perform inline layout
+@@ -511,8 +525,8 @@
+             let initial_slot = block_ctx.find_content_slot(0.0, Clear::None, None);
+             let mut has_active_floats = initial_slot.segment_id.is_some();
+             let state = breaker.state_mut();
+-            state.set_layout_max_advance(width);
+-            state.set_line_max_advance(initial_slot.width * scale);
++            state.set_layout_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { width });
++            state.set_line_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { initial_slot.width * scale });
+             state.set_line_x(initial_slot.x * scale);
+             state.set_line_y((initial_slot.y * scale) as f64);
+ 
+--- a/packages/blitz-dom/src/layout/table.rs
++++ b/packages/blitz-dom/src/layout/table.rs
+@@ -23,6 +23,8 @@
+ 
+ use super::damage::{CONSTRUCT_BOX, CONSTRUCT_DESCENDENT, CONSTRUCT_FC};
+ use super::resolve_calc_value;
++use super::construct::LayoutChildren;
++use style::values::computed::Display;
+ 
+ pub struct TableTreeWrapper<'doc> {
+     pub(crate) doc: &'doc mut BaseDocument,
+@@ -155,6 +157,7 @@
+ pub(crate) fn build_table_context(
+     doc: &mut BaseDocument,
+     table_root_node_id: NodeId,
++    anonymous: &mut LayoutChildren,
+ ) -> (TableContext, Vec<NodeId>) {
+     let mut cells: Vec<TableCell> = Vec::new();
+     let mut rows: Vec<TableRow> = Vec::new();
+@@ -219,8 +222,9 @@
+             _ => 1,
+         }
+     };
++    let table_children = normalize_table_children(doc, table_root_node_id, &children, anonymous);
+     for order in 0..3 {
+-        for child_id in children.iter().copied() {
++        for child_id in table_children.iter().copied() {
+             if row_group_order(doc, child_id) != order {
+                 continue;
+             }
+@@ -236,6 +240,7 @@
+                 &mut column_sizes,
+                 &mut first_cell_border,
+                 &mut percent_columns,
++                anonymous,
+             );
+         }
+     }
+@@ -427,6 +432,61 @@
+     }
+ }
+ 
++/// Generate missing row/cell boxes for CSS tables, retaining the original DOM.
++/// All generated boxes belong to the table's construction pass so the normal
++/// reconstruction/removal path frees them (including nested anonymous rows).
++fn normalize_table_children(
++    doc: &mut BaseDocument,
++    parent: NodeId,
++    children: &[NodeId],
++    owner: &mut LayoutChildren,
++) -> Vec<NodeId> {
++    let parent_display = doc.nodes[parent].display_style().unwrap().inside();
++    let is_row = parent_display == DisplayInside::TableRow;
++    let mut output = Vec::new();
++    let mut open_wrapper = None;
++    for &child in children {
++        let node = &doc.nodes[child];
++        if node.data.kind() == crate::node::NodeKind::Comment {
++            continue;
++        }
++        let display = node.display_style().unwrap_or(Display::inline());
++        if display.inside() == DisplayInside::None {
++            continue;
++        }
++        let proper = if is_row {
++            display.inside() == DisplayInside::TableCell
++        } else {
++            matches!(display.inside(), DisplayInside::TableRow
++                | DisplayInside::TableRowGroup | DisplayInside::TableHeaderGroup
++                | DisplayInside::TableFooterGroup | DisplayInside::TableColumn
++                | DisplayInside::TableColumnGroup | DisplayInside::Contents)
++                || display.outside() == DisplayOutside::TableCaption
++        };
++        if proper {
++            open_wrapper = None;
++            output.push(child);
++            continue;
++        }
++        if open_wrapper.is_none() && node.is_whitespace_node() {
++            continue;
++        }
++        let wrapper = *open_wrapper.get_or_insert_with(|| {
++            let mut generated = LayoutChildren::default();
++            generated.create_anonymous_block(parent, doc);
++            let id = generated.anonymous_block_id.unwrap();
++            let mut data = doc.nodes[id].stylo_element_data_mut().ensure_init_mut();
++            let style = ServoArc::make_mut(data.styles.primary.as_mut().unwrap());
++            style.mutate_box().display = if is_row { Display::TableCell } else { Display::TableRow };
++            owner.anonymous_blocks.push(id);
++            output.push(id);
++            id
++        });
++        doc.nodes[wrapper].children.push(child);
++    }
++    output
++}
++
+ #[allow(clippy::too_many_arguments)]
+ fn collect_table_cells(
+     doc: &mut BaseDocument,
+@@ -440,10 +500,11 @@
+     columns: &mut Vec<TrackSizingFunction>,
+     first_cell_border: &mut Option<ServoArc<Border>>,
+     percent_columns: &mut Vec<(u16, f32, f32)>,
++    anonymous: &mut LayoutChildren,
+ ) {
+     let node = &mut doc.nodes[node_id];
+ 
+-    if !node.is_element() {
++    if !node.is_element() && !node.is_anonymous() {
+         return;
+     }
+ 
+@@ -464,7 +525,8 @@
+         | DisplayInside::TableFooterGroup
+         | DisplayInside::Contents => {
+             let children = std::mem::take(&mut doc.nodes[node_id].children);
+-            for child_id in children.iter().copied() {
++            let normalized = normalize_table_children(doc, node_id, &children, anonymous);
++            for child_id in normalized {
+                 doc.nodes[child_id]
+                     .remove_damage(CONSTRUCT_DESCENDENT | CONSTRUCT_FC | CONSTRUCT_BOX);
+                 collect_table_cells(
+@@ -479,6 +541,7 @@
+                     columns,
+                     first_cell_border,
+                     percent_columns,
++                    anonymous,
+                 );
+             }
+             doc.nodes[node_id].children = children;
+@@ -494,7 +557,8 @@
+             });
+ 
+             let children = std::mem::take(&mut doc.nodes[node_id].children);
+-            for child_id in children.iter().copied() {
++            let normalized = normalize_table_children(doc, node_id, &children, anonymous);
++            for child_id in normalized {
+                 collect_table_cells(
+                     doc,
+                     child_id,
+@@ -507,6 +571,7 @@
+                     columns,
+                     first_cell_border,
+                     percent_columns,
++                    anonymous,
+                 );
+             }
+             doc.nodes[node_id].children = children;
+--- a/packages/blitz-dom/src/node/node.rs
++++ b/packages/blitz-dom/src/node/node.rs
+@@ -1097,10 +1097,6 @@
+     fn write_outer_html_in_style(&self, writer: &mut String, style: OutputStyle, nesting: usize) {
+         const INDENT: &str = "  ";
+         let has_children = !self.children.is_empty();
+-        let current_color = self
+-            .primary_styles()
+-            .map(|style| style.clone_color())
+-            .map(|color| color.to_css_string());
+ 
+         match &self.data {
+             NodeData::Document(_) => {}
+@@ -1131,15 +1127,10 @@
+                     writer.push(' ');
+                     writer.push_str(&attr.name.local);
+                     writer.push_str("=\"");
+-                    #[allow(clippy::unnecessary_unwrap)] // Convert to if-let chain once stabilised
+-                    if current_color.is_some() && attr.value.contains("currentColor") {
+-                        let value = attr
+-                            .value
+-                            .replace("currentColor", current_color.as_ref().unwrap());
+-                        encode_quoted_attribute_to_string(&value, writer);
+-                    } else {
+-                        encode_quoted_attribute_to_string(&attr.value, writer);
+-                    }
++                    // Keep authored attributes intact. In particular, usvg must
++                    // resolve currentColor using its SVG CSS/presentation cascade;
++                    // replacing it with Stylo's color here loses SVG-local overrides.
++                    encode_quoted_attribute_to_string(&attr.value, writer);
+                     writer.push('"');
+                 }
+                 if !has_children {

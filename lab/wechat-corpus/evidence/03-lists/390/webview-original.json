@@ -1,0 +1,142 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 393,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 350,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 117,
+          "width" : 350,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 84,
+          "width" : 350,
+          "x" : 20,
+          "y" : 201
+        },
+        {
+          "height" : 56,
+          "width" : 350,
+          "x" : 20,
+          "y" : 301
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 393,
+          "width" : 390,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 28,
+          "width" : 325,
+          "x" : 45,
+          "y" : 68
+        },
+        {
+          "height" : 28,
+          "width" : 325,
+          "x" : 45,
+          "y" : 101
+        }
+      ],
+      "table" : [
+
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "嵌套列表与手工编号",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 390
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1147,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/03-lists.html",
+  "source_sha256" : "98c71ce2dd97c11037572fe4e591a31272f3aa1258a48188222f6634bf845dfe",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 390
+}

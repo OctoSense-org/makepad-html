@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "ocr": {
+    "top_contains_chinese_title": true,
+    "bottom_contains_table": true
+  },
+  "binary_sha256": "8c305e58a5f52efec52ce941caa8a4c6c298ac0d0ea04ecb2f3d69ec95db4c21",
+  "window": [
+    {
+      "i": 0,
+      "t": "Makepad [remote]",
+      "sz": [
+        440,
+        880
+      ],
+      "px": [
+        880,
+        1760
+      ],
+      "dpi": 2,
+      "pos": [
+        536,
+        64
+      ]
+    }
+  ],
+  "screenshots": {
+    "native-top.png": "ef603532b4802f28a2b61df42d985366fead544cad46e427aaaa9bd0932b4a1c",
+    "native-bottom.png": "b0e55006219341edbb4d09fa27eddd54e0a4e7307656ff32ff20b1f42ad3dd29"
+  },
+  "checks": [
+    "isolated fixture process and owned loopback bridge",
+    "native Makepad widget ready",
+    "Blitz RGBA uploaded as native texture",
+    "native scroll changes displayed article pixels"
+  ],
+  "personal_accounts_used": false
+}
