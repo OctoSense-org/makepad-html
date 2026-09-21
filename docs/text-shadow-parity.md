@@ -27,7 +27,10 @@ in effect. No Makepad source or document rewriting is needed.
   only text-shadow declarations changed to none. The control and positive have
   identical chrome; Chinese OCR identifies the requested fixture. Their
   screenshots differ at 53,138 pixels over the 24/255 threshold. This establishes
-  that the effect reaches the native texture, not WebKit similarity.
+  that the effect reaches the native texture, not WebKit similarity. The header
+  comparison uses 100 CSS pixels scaled by the reported DPI: the first CI run
+  exposed a fixed-pixel crop assumption on its DPR-1 display. Its saved screenshots
+  pass the corrected crop, pixel and OCR checks (8,316 differing pixels).
 - All 32 corpus captures completed. The previous 15 fixture source hashes are
   unchanged; 26 existing non-shadow full-page PNGs are byte-identical.
 

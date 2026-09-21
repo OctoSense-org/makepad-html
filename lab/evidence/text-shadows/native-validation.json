@@ -17,10 +17,11 @@
       "dpi": 2,
       "pos": [
         536,
-        63
+        64
       ]
     }
   ],
+  "header_crop_height_px": 200,
   "pixels_differing_over_24_rgb": 53138,
   "control": "Identical HTML with text-shadow declarations set to none; no layout rewriting",
   "screenshots": {

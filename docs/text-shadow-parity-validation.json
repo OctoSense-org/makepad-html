@@ -125,10 +125,11 @@
         "dpi": 2,
         "pos": [
           536,
-          63
+          64
         ]
       }
     ],
+    "header_crop_height_px": 200,
     "pixels_differing_over_24_rgb": 53138,
     "control": "Identical HTML with text-shadow declarations set to none; no layout rewriting",
     "screenshots": {
@@ -139,5 +140,12 @@
     "personal_accounts_used": false,
     "qualification": "Native texture feature check, not a WebKit similarity score"
   },
-  "qualification": "Authored probes and WKWebView references, not complete WeChat support or a 9/10 score"
+  "qualification": "Authored probes and WKWebView references, not complete WeChat support or a 9/10 score",
+  "ci_dpr_1_capture_recheck": {
+    "run": 35664053000,
+    "initial_failure": "Fixed 200-pixel header crop included article shadows on a DPR-1 display",
+    "corrected_header_crop_css_px": 100,
+    "pixels_differing_over_24_rgb": 8316,
+    "ocr_and_control_checks_passed_on_saved_artifacts": true
+  }
 }

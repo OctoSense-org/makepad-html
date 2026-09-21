@@ -65,11 +65,15 @@ def capture(source, output):
 shadow = OUT / 'native-shadows.png'
 plain = OUT / 'native-none-control.png'
 window = capture(SOURCE, shadow)
-capture(control, plain)
+control_window = capture(control, plain)
 a, b = Image.open(shadow).convert('RGB'), Image.open(plain).convert('RGB')
 assert a.size == b.size
-# Identical chrome checks that the native content area did not move.
-assert ImageChops.difference(a.crop((0, 0, a.width, 200)), b.crop((0, 0, b.width, 200))).getbbox() is None
+# Window chrome + the viewer title occupy 100 CSS px. CI is commonly DPR 1,
+# whereas local Retina captures are DPR 2; a fixed pixel crop includes article
+# shadows at DPR 1 and would reject the very feature under test.
+assert all(window[0][key] == control_window[0][key] for key in ('sz', 'px', 'dpi'))
+header_height = round(100 * window[0]['dpi'])
+assert ImageChops.difference(a.crop((0, 0, a.width, header_height)), b.crop((0, 0, b.width, header_height))).getbbox() is None
 changed = sum(max(pixel) > 24 for pixel in ImageChops.difference(a, b).getdata())
 assert changed > 500, f'Missing native text shadows: only {changed} changed pixels'
 ocr = ROOT / 'target/makepad-html-ocr'
@@ -80,7 +84,8 @@ assert '文字阴影与继承回归' in text, text
 report = {
     'passed': True, 'source_sha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
     'binary_sha256': hashlib.sha256(BINARY.read_bytes()).hexdigest(),
-    'window': window, 'pixels_differing_over_24_rgb': changed,
+    'window': window, 'header_crop_height_px': header_height,
+    'pixels_differing_over_24_rgb': changed,
     'control': 'Identical HTML with text-shadow declarations set to none; no layout rewriting',
     'screenshots': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (shadow, plain)},
     'ocr': text, 'personal_accounts_used': False,
