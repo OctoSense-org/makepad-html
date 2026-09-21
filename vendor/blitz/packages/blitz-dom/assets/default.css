@@ -989,9 +989,12 @@ marquee:is([direction="up"], [direction="down"]) {
 
 /* Ruby */
 
+/* Servo's Stylo configuration does not expose display:ruby. Blitz supplies
+ * the native HTML ruby formatting context for this inline-block UA default. */
 ruby {
-    display: ruby;
+    display: inline-block;
 }
+rp { display: none; }
 
 rb {
     display: ruby-base;
@@ -999,7 +1002,7 @@ rb {
 }
 
 rt {
-    display: ruby-text;
+    display: inline-block;
 }
 
 rtc {

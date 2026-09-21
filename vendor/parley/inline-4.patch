@@ -1,0 +1,326 @@
+--- a/src/inline_box.rs
++++ b/src/inline_box.rs
+@@ -38,3 +38,17 @@
+     /// They can be used to implement advanced layout modes such as CSS's `float`
+     CustomOutOfFlow,
+ }
++
++/// Placement of an atomic CSS inline within its line box.
++#[derive(Clone, Copy, Debug, Default, PartialEq)]
++pub enum InlineBoxAlignment {
++    /// Distance from the margin-box top to its baseline, including any shift.
++    Baseline(f32),
++    /// Align to the line's top.
++    Top,
++    /// Align to the line's bottom.
++    Bottom,
++    /// Legacy bottom-edge-to-baseline placement.
++    #[default]
++    Default,
++}
+--- a/src/layout/data.rs
++++ b/src/layout/data.rs
+@@ -277,7 +277,9 @@
+ 
+     // Output of style resolution (input to line breaking)
+     pub(crate) styles: Vec<Style<B>>,
++    pub(crate) css_strut: Option<(f32, f32)>,
+     pub(crate) inline_boxes: Vec<InlineBox>,
++    pub(crate) box_alignments: Vec<(u64, crate::InlineBoxAlignment)>,
+ 
+     // Output of shaping (input to line breaking)
+     pub(crate) fonts: Vec<FontData>,
+@@ -327,7 +329,9 @@
+             fonts: Vec::new(),
+             coords: Vec::new(),
+             styles: Vec::new(),
++            css_strut: None,
+             inline_boxes: Vec::new(),
++            box_alignments: Vec::new(),
+             runs: Vec::new(),
+             items: Vec::new(),
+             clusters: Vec::new(),
+@@ -356,7 +360,9 @@
+         self.fonts.clear();
+         self.coords.clear();
+         self.styles.clear();
++        self.css_strut = None;
+         self.inline_boxes.clear();
++        self.box_alignments.clear();
+         self.runs.clear();
+         self.items.clear();
+         self.clusters.clear();
+--- a/src/layout/layout.rs
++++ b/src/layout/layout.rs
+@@ -6,6 +6,7 @@
+ use crate::layout::alignment::unjustify;
+ use crate::layout::data::LayoutData;
+ use crate::style::Brush;
++use alloc::vec::Vec;
+ use core::cmp::Ordering;
+ use core::fmt;
+ 
+@@ -59,6 +60,20 @@
+         &self.data.styles
+     }
+ 
++    /// Resolve CSS inline baseline shifts after shaping and before line breaking.
++    /// `strut` is the root's (above, below) baseline extent, including half-leading,
++    /// in layout pixels. Passing `None` restores Parley's ordinary line metrics.
++    pub fn set_baseline_shifts(
++        &mut self,
++        strut: Option<(f32, f32)>,
++        mut shift: impl FnMut(&B) -> f32,
++    ) {
++        self.data.css_strut = strut;
++        for style in &mut self.data.styles {
++            style.baseline_shift = shift(&style.brush);
++        }
++    }
++
+     /// The `max_advance` that was used to line break the `Layout`
+     pub fn layout_max_advance(&self) -> f32 {
+         self.data.layout_max_advance
+@@ -121,6 +136,20 @@
+ 
+     pub fn inline_boxes_mut(&mut self) -> &mut [InlineBox] {
+         &mut self.data.inline_boxes
++    }
++
++    /// Set atomic inline positions before line breaking. IDs are `InlineBox::id`.
++    pub fn set_inline_box_alignments(&mut self, alignments: Vec<(u64, crate::InlineBoxAlignment)>) {
++        self.data.box_alignments = alignments;
++    }
++
++    pub(crate) fn inline_box_alignment(&self, id: u64) -> crate::InlineBoxAlignment {
++        self.data
++            .box_alignments
++            .iter()
++            .find(|(key, _)| *key == id)
++            .map(|(_, value)| *value)
++            .unwrap_or_default()
+     }
+ 
+     /// Returns an iterator over the lines in the layout.
+--- a/src/layout/line.rs
++++ b/src/layout/line.rs
+@@ -271,7 +271,20 @@
+                     }
+                     return Some(PositionedLayoutItem::InlineBox(PositionedInlineBox {
+                         x,
+-                        y: self.line.data.metrics.baseline - inline_box.height,
++                        y: match self.line.layout.inline_box_alignment(inline_box.id) {
++                            crate::InlineBoxAlignment::Baseline(distance) => {
++                                self.line.data.metrics.baseline - distance
++                            }
++                            crate::InlineBoxAlignment::Top => {
++                                self.line.data.metrics.block_min_coord
++                            }
++                            crate::InlineBoxAlignment::Bottom => {
++                                self.line.data.metrics.block_max_coord - inline_box.height
++                            }
++                            crate::InlineBoxAlignment::Default => {
++                                self.line.data.metrics.baseline - inline_box.height
++                            }
++                        },
+                         width: inline_box.width,
+                         height: inline_box.height,
+                         id: inline_box.id,
+@@ -305,7 +318,7 @@
+                             offset: offset
+                                 + self.line.data.metrics.inline_min_coord
+                                 + self.line.data.metrics.offset,
+-                            baseline: self.line.data.metrics.baseline,
++                            baseline: self.line.data.metrics.baseline - style.baseline_shift,
+                             advance,
+                         }));
+                     }
+--- a/src/layout/line_break.rs
++++ b/src/layout/line_break.rs
+@@ -353,7 +353,7 @@
+ 
+         self.finish_line(self.lines.lines.len() - 1, line_height);
+ 
+-        self.state.line_y += line_height as f64;
++        self.state.line_y += self.lines.lines.last().unwrap().metrics.line_height as f64;
+ 
+         Some(YieldData::LineBreak(
+             self.last_line_data(reason, line_y_start),
+@@ -915,6 +915,9 @@
+             line.text_range = self.layout.data.text_len..self.layout.data.text_len;
+         }
+         // Compute metrics for the line, but ignore trailing whitespace.
++        let mut css_extents = self.layout.data.css_strut;
++        let mut top_box_height = 0.0_f32;
++        let mut bottom_box_height = 0.0_f32;
+         let mut have_metrics = false;
+         let mut needs_reorder = false;
+         for line_item in self.lines.line_items[line.item_range.clone()]
+@@ -930,6 +933,23 @@
+                         // Default vertical alignment is to align the bottom of boxes with the text baseline.
+                         // This is equivalent to the entire height of the box being "ascent"
+                         line.metrics.ascent = line.metrics.ascent.max(item.height);
++                        if let Some((above, below)) = &mut css_extents {
++                            match self.layout.inline_box_alignment(item.id) {
++                                crate::InlineBoxAlignment::Baseline(distance) => {
++                                    *above = above.max(distance);
++                                    *below = below.max(item.height - distance);
++                                }
++                                crate::InlineBoxAlignment::Top => {
++                                    top_box_height = top_box_height.max(item.height)
++                                }
++                                crate::InlineBoxAlignment::Bottom => {
++                                    bottom_box_height = bottom_box_height.max(item.height)
++                                }
++                                crate::InlineBoxAlignment::Default => {
++                                    *above = above.max(item.height)
++                                }
++                            }
++                        }
+ 
+                         // Mark us as having seen non-whitespace content on this line
+                         have_metrics = true;
+@@ -966,6 +986,32 @@
+                     line.metrics.ascent = line.metrics.ascent.max(run.metrics.ascent);
+                     line.metrics.descent = line.metrics.descent.max(run.metrics.descent);
+ 
++                    if let Some((above, below)) = &mut css_extents {
++                        let metrics = &run.metrics;
++                        for cluster in &self.layout.data.clusters[line_item.cluster_range.clone()] {
++                            let style = &self.layout.data.styles[cluster.style_index as usize];
++                            let height = match style.line_height {
++                                crate::LineHeight::Absolute(v) => v,
++                                crate::LineHeight::FontSizeRelative(v) => v * run.font_size,
++                                crate::LineHeight::MetricsRelative(v) => {
++                                    v * (metrics.ascent + metrics.descent + metrics.leading)
++                                }
++                            };
++                            let (ascent, descent) = if self.layout.data.quantize {
++                                (metrics.ascent.round(), metrics.descent.round())
++                            } else {
++                                (metrics.ascent, metrics.descent)
++                            };
++                            let leading = height - ascent - descent;
++                            let half = if self.layout.data.quantize {
++                                (leading * 0.5).floor()
++                            } else {
++                                leading * 0.5
++                            };
++                            *above = above.max(ascent + half + style.baseline_shift);
++                            *below = below.max(descent + leading - half - style.baseline_shift);
++                        }
++                    }
+                     // Mark us as having seen non-whitespace content on this line
+                     have_metrics = true;
+                 }
+@@ -1095,6 +1141,23 @@
+         //     line.metrics.advance - line.metrics.trailing_whitespace
+         // };
+ 
++        if let Some((mut above, mut below)) = css_extents {
++            below = below.max(top_box_height - above);
++            above = above.max(bottom_box_height - below);
++            // Unlike symmetric leading, these extents retain each span's baseline
++            // shift. They affect line advance as well as glyph placement.
++            let above = if quantize { above.round() } else { above };
++            let below = if quantize { below.round() } else { below };
++            let top = if quantize { y.round() as f32 } else { y as f32 };
++            line.metrics.baseline = top + above;
++            line.metrics.line_height = above + below;
++            line.metrics.ascent = above;
++            line.metrics.descent = below;
++            line.metrics.leading = 0.;
++            line.metrics.block_min_coord = top;
++            line.metrics.block_max_coord = top + above + below;
++        }
++
+         line.metrics.inline_min_coord = self.state.line_x;
+         line.metrics.inline_max_coord = self.state.line_x + self.state.line_max_advance;
+     }
+--- a/src/layout/mod.rs
++++ b/src/layout/mod.rs
+@@ -52,6 +52,8 @@
+ pub struct Style<B: Brush> {
+     /// Brush for drawing glyphs.
+     pub brush: B,
++    /// Resolved baseline displacement in layout pixels; positive raises text.
++    pub baseline_shift: f32,
+     /// Underline decoration.
+     pub underline: Option<Decoration<B>>,
+     /// Strikethrough decoration.
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -139,7 +139,7 @@
+ pub use builder::{RangedBuilder, StyleRunBuilder, TreeBuilder};
+ pub use context::LayoutContext;
+ pub use font::FontContext;
+-pub use inline_box::{InlineBox, InlineBoxKind};
++pub use inline_box::{InlineBox, InlineBoxAlignment, InlineBoxKind};
+ #[doc(inline)]
+ pub use layout::Layout;
+ 
+--- a/src/resolve/mod.rs
++++ b/src/resolve/mod.rs
+@@ -491,6 +491,7 @@
+     pub(crate) fn as_layout_style(&self) -> layout::Style<B> {
+         layout::Style {
+             brush: self.brush.clone(),
++            baseline_shift: 0.0,
+             underline: self.underline.as_layout_decoration(&self.brush),
+             strikethrough: self.strikethrough.as_layout_decoration(&self.brush),
+             line_height: self.line_height,
+--- a/src/resolve/tree.rs
++++ b/src/resolve/tree.rs
+@@ -80,7 +80,10 @@
+     }
+ 
+     pub(crate) fn set_white_space_mode(&mut self, white_space_collapse: WhiteSpaceCollapse) {
+-        self.white_space_collapse = white_space_collapse;
++        if self.white_space_collapse != white_space_collapse {
++            self.push_uncommitted_text(false);
++            self.white_space_collapse = white_space_collapse;
++        }
+     }
+ 
+     pub(crate) fn set_is_span_first(&mut self, is_span_first: bool) {
+@@ -106,10 +109,10 @@
+                             .last()
+                             .is_some_and(|c| c.is_ascii_whitespace()))
+                 {
+-                    span_text = span_text.trim_start();
++                    span_text = span_text.trim_start_matches(|c: char| c.is_ascii_whitespace());
+                 }
+                 if is_span_last {
+-                    span_text = span_text.trim_end();
++                    span_text = span_text.trim_end_matches(|c: char| c.is_ascii_whitespace());
+                 }
+ 
+                 // Collapse spaces
+@@ -171,7 +174,6 @@
+             style_id: None,
+         });
+         self.current_span = self.tree.len() - 1;
+-        self.is_span_first = true;
+     }
+ 
+     pub(crate) fn push_style_modification_span(
+@@ -186,7 +188,7 @@
+     }
+ 
+     pub(crate) fn pop_style_span(&mut self) {
+-        self.push_uncommitted_text(true);
++        self.push_uncommitted_text(false);
+ 
+         self.current_span = self.tree[self.current_span]
+             .parent
+--- a/src/style/mod.rs
++++ b/src/style/mod.rs
+@@ -20,7 +20,7 @@
+ 
+ use crate::util::nearly_eq;
+ 
+-#[derive(Debug, Clone, Copy)]
++#[derive(Debug, Clone, Copy, PartialEq)]
+ pub enum WhiteSpaceCollapse {
+     Collapse,
+     Preserve,

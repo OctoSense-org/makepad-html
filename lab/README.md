@@ -20,7 +20,7 @@ The renderer test suite checks CSS cascade/media variables through pixels, exact
 
 Known boundaries:
 
-- No HTML-to-editable-document conversion, imported-style persistence schema, link hit testing, selection or accessibility text in this bitmap widget.
+- No HTML-to-editable-document conversion, imported-style persistence schema, selection or accessibility text in this bitmap widget.
 - CSS dark mode is based on the fixture's authored rules, not a claim to reproduce WeChat's automatic dark-color transformations.
 - No real-device iOS validation or Android/Windows/Linux runtime validation.
 - No arbitrary SVG, animated components or WeChat private tags; no JavaScript execution.
@@ -34,3 +34,11 @@ Reproduction commands and the host API are in `README.md`. No personal Matrix cr
 Robrix's optional `article_blitz` feature now uses this renderer for validated
 local draft previews. Its integration checks, Palpo lifecycle checks and actual
 Robrix screenshots are recorded separately in the [Robrix integration lab](https://github.com/OctoSense-org/robrix2/tree/wechat-ui/lab/article-components).
+
+The inline/interaction pass adds native links, disclosures, fragment navigation
+and horizontal nested scrolling through `DocumentSession`. The extra check is
+`python3 lab/verify_interactions.py target/debug/examples/viewer` (Pillow required).
+It checks real pointer input, drag suppression, round-trip disclosure pixels,
+fragment OCR, a link after scrolling, and switching/clicking a horizontal slide.
+Results: [interaction evidence](evidence/interactions/native-validation.json) and
+[inline comparison report](../docs/inline-parity.md).

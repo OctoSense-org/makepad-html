@@ -31,10 +31,13 @@ asset selection/downloads, account/session authority, storage, consent,
 publishing/withdrawal, Matrix messages and Octoscript bindings. None of those
 are dependencies or responsibilities of this component.
 
-The current widget displays a static bitmap. Persistent DOM, lossless HTML/CSS
-editing, hit testing, selection, link actions, nested scrolling and animation
-are future component work. Extraction does not claim those features or change
-the existing production admission/resource policy.
+The widget displays a bitmap. `DocumentSession` optionally keeps the source DOM
+and immutable resource grants on a worker. Document-coordinate taps and horizontal
+scroll events produce link requests, fragment scroll requests, disclosure toggles
+and nested horizontal scrolling; the host handles navigation and session lifetime.
+The standalone viewer wires these APIs together. Selection/copy, keyboard focus,
+accessibility, lossless HTML/CSS editing, vertical nested gesture routing and
+animation remain future work. The admission/resource policy is unchanged.
 
 The public production renderer rejects SVG and active/subdocument elements.
 `test-svg` only enables the raw-engine regression path; it does not grant SVG

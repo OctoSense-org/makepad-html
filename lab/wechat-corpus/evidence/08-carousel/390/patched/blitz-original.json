@@ -31,19 +31,19 @@
         "height": 240.0,
         "width": 350.0,
         "x": 20.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 240.0,
         "width": 350.0,
         "x": 370.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 240.0,
         "width": 350.0,
         "x": 720.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 56.0,
@@ -68,19 +68,19 @@
         "height": 180.0,
         "width": 350.0,
         "x": 20.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 180.0,
         "width": 350.0,
         "x": 370.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 180.0,
         "width": 350.0,
         "x": 720.0,
-        "y": 68.0
+        "y": 68.203125
       }
     ],
     "input": [],
@@ -109,19 +109,19 @@
         "height": 240.0,
         "width": 350.0,
         "x": 20.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 240.0,
         "width": 350.0,
         "x": 370.0,
-        "y": 68.0
+        "y": 68.203125
       },
       {
         "height": 240.0,
         "width": 350.0,
         "x": 720.0,
-        "y": 68.0
+        "y": 68.203125
       }
     ],
     "table": [],
@@ -136,45 +136,45 @@
       "decoded": true,
       "format": "Gif",
       "height": 60,
-      "url": "http://127.0.0.1:49528/assets/animated.gif",
+      "url": "http://127.0.0.1:53506/assets/animated.gif",
       "width": 120
     },
     {
       "decoded": true,
       "format": "Gif",
       "height": 240,
-      "url": "http://127.0.0.1:49528/assets/chart.gif",
+      "url": "http://127.0.0.1:53506/assets/chart.gif",
       "width": 400
     },
     {
       "decoded": true,
       "format": "Jpeg",
       "height": 240,
-      "url": "http://127.0.0.1:49528/assets/chart.jpg",
+      "url": "http://127.0.0.1:53506/assets/chart.jpg",
       "width": 400
     },
     {
       "decoded": true,
       "format": "Png",
       "height": 240,
-      "url": "http://127.0.0.1:49528/assets/chart.png",
+      "url": "http://127.0.0.1:53506/assets/chart.png",
       "width": 400
     },
     {
       "decoded": true,
       "format": "WebP",
       "height": 240,
-      "url": "http://127.0.0.1:49528/assets/chart.webp",
+      "url": "http://127.0.0.1:53506/assets/chart.webp",
       "width": 400
     }
   ],
-  "local_patch": "wechat-css-1+table-2+text-shadow-3",
+  "local_patch": "wechat-css-1+table-2+text-shadow-3+inline-4",
   "product_admission": "accepted",
   "resource_requests": [
     {
       "bytes": 2244,
       "served": true,
-      "url": "http://127.0.0.1:49528/assets/chart.png"
+      "url": "http://127.0.0.1:53506/assets/chart.png"
     }
   ],
   "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",

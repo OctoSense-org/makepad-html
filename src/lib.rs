@@ -28,6 +28,9 @@ use std::{
 #[cfg(feature = "makepad")]
 pub mod makepad;
 
+mod session;
+pub use session::{DocumentSession, HtmlAction};
+
 pub const BLITZ_REVISION: &str = "e99fbdbd1d03b9f0aa1622c3f810d95daac92042";
 pub const ASSET_BASE_URL: &str = "https://makepad-html.invalid/assets/";
 pub const MAX_HTML_BYTES: usize = 256 * 1024;
@@ -171,6 +174,8 @@ pub struct ResourceReport {
 pub struct RenderedDocument {
     pub width: u32,
     pub height: u32,
+    /// Device pixels per CSS pixel, retained for pointer coordinate conversion.
+    pub scale: f32,
     pub rgba: Vec<u8>,
     pub css_content_height: f32,
     pub clipped: bool,
@@ -347,6 +352,14 @@ pub fn render_html(
     options: RenderOptions,
     resources: &ResourceMap,
 ) -> Result<RenderedDocument, RenderError> {
+    DocumentSession::new(html, options, resources)?.render()
+}
+
+fn create_document(
+    html: &str,
+    options: RenderOptions,
+    resources: &ResourceMap,
+) -> Result<(HtmlDocument, Arc<MemoryProvider>, u32, u32), RenderError> {
     let (width, max_height) = validate(html, options)?;
     let provider = Arc::new(MemoryProvider {
         grants: resources.clone(),
@@ -354,7 +367,7 @@ pub fn render_html(
     });
     // Force standards-mode HTML parsing; avoid upstream content sniffing into XHTML.
     let html = format!("<!doctype html>\n{html}");
-    let mut document = HtmlDocument::from_html(
+    let document = HtmlDocument::from_html(
         &html,
         DocumentConfig {
             base_url: Some(ASSET_BASE_URL.into()),
@@ -372,6 +385,16 @@ pub fn render_html(
             ..Default::default()
         },
     );
+    Ok((document, provider, width, max_height))
+}
+
+fn paint_document(
+    document: &mut HtmlDocument,
+    provider: &MemoryProvider,
+    options: RenderOptions,
+    width: u32,
+    max_height: u32,
+) -> Result<RenderedDocument, RenderError> {
     let mut settled = false;
     for _ in 0..8 {
         let before = provider.report.lock().unwrap().requested;
@@ -406,15 +429,7 @@ pub fn render_html(
                 Default::default(),
                 &Rect::new(0.0, 0.0, width as f64, height as f64),
             );
-            paint_scene(
-                scene,
-                &mut document,
-                options.scale as f64,
-                width,
-                height,
-                0,
-                0,
-            );
+            paint_scene(scene, document, options.scale as f64, width, height, 0, 0);
         },
         width,
         height,
@@ -423,6 +438,7 @@ pub fn render_html(
     Ok(RenderedDocument {
         width,
         height,
+        scale: options.scale,
         rgba,
         css_content_height,
         clipped,

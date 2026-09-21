@@ -26,6 +26,7 @@ pub(crate) mod damage;
 pub(crate) mod inline;
 pub(crate) mod list;
 pub(crate) mod replaced;
+pub(crate) mod ruby;
 pub(crate) mod table;
 
 use self::replaced::{
@@ -114,6 +115,9 @@ impl BaseDocument {
         inputs: taffy::tree::LayoutInput,
         block_ctx: Option<&mut BlockContext<'_>>,
     ) -> taffy::tree::LayoutOutput {
+        if ruby::is_ruby(&self.nodes[dom_node_id(node_id)]) {
+            return ruby::compute(self, dom_node_id(node_id), inputs);
+        }
         let node = &mut self.nodes[dom_node_id(node_id)];
 
         let font_styles = node.primary_styles().map(|style| {

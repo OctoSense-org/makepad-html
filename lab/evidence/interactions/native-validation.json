@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "binary_sha256": "6318a00f14296245c5e509b2ffac3c1db551ff58a7ce94940fd5c97396ae943c",
+  "source_sha256": "1aa170dcb1b568baf6dace51b178b6554383840e14f942881051af268c96f4be",
+  "window": [
+    {
+      "i": 0,
+      "t": "Makepad [remote]",
+      "sz": [
+        440,
+        880
+      ],
+      "px": [
+        880,
+        1760
+      ],
+      "dpi": 2,
+      "pos": [
+        536,
+        63
+      ]
+    }
+  ],
+  "checks": [
+    "drag gesture does not activate links",
+    "native link activation reaches worker and returns host request",
+    "no browser opened",
+    "disclosure open/close persists DOM and restores bitmap",
+    "fragment scroll reveals target",
+    "link activation after native scrolling uses document coordinates",
+    "horizontal nested scrolling changes slide and hit target"
+  ],
+  "screenshots": {
+    "native-closed.png": "865822766cf6bfe06a0002d6457cc5bb111d9d9528e6ed539a77158b0027cc5a",
+    "native-fragment.png": "1d9401629fc75cda8431ce30d7200be4d767535f0a1e00dfab2825472fbcaee4",
+    "native-scrolled-link.png": "e6914f412c0f29456b000e5112a3dbb05e275f34273a5aa2639e404f46c5e532",
+    "native-open.png": "85bc923a0db5c7372b5b523e1f85b5dbec9230f595c511f7cc31d2c265b553c4",
+    "native-link.png": "fb6182a208bef3c86a23ddaa21e79d5adc24f86187719badb5241a691d9a8513",
+    "native-horizontal-scroll.png": "722bb94cfa7092110b2c514efcf02e138d9df0aeda12839824cfe18034c4e957",
+    "native-reclosed.png": "cee062071e02263c3827801ada78a5dee155301031a914722f3d28f408e8d6d9"
+  },
+  "ocr_after_fragment": "Makepad [remote] Makepad HTML FRAGMENT TARGET Scrolled link First slide Ready • Offline HTML/CSS",
+  "personal_accounts_used": false
+}

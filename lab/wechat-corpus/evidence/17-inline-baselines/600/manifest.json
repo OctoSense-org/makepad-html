@@ -1,0 +1,11 @@
+{
+  "base_url": "http://127.0.0.1:53469/",
+  "full_page": true,
+  "resources": {
+    "http://127.0.0.1:53469/assets/chart.jpg": "/Users/ychen/home/octosense-org/makepad-html/lab/wechat-corpus/assets/chart.jpg",
+    "http://127.0.0.1:53469/assets/chart.png": "/Users/ychen/home/octosense-org/makepad-html/lab/wechat-corpus/assets/chart.png",
+    "http://127.0.0.1:53469/assets/chart.webp": "/Users/ychen/home/octosense-org/makepad-html/lab/wechat-corpus/assets/chart.webp",
+    "http://127.0.0.1:53469/assets/animated.gif": "/Users/ychen/home/octosense-org/makepad-html/lab/wechat-corpus/assets/animated.gif",
+    "http://127.0.0.1:53469/assets/chart.gif": "/Users/ychen/home/octosense-org/makepad-html/lab/wechat-corpus/assets/chart.gif"
+  }
+}

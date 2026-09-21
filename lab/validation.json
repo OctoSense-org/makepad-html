@@ -32,5 +32,7 @@
     "lab/article-blitz/evidence/native-bottom.png": "fb1bd84252d80d8dc748d273413d530fd51d92034695165be099b8ec4f3202ba",
     "lab/article-blitz/evidence/native-top.png": "4af9e28277235644ab3c87719090e6c813a14ed840da183c96a74fc6d2085aed"
   },
-  "qualification": "Static original article fixtures, not a WeChat visual parity benchmark or HTML WYSIWYG editor."
+  "qualification": "Static original article fixtures, not a WeChat visual parity benchmark or HTML WYSIWYG editor.",
+  "historical_record": true,
+  "current_validation": "../docs/inline-parity-validation.json"
 }

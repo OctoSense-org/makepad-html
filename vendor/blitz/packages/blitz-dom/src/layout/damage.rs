@@ -339,7 +339,9 @@ pub(crate) fn compute_layout_damage(old: &ComputedValues, new: &ComputedValues) 
     };
 
     let text_shaping_needs_recollect = || {
-        if old.clone_direction() != new.clone_direction()
+        if old.clone_baseline_shift() != new.clone_baseline_shift()
+            || old.clone_alignment_baseline() != new.clone_alignment_baseline()
+            || old.clone_direction() != new.clone_direction()
             || old.clone_unicode_bidi() != new.clone_unicode_bidi()
         {
             return true;

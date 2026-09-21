@@ -18,7 +18,7 @@ assert_eq!(bitmap.rgba.len(), bitmap.width as usize * bitmap.height as usize * 4
 # Ok::<(), makepad_html::RenderError>(())
 ```
 
-Run `render_html` on a worker. The host checks that the document and any applicable resource grants are still current before presenting the result. A `ResourceMap` is a per-render snapshot, not a persistent authority token. Build a new map after a permission or account change. Never place access tokens, cookies or signed remote URLs in document HTML/CSS or resource identifiers.
+Run `render_html` on a worker. The host checks that the document and any applicable resource grants are still current before presenting the result. A `ResourceMap` is an immutable grant snapshot, not a persistent authority token. A `DocumentSession` retains that snapshot until the host drops the session. Build a new map after a permission or account change. Never place access tokens, cookies or signed remote URLs in document HTML/CSS or resource identifiers.
 
 ## Resource boundary
 
@@ -51,7 +51,18 @@ For a `Widget`/`RefMut<Widget>` receiver rather than a `WidgetRef`, import
 
 The adapter converts RGBA to Makepad's `VecBGRAu8_32`, displays the result in a clipped native scroll view, and has no WebView. Makepad is pinned to `47837267faf6970a6cc36acedf9f83846b277307` in this crate's lockfile, using the same source/branch as Robrix to avoid duplicate widget types. Hosts should render at the measured view width and current DPI; changing the view width only scales the existing bitmap until the host renders again.
 
-This adapter supplies a bitmap preview, not text selection, link hit testing, accessibility text or editing. Its CPU bitmap allocation, upload and full-document rendering costs make it a first integration, not the final interactive renderer.
+The adapter emits document-coordinate taps and horizontal wheel/trackpad events.
+Keep a `DocumentSession` on a worker, call `activate` / `scroll_horizontal`, then
+`render` after a state change. `HtmlAction::OpenLink` is a request to the host;
+no browser, HTTP client or navigation happens automatically. Forward `ScrollTo`
+to `HtmlViewRef::scroll_to`. The standalone viewer demonstrates this lifecycle,
+including links after scrolling, fragment navigation, details disclosures and
+nested horizontal scroll containers. Drop the session and clear the widget when
+the host replaces a document or revokes grants; reject stale worker results.
+
+Text selection/copy, keyboard link focus, accessibility text and rich-text editing
+are not yet supplied. Rendering and texture upload still replace a full bitmap;
+this is not a tiled renderer.
 
 ## Reproduce
 
@@ -84,8 +95,9 @@ cover general HTML. Neither suite depends on the article editor.
 
 Engine patches are owned here under [vendor/blitz](vendor/blitz/README.makepad-html.md).
 Consumers use this crate directly; they do not need Cargo patch overrides or a
-Robrix checkout. The renderer is currently a bitmap preview. Persistent DOM,
-selection, links, nested scrolling, accessibility and animation remain roadmap work.
+Robrix checkout. The widget displays a bitmap backed optionally by a persistent offline document.
+Selection, keyboard/accessibility integration, animation and more complete gesture
+routing remain roadmap work.
 
 ## Origin
 
@@ -104,3 +116,9 @@ text-decoration shadows. It enables Vello CPU's `filters` feature; the tested
 backend uses single-threaded rendering (upstream disables filters when its
 `multithreading` feature is unified in). This does not establish general CSS
 filter-chain support. See [comparison results and limits](docs/text-shadow-parity.md).
+
+The inline/interaction pass adds horizontal HTML ruby annotations, sup/sub and
+nested length/percentage shifts, corrected atomic inline baselines, preserved
+inter-span spaces, and worker-owned document interactions. Parley 0.11.1 is
+vendored alongside Blitz so downstream apps receive the same layout patch.
+See [measurements, native evidence and remaining limits](docs/inline-parity.md).

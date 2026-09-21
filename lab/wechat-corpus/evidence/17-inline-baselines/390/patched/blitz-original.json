@@ -1,0 +1,184 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 778.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 45.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 82.5,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 131.0
+      },
+      {
+        "height": 44.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 231.5
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 293.5
+      },
+      {
+        "height": 60.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 375.5
+      },
+      {
+        "height": 60.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 375.5
+      },
+      {
+        "height": 30.0,
+        "width": 36.0,
+        "x": 110.671875,
+        "y": 375.5
+      },
+      {
+        "height": 60.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 453.5
+      },
+      {
+        "height": 60.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 453.5
+      },
+      {
+        "height": 30.0,
+        "width": 36.0,
+        "x": 110.671875,
+        "y": 483.5
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 531.5
+      },
+      {
+        "height": 64.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 531.28125
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 613.5
+      },
+      {
+        "height": 64.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 613.5
+      },
+      {
+        "height": 44.5,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 695.5
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 778.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    ],
+    "table": [],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1556,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:53506/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:53506/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:53506/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:53506/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "WebP",
+      "height": 240,
+      "url": "http://127.0.0.1:53506/assets/chart.webp",
+      "width": 400
+    }
+  ],
+  "local_patch": "wechat-css-1+table-2+text-shadow-3+inline-4",
+  "product_admission": "accepted",
+  "resource_requests": [],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 778.0,
+  "scale": 2,
+  "width_css": 390,
+  "width_px": 780
+}

@@ -1,8 +1,16 @@
 # 公众号 HTML/CSS：Blitz 与 WKWebView 实测
 
-2026-09-21。打开 [交互对照页](index.html)，可切换 16 个样本、390/600 CSS px、三种 Blitz 构建，以及并排/差异图。原文、来源和 SHA-256 在 [corpus.json](corpus.json)，所有测量在 [results.json](results.json)。
+2026-09-21。打开 [交互对照页](index.html)，可切换 17 个样本、390/600 CSS px、三种 Blitz 构建，以及并排/差异图。原文、来源和 SHA-256 在 [corpus.json](corpus.json)，所有测量在 [results.json](results.json)。
 
-结论：Blitz 可以作为原生公众号文章渲染的基础，但当前不能称为完整兼容。本轮已修复 CSS 表格标题丢字、仅含卡片的 nowrap 图集纵排、SVG 的 HTML 颜色继承。第二批已补表格跨度边界、冲突边框和单元格对齐；自动列宽、注音、行内装饰和更完整的 SVG 样式仍有缺口。当前 Robrix 接入还只是静态位图预览。
+结论：Blitz 可以作为原生公众号文章渲染的基础，但当前不能称为完整兼容。本轮已修复 CSS 表格标题丢字、仅含卡片的 nowrap 图集纵排、SVG 的 HTML 颜色继承。第二批已补表格跨度边界、冲突边框和单元格对齐；自动列宽、复杂注音、行内装饰和更完整的 SVG 样式仍有缺口。当前 Robrix 接入还只是静态位图预览。
+
+**第四批：注音、行内排版与原生交互（inline-4）**
+
+已补水平 HTML ruby/rt、隐藏 rp 回退括号、sup/sub、嵌套长度/百分比基线偏移、跨标签空格和 NBSP，以及原子行内盒的 top/bottom/middle/text-top/text-bottom 与末行基线。偏移计入行高，编辑样式后重新排版。新增 17 号探针；原 16 份 HTML 字节未改，34 组捕获完成。
+
+独立 Makepad viewer 使用持久文档会话，已验证链接请求、页内跳转、details 展开/收起、滚动后点击及容器内部横向滚动。Robrix 的旧依赖尚未升级到本轮，因此不能据此声称 Robrix 已接入这些交互。
+
+复杂注音、竖排、普通文字 span 的全部 vertical-align 规则、选择复制、键盘/无障碍和竖向嵌套手势仍待补齐。[实现、测量与限制](../../docs/inline-parity.md)。下列批次保留各自完成时的历史结果。
 
 **第三批：文字阴影（text-shadow-3）**
 

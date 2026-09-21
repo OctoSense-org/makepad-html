@@ -23,6 +23,8 @@ SOURCES={
  'blitz':'https://blitz.is/status/css',
  'tables':'https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution',
  'text-shadow':'https://www.w3.org/TR/css-text-decor-3/#text-shadow-property',
+ 'inline':'https://www.w3.org/TR/CSS22/visudet.html#line-height',
+ 'ruby':'https://www.w3.org/TR/css-ruby-1/',
 }
 pattern=Image.new('RGB',(400,240),'#ebf4fa'); d=ImageDraw.Draw(pattern)
 for i,c in enumerate(['#d45849','#e8b54b','#56a688','#5079bd']):
@@ -144,6 +146,20 @@ add('16-text-shadows','文字阴影与继承回归',
  '<section class="shadowcase" data-probe style="transform:rotate(-3deg);text-shadow:3px 3px 3px #3468bf">旋转文字及阴影</section>',
  ['text-shadow offsets','Gaussian blur','multiple shadows','currentColor inheritance','nested overrides','decoration shadows','overflow clipping','transformed shadows'],['text-shadow'],
  'authored CSS text-shadow regression; not a published WeChat acceptance claim')
+
+add('17-inline-baselines','注音、上下标与行内盒回归',
+ '<style>.line{font:24px/32px Arial,"PingFang SC",sans-serif;margin:18px 0}.box{display:inline-block;width:36px;background:#16836a;color:white}.small{font-size:14px}</style>'+
+ '<p class="line" data-probe>数学 x<sup>2</sup> + y<sup>3</sup> · 化学 H<sub>2</sub>O</p>'+
+ '<p class="line" data-probe>基线 <span style="vertical-align:12px;color:#3468bf">+12px</span> <span style="vertical-align:-6px;color:#c44">−6px</span><br>下一行 Next line</p>'+
+ '<p class="line" data-probe>嵌套 <sup>A<sup>B</sup></sup>，百分比 <span style="line-height:24px;vertical-align:50%;color:#3468bf">50%</span></p>'+
+ '<p class="line" data-probe>Space<span> across </span><b>spans</b> &amp; <span>&nbsp;NBSP&nbsp;</span>end</p>'+
+ '<p class="line" data-probe>顶部 <span class="box" data-probe style="height:60px;vertical-align:top">A</span><span class="box" data-probe style="height:30px;vertical-align:top;background:#3468bf">B</span> 对齐</p>'+
+ '<p class="line" data-probe>底部 <span class="box" data-probe style="height:60px;vertical-align:bottom">A</span><span class="box" data-probe style="height:30px;vertical-align:bottom;background:#3468bf">B</span> 对齐</p>'+
+ '<p class="line" data-probe>正文 <span class="box" data-probe style="vertical-align:middle">A<br>B</span> 居中</p>'+
+ '<p class="line" data-probe>末行 <span class="box" data-probe>A<br>B</span> 基线</p>'+
+ '<p class="line" data-probe><ruby>微信<rt>wēi xìn</rt></ruby> <ruby>公<rt>gōng</rt>众<rt>zhòng</rt>号<rt>hào</rt></ruby> <ruby>漢<rp>(</rp><rt>hàn</rt><rp>)</rp></ruby></p>',
+ ['sup/sub','nested baseline shifts','length/percentage vertical-align','span whitespace','inline-block top/bottom/middle/last baseline','HTML ruby pairs','rp suppression'],['inline','ruby'],
+ 'authored horizontal inline regression; not an exhaustive ruby or WeChat acceptance claim')
 
 (ROOT/'corpus.json').write_text(json.dumps({'description':'Authored representative probes, not an exhaustive or official WeChat subset.',
  'sources':SOURCES,'cases':cases,'viewports':[[390,700],[600,700]],'scale':2},ensure_ascii=False,indent=2))

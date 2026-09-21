@@ -8,7 +8,9 @@
     "syntax": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
     "blitz": "https://blitz.is/status/css",
     "tables": "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution",
-    "text-shadow": "https://www.w3.org/TR/css-text-decor-3/#text-shadow-property"
+    "text-shadow": "https://www.w3.org/TR/css-text-decor-3/#text-shadow-property",
+    "inline": "https://www.w3.org/TR/CSS22/visudet.html#line-height",
+    "ruby": "https://www.w3.org/TR/css-ruby-1/"
   },
   "cases": [
     {
@@ -301,6 +303,26 @@
         "https://www.w3.org/TR/css-text-decor-3/#text-shadow-property"
       ],
       "provenance": "authored CSS text-shadow regression; not a published WeChat acceptance claim"
+    },
+    {
+      "id": "17-inline-baselines",
+      "title": "注音、上下标与行内盒回归",
+      "file": "fixtures/17-inline-baselines.html",
+      "sha256": "18d48c714b777d6beff605c022337fe8b0ff0706945585e7b705a87188a5a665",
+      "features": [
+        "sup/sub",
+        "nested baseline shifts",
+        "length/percentage vertical-align",
+        "span whitespace",
+        "inline-block top/bottom/middle/last baseline",
+        "HTML ruby pairs",
+        "rp suppression"
+      ],
+      "sources": [
+        "https://www.w3.org/TR/CSS22/visudet.html#line-height",
+        "https://www.w3.org/TR/css-ruby-1/"
+      ],
+      "provenance": "authored horizontal inline regression; not an exhaustive ruby or WeChat acceptance claim"
     }
   ],
   "viewports": [

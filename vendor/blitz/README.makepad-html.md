@@ -67,3 +67,20 @@ sources. Eight pixel regressions live in `tests/text_shadow_regressions.rs`.
 Native positive/control captures and WKWebView comparisons are described in
 `docs/text-shadow-parity.md`. Full text-decoration, filter-chain and glyph metric
 parity are not claimed.
+
+## Patch set: inline-4 (applies after text-shadow-3)
+
+- Resolve cumulative sup/sub and length/percentage shifts and invalidate inline
+  layout when vertical alignment changes. Use first-font metrics for the strut.
+- Pass atomic inline baseline/top/bottom/middle/text-edge geometry to Parley;
+  expose the last text baseline of inline blocks.
+- Lay out horizontal HTML ruby base/annotation pairs in anonymous base boxes;
+  preserve source DOM and use normal reconstruction ownership. Hide rp.
+- Paired dependency patch in `vendor/parley/inline-4.patch`: glyph baseline shifts,
+  asymmetric line extents/advance, atomic alignment and inter-span whitespace.
+
+`inline-4.patch` is incremental against makepad-html d01f383. The production API
+also adds persistent offline sessions and optional native pointer/scroll actions;
+these host changes are outside the Blitz patch. Regressions and measured limits
+are in `tests/inline_regressions.rs`, `tests/interaction.rs` and
+`docs/inline-parity.md`. Full CSS inline/ruby semantics are not claimed.

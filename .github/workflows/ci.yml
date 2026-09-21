@@ -23,6 +23,8 @@ jobs:
           python3 -m venv target/native-validation-venv
           target/native-validation-venv/bin/pip install Pillow==11.3.0
           target/native-validation-venv/bin/python lab/verify_text_shadows.py target/debug/examples/viewer
+      - name: Verify native document interactions
+        run: target/native-validation-venv/bin/python lab/verify_interactions.py target/debug/examples/viewer
       - uses: actions/upload-artifact@v4
         if: always()
         with:

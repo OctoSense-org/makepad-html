@@ -1,0 +1,209 @@
+{
+  "validated_at_utc": "2026-09-21T23:49:15.786924+00:00",
+  "baseline_commit": "d01f3832102c8b86bc1abf6456b19957fc634aa3",
+  "patches": [
+    "wechat-css-1",
+    "table-2",
+    "text-shadow-3",
+    "inline-4"
+  ],
+  "platform": "aarch64 macOS",
+  "rust": "1.98.0",
+  "default_tests_passed": 46,
+  "extended_tests_passed": 48,
+  "inline_regressions_passed": 6,
+  "interaction_regressions_passed": 5,
+  "captures_completed": 34,
+  "unchanged_previous_html_sources": 16,
+  "unchanged_previous_full_page_pngs": 20,
+  "comparisons": [
+    {
+      "case": "01-typography",
+      "width": 390,
+      "source_sha256": "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
+      "before_content_pixels_differing_over_24_rgb_pct": 79.054,
+      "after_content_pixels_differing_over_24_rgb_pct": 76.484,
+      "max_probe_delta_css": 1.531
+    },
+    {
+      "case": "01-typography",
+      "width": 600,
+      "source_sha256": "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
+      "before_content_pixels_differing_over_24_rgb_pct": 84.45,
+      "after_content_pixels_differing_over_24_rgb_pct": 82.271,
+      "max_probe_delta_css": 1.531
+    },
+    {
+      "case": "07-links-footnotes",
+      "width": 390,
+      "source_sha256": "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
+      "before_content_pixels_differing_over_24_rgb_pct": 57.9,
+      "after_content_pixels_differing_over_24_rgb_pct": 53.57,
+      "max_probe_delta_css": 5.0
+    },
+    {
+      "case": "07-links-footnotes",
+      "width": 600,
+      "source_sha256": "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
+      "before_content_pixels_differing_over_24_rgb_pct": 56.263,
+      "after_content_pixels_differing_over_24_rgb_pct": 51.809,
+      "max_probe_delta_css": 5.0
+    },
+    {
+      "case": "11-ruby",
+      "width": 390,
+      "source_sha256": "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+      "before_content_pixels_differing_over_24_rgb_pct": 86.649,
+      "after_content_pixels_differing_over_24_rgb_pct": 69.552,
+      "max_probe_delta_css": 14.0
+    },
+    {
+      "case": "11-ruby",
+      "width": 600,
+      "source_sha256": "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
+      "before_content_pixels_differing_over_24_rgb_pct": 86.649,
+      "after_content_pixels_differing_over_24_rgb_pct": 69.552,
+      "max_probe_delta_css": 14.0
+    },
+    {
+      "case": "17-inline-baselines",
+      "width": 390,
+      "source_sha256": "18d48c714b777d6beff605c022337fe8b0ff0706945585e7b705a87188a5a665",
+      "before_content_pixels_differing_over_24_rgb_pct": 80.854,
+      "after_content_pixels_differing_over_24_rgb_pct": 58.9,
+      "max_probe_delta_css": 3.172
+    },
+    {
+      "case": "17-inline-baselines",
+      "width": 600,
+      "source_sha256": "18d48c714b777d6beff605c022337fe8b0ff0706945585e7b705a87188a5a665",
+      "before_content_pixels_differing_over_24_rgb_pct": 83.486,
+      "after_content_pixels_differing_over_24_rgb_pct": 59.035,
+      "max_probe_delta_css": 3.172
+    }
+  ],
+  "native_general": {
+    "passed": true,
+    "ocr": {
+      "top_contains_chinese_title": true,
+      "bottom_contains_table": true,
+      "table_markers_matched": [
+        "标题与正文",
+        "图片与样式",
+        "文章阅读",
+        "PingFang",
+        "RGBA"
+      ]
+    },
+    "binary_sha256": "6318a00f14296245c5e509b2ffac3c1db551ff58a7ce94940fd5c97396ae943c",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          63
+        ]
+      }
+    ],
+    "screenshots": {
+      "native-top.png": "99ead13e4b607be3ef78454536f1505eb5fc53c5c8fd077dee38adeec05cee06",
+      "native-bottom.png": "353908ef1c94681f1aea0382d4488463061f91fc84f9d7bb52ad959aaa90830e"
+    },
+    "checks": [
+      "isolated fixture process and owned loopback bridge",
+      "native Makepad widget ready",
+      "Blitz RGBA uploaded as native texture",
+      "native scroll changes displayed article pixels"
+    ],
+    "personal_accounts_used": false
+  },
+  "native_shadows": {
+    "passed": true,
+    "source_sha256": "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
+    "binary_sha256": "6318a00f14296245c5e509b2ffac3c1db551ff58a7ce94940fd5c97396ae943c",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          63
+        ]
+      }
+    ],
+    "header_crop_height_px": 200,
+    "pixels_differing_over_24_rgb": 53145,
+    "control": "Identical HTML with text-shadow declarations set to none; no layout rewriting",
+    "screenshots": {
+      "native-shadows.png": "694a4bdddf8854e7b3f6b2aaefc9905d41cda6826e47504d710074f15cf40ad9",
+      "native-none-control.png": "23e273dc323e8dd7227ab65bf7dcc2635d1d27b9f55390b9f61f08df66d664a3"
+    },
+    "ocr": "Makepad [remote] Makepad HTML 文字阴影与继承回归 标题 Hard shadow 清晰偏移．正文字形不被覆盖 *7A5 Bold 模糊•嵌套字重•透明色 多重阴影 Layers 列表首项在上•两个方向 继承 currentColor 无阴影 下划线 取消阴影 Abg 透明文字保留阴影 裁剪 overflow boundar 旅转文字及阴影 Ready • Offline HTML/CSS",
+    "personal_accounts_used": false,
+    "qualification": "Native texture feature check, not a WebKit similarity score"
+  },
+  "native_interactions": {
+    "passed": true,
+    "binary_sha256": "6318a00f14296245c5e509b2ffac3c1db551ff58a7ce94940fd5c97396ae943c",
+    "source_sha256": "1aa170dcb1b568baf6dace51b178b6554383840e14f942881051af268c96f4be",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          63
+        ]
+      }
+    ],
+    "checks": [
+      "drag gesture does not activate links",
+      "native link activation reaches worker and returns host request",
+      "no browser opened",
+      "disclosure open/close persists DOM and restores bitmap",
+      "fragment scroll reveals target",
+      "link activation after native scrolling uses document coordinates",
+      "horizontal nested scrolling changes slide and hit target"
+    ],
+    "screenshots": {
+      "native-closed.png": "865822766cf6bfe06a0002d6457cc5bb111d9d9528e6ed539a77158b0027cc5a",
+      "native-fragment.png": "1d9401629fc75cda8431ce30d7200be4d767535f0a1e00dfab2825472fbcaee4",
+      "native-scrolled-link.png": "e6914f412c0f29456b000e5112a3dbb05e275f34273a5aa2639e404f46c5e532",
+      "native-open.png": "85bc923a0db5c7372b5b523e1f85b5dbec9230f595c511f7cc31d2c265b553c4",
+      "native-link.png": "fb6182a208bef3c86a23ddaa21e79d5adc24f86187719badb5241a691d9a8513",
+      "native-horizontal-scroll.png": "722bb94cfa7092110b2c514efcf02e138d9df0aeda12839824cfe18034c4e957",
+      "native-reclosed.png": "cee062071e02263c3827801ada78a5dee155301031a914722f3d28f408e8d6d9"
+    },
+    "ocr_after_fragment": "Makepad [remote] Makepad HTML FRAGMENT TARGET Scrolled link First slide Ready • Offline HTML/CSS",
+    "personal_accounts_used": false
+  },
+  "qualification": "Authored horizontal inline/ruby probes, not exhaustive CSS or actual WeChat certification. Pixel differences are not a similarity score. Robrix dependency not upgraded."
+}

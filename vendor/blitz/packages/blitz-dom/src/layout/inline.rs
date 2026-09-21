@@ -294,6 +294,7 @@ impl BaseDocument {
             ..child_inputs
         };
 
+        let mut box_alignments = Vec::new();
         // Update inline boxes
         for ibox in inline_layout.layout.inline_boxes_mut() {
             let style = self.nodes[NodeId::from_u64(ibox.id)].layout_style();
@@ -318,8 +319,91 @@ impl BaseDocument {
                 // Vertical margins adjust the space the box reserves in the line, but the
                 // reserved space cannot be negative.
                 ibox.height = (margin.top + margin.bottom + output.size.height).max(0.0) * scale;
+                use parley::InlineBoxAlignment as Alignment;
+                use style::values::{
+                    computed::BaselineShift, generics::box_::BaselineShiftKeyword,
+                    specified::box_::AlignmentBaseline,
+                };
+                let child = &self.nodes[NodeId::from_u64(ibox.id)];
+                let computed = child.primary_styles().unwrap();
+                let parent = child
+                    .parent
+                    .and_then(|id| self.nodes[id].primary_styles())
+                    .or_else(|| self.nodes[node_id].primary_styles())
+                    .unwrap();
+                let font_size = parent.get_font().font_size.used_size.0.px();
+                let metrics = crate::font_metrics::inline_font_metrics(
+                    &mut self.font_ctx.lock().unwrap(),
+                    parent.get_font(),
+                    font_size,
+                    scale,
+                );
+                let ascent = metrics
+                    .map(|m| m.ascent.round())
+                    .unwrap_or(font_size * scale * 0.8);
+                let descent = metrics
+                    .map(|m| (-m.descent).round())
+                    .unwrap_or(font_size * scale * 0.2);
+                let x_height = metrics
+                    .and_then(|m| m.x_height)
+                    .unwrap_or(font_size * scale * 0.5);
+                let distance = if computed.get_box().overflow_y.is_scrollable() {
+                    ibox.height
+                } else {
+                    output
+                        .baselines
+                        .last
+                        .or(output.baselines.first)
+                        .map(|baseline| (margin.top + baseline) * scale)
+                        .unwrap_or(ibox.height)
+                };
+                let alignment = match computed.clone_baseline_shift() {
+                    BaselineShift::Keyword(BaselineShiftKeyword::Top) => Alignment::Top,
+                    BaselineShift::Keyword(BaselineShiftKeyword::Bottom) => Alignment::Bottom,
+                    shift => {
+                        let baseline = match computed.clone_alignment_baseline() {
+                            AlignmentBaseline::Middle => (ibox.height + x_height) / 2.0,
+                            AlignmentBaseline::TextTop => ascent,
+                            AlignmentBaseline::TextBottom => ibox.height - descent,
+                            _ => distance,
+                        };
+                        let shift = match shift {
+                            BaselineShift::Keyword(BaselineShiftKeyword::Super) => font_size / 3.0,
+                            BaselineShift::Keyword(BaselineShiftKeyword::Sub) => -font_size / 5.0,
+                            BaselineShift::Length(length) => {
+                                let font = computed.get_font();
+                                let size = font.font_size.used_size.0.px();
+                                let height = match font.line_height {
+                                    style::values::computed::font::LineHeight::Normal => {
+                                        crate::font_metrics::normal_line_height(
+                                            &mut self.font_ctx.lock().unwrap(),
+                                            font,
+                                            size,
+                                            scale,
+                                        )
+                                        .unwrap_or(size * 1.2)
+                                    }
+                                    style::values::computed::font::LineHeight::Number(n) => {
+                                        size * n.0
+                                    }
+                                    style::values::computed::font::LineHeight::Length(n) => {
+                                        n.0.px()
+                                    }
+                                };
+                                length.resolve(CSSPixelLength::new(height)).px()
+                            }
+                            _ => 0.0,
+                        };
+                        Alignment::Baseline(baseline + shift * scale)
+                    }
+                };
+                box_alignments.push((ibox.id, alignment));
             }
         }
+
+        inline_layout
+            .layout
+            .set_inline_box_alignments(box_alignments);
 
         // TODO: Resolve against style widths as well as known dimensions
         let text_indent = self.nodes[node_id]
@@ -886,6 +970,12 @@ impl BaseDocument {
             .next()
             .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
 
+        let last_baseline = inline_layout
+            .layout
+            .lines()
+            .next_back()
+            .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
+
         // Put layout back
         self.nodes[node_id]
             .data
@@ -907,7 +997,10 @@ impl BaseDocument {
                     bottom: content_extent.height,
                 }
             },
-            baselines: taffy::Baselines::from_first(first_baseline),
+            baselines: taffy::Baselines {
+                first: first_baseline,
+                last: last_baseline,
+            },
             top_margin: CollapsibleMarginSet::ZERO,
             bottom_margin: CollapsibleMarginSet::ZERO,
             margins_can_collapse_through: !has_styles_preventing_being_collapsed_through

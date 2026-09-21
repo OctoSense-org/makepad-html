@@ -14,7 +14,11 @@ use style::{
     properties::ComputedValues,
     shared_lock::StylesheetGuards,
     values::{
-        computed::{Content, ContentItem, Display, Float, TextTransform, font::LineHeight},
+        computed::{
+            BaselineShift, CSSPixelLength, Content, ContentItem, Display, Float, TextTransform,
+            font::LineHeight,
+        },
+        generics::box_::BaselineShiftKeyword,
         specified::box_::{DisplayInside, DisplayOutside},
     },
 };
@@ -22,7 +26,7 @@ use thin_vec::ThinVec;
 
 use crate::{
     BaseDocument, ElementData, Node, NodeData,
-    font_metrics::normal_line_height,
+    font_metrics::{inline_font_metrics, normal_line_height},
     layout::damage::{
         CONSTRUCT_BOX, CONSTRUCT_DESCENDENT, CONSTRUCT_FC, sort_layout_children_by_order,
     },
@@ -134,7 +138,11 @@ impl LayoutChildren {
             .push(child_id);
     }
 
-    pub(super) fn create_anonymous_block(&mut self, container_node_id: NodeId, doc: &mut BaseDocument) {
+    pub(super) fn create_anonymous_block(
+        &mut self,
+        container_node_id: NodeId,
+        doc: &mut BaseDocument,
+    ) {
         use style::selector_parser::PseudoElement;
 
         const NAME: QualName = QualName {
@@ -616,6 +624,11 @@ fn collect_layout_children_with_wrap(
         },
     );
 
+    if super::ruby::is_ruby(&doc.nodes[container_node_id]) {
+        super::ruby::construct(doc, container_node_id, out);
+        return;
+    }
+
     match container_display.inside() {
         DisplayInside::None => {}
         DisplayInside::Contents => {
@@ -663,7 +676,8 @@ fn collect_layout_children_with_wrap(
         }
 
         DisplayInside::Table => {
-            let (table_context, tlayout_children) = build_table_context(doc, container_node_id, out);
+            let (table_context, tlayout_children) =
+                build_table_context(doc, container_node_id, out);
             #[allow(clippy::arc_with_non_send_sync)]
             let data = SpecialElementData::TableRoot(Arc::new(table_context));
             doc.nodes[container_node_id]
@@ -1145,6 +1159,70 @@ pub(crate) fn build_inline_layout_into(
         );
     }
 
+    // Baseline shifts are not inherited CSS values, but moving an inline span
+    // moves all descendants. Accumulate them within this formatting context.
+    let mut shifts = HashMap::new();
+    fn collect_shifts(
+        nodes: &crate::NodeTree,
+        id: NodeId,
+        parent_size: f32,
+        inherited: f32,
+        heights: &HashMap<NodeId, f32>,
+        shifts: &mut HashMap<NodeId, f32>,
+    ) {
+        let node = &nodes[id];
+        let Some(style) = node.primary_styles() else {
+            return;
+        };
+        let display = style.get_box().display;
+        if display == Display::None {
+            return;
+        }
+        let contents = display.inside() == DisplayInside::Contents;
+        if !contents && !heights.contains_key(&id) {
+            return;
+        }
+        let shift = if contents {
+            0.0
+        } else {
+            match style.clone_baseline_shift() {
+                BaselineShift::Keyword(BaselineShiftKeyword::Super) => parent_size / 3.0,
+                BaselineShift::Keyword(BaselineShiftKeyword::Sub) => -parent_size / 5.0,
+                BaselineShift::Length(value) => {
+                    value.resolve(CSSPixelLength::new(heights[&id])).px()
+                }
+                _ => 0.0,
+            }
+        } + inherited;
+        shifts.insert(id, shift);
+        let size = style.get_font().font_size.used_size.0.px();
+        for child in children_and_pseudos(node) {
+            collect_shifts(nodes, child, size, shift, heights, shifts);
+        }
+    }
+    let root_size = parley_style.font_size;
+    // Percentages must use the span's own line-height, not the root strut.
+    let mut own_heights = HashMap::new();
+    for child in children_and_pseudos(root_node) {
+        collect_span_line_heights(nodes, font_ctx, child, 0.0, scale, &mut own_heights);
+        collect_shifts(nodes, child, root_size, 0.0, &own_heights, &mut shifts);
+    }
+    let shifted = shifts.values().any(|v| *v != 0.0);
+    if shifted {
+        span_line_heights = own_heights;
+    }
+    let strut = {
+        let metrics = root_node_style
+            .as_ref()
+            .and_then(|s| inline_font_metrics(font_ctx, s.get_font(), root_size, scale));
+        let (ascent, descent) = metrics
+            .map(|m| (m.ascent.round(), (-m.descent).round()))
+            .unwrap_or((root_size * scale * 0.8, root_size * scale * 0.2));
+        let leading = root_line_height * scale - ascent - descent;
+        let half = (leading * 0.5).floor();
+        Some((ascent + half, descent + leading - half))
+    };
+
     // Create a parley tree builder
     let mut builder = layout_ctx.tree_builder(font_ctx, scale, true, &parley_style);
 
@@ -1220,6 +1298,14 @@ pub(crate) fn build_inline_layout_into(
     }
 
     text_layout.text = builder.build_into(&mut text_layout.layout);
+    text_layout.layout.set_baseline_shifts(
+        if shifted || !text_layout.layout.inline_boxes().is_empty() {
+            strut
+        } else {
+            None
+        },
+        |brush| shifts.get(&brush.id).copied().unwrap_or(0.0) * scale,
+    );
     return;
 
     fn build_inline_layout_recursive(

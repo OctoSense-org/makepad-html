@@ -45,6 +45,17 @@ pub(crate) fn normal_line_height(
     font_size: f32,
     scale: f32,
 ) -> Option<f32> {
+    let metrics = inline_font_metrics(font_ctx, font_styles, font_size, scale)?;
+    Some((metrics.ascent.round() + (-metrics.descent).round() + metrics.leading.round()) / scale)
+}
+
+/// Metrics of the first available font, in device pixels, also used by the CSS strut.
+pub(crate) fn inline_font_metrics(
+    font_ctx: &mut FontContext,
+    font_styles: &FontStyles,
+    font_size: f32,
+    scale: f32,
+) -> Option<skrifa::metrics::Metrics> {
     use parley::fontique::{QueryFont, QueryStatus};
     use skrifa::instance::{LocationRef, Size};
     use skrifa::metrics::Metrics;
@@ -82,8 +93,7 @@ pub(crate) fn normal_line_height(
         Size::new(font_size * scale),
         LocationRef::from(&location),
     );
-    let line_height = metrics.ascent.round() + (-metrics.descent).round() + metrics.leading.round();
-    Some(line_height / scale)
+    Some(metrics)
 }
 
 #[derive(Clone)]

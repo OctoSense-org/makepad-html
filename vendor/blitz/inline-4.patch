@@ -1,0 +1,519 @@
+diff --git a/vendor/blitz/packages/blitz-dom/assets/default.css b/vendor/blitz/packages/blitz-dom/assets/default.css
+index 01918fe..f72bda1 100644
+--- a/vendor/blitz/packages/blitz-dom/assets/default.css
++++ b/vendor/blitz/packages/blitz-dom/assets/default.css
+@@ -989,9 +989,12 @@ marquee:is([direction="up"], [direction="down"]) {
+ 
+ /* Ruby */
+ 
++/* Servo's Stylo configuration does not expose display:ruby. Blitz supplies
++ * the native HTML ruby formatting context for this inline-block UA default. */
+ ruby {
+-    display: ruby;
++    display: inline-block;
+ }
++rp { display: none; }
+ 
+ rb {
+     display: ruby-base;
+@@ -999,7 +1002,7 @@ rb {
+ }
+ 
+ rt {
+-    display: ruby-text;
++    display: inline-block;
+ }
+ 
+ rtc {
+diff --git a/vendor/blitz/packages/blitz-dom/src/font_metrics.rs b/vendor/blitz/packages/blitz-dom/src/font_metrics.rs
+index 45b91e2..74d32e7 100644
+--- a/vendor/blitz/packages/blitz-dom/src/font_metrics.rs
++++ b/vendor/blitz/packages/blitz-dom/src/font_metrics.rs
+@@ -45,6 +45,17 @@ pub(crate) fn normal_line_height(
+     font_size: f32,
+     scale: f32,
+ ) -> Option<f32> {
++    let metrics = inline_font_metrics(font_ctx, font_styles, font_size, scale)?;
++    Some((metrics.ascent.round() + (-metrics.descent).round() + metrics.leading.round()) / scale)
++}
++
++/// Metrics of the first available font, in device pixels, also used by the CSS strut.
++pub(crate) fn inline_font_metrics(
++    font_ctx: &mut FontContext,
++    font_styles: &FontStyles,
++    font_size: f32,
++    scale: f32,
++) -> Option<skrifa::metrics::Metrics> {
+     use parley::fontique::{QueryFont, QueryStatus};
+     use skrifa::instance::{LocationRef, Size};
+     use skrifa::metrics::Metrics;
+@@ -82,8 +93,7 @@ pub(crate) fn normal_line_height(
+         Size::new(font_size * scale),
+         LocationRef::from(&location),
+     );
+-    let line_height = metrics.ascent.round() + (-metrics.descent).round() + metrics.leading.round();
+-    Some(line_height / scale)
++    Some(metrics)
+ }
+ 
+ #[derive(Clone)]
+diff --git a/vendor/blitz/packages/blitz-dom/src/layout/construct.rs b/vendor/blitz/packages/blitz-dom/src/layout/construct.rs
+index 6199d55..481154d 100644
+--- a/vendor/blitz/packages/blitz-dom/src/layout/construct.rs
++++ b/vendor/blitz/packages/blitz-dom/src/layout/construct.rs
+@@ -14,7 +14,11 @@ use style::{
+     properties::ComputedValues,
+     shared_lock::StylesheetGuards,
+     values::{
+-        computed::{Content, ContentItem, Display, Float, TextTransform, font::LineHeight},
++        computed::{
++            BaselineShift, CSSPixelLength, Content, ContentItem, Display, Float, TextTransform,
++            font::LineHeight,
++        },
++        generics::box_::BaselineShiftKeyword,
+         specified::box_::{DisplayInside, DisplayOutside},
+     },
+ };
+@@ -22,7 +26,7 @@ use thin_vec::ThinVec;
+ 
+ use crate::{
+     BaseDocument, ElementData, Node, NodeData,
+-    font_metrics::normal_line_height,
++    font_metrics::{inline_font_metrics, normal_line_height},
+     layout::damage::{
+         CONSTRUCT_BOX, CONSTRUCT_DESCENDENT, CONSTRUCT_FC, sort_layout_children_by_order,
+     },
+@@ -134,7 +138,11 @@ impl LayoutChildren {
+             .push(child_id);
+     }
+ 
+-    pub(super) fn create_anonymous_block(&mut self, container_node_id: NodeId, doc: &mut BaseDocument) {
++    pub(super) fn create_anonymous_block(
++        &mut self,
++        container_node_id: NodeId,
++        doc: &mut BaseDocument,
++    ) {
+         use style::selector_parser::PseudoElement;
+ 
+         const NAME: QualName = QualName {
+@@ -616,6 +624,11 @@ fn collect_layout_children_with_wrap(
+         },
+     );
+ 
++    if super::ruby::is_ruby(&doc.nodes[container_node_id]) {
++        super::ruby::construct(doc, container_node_id, out);
++        return;
++    }
++
+     match container_display.inside() {
+         DisplayInside::None => {}
+         DisplayInside::Contents => {
+@@ -663,7 +676,8 @@ fn collect_layout_children_with_wrap(
+         }
+ 
+         DisplayInside::Table => {
+-            let (table_context, tlayout_children) = build_table_context(doc, container_node_id, out);
++            let (table_context, tlayout_children) =
++                build_table_context(doc, container_node_id, out);
+             #[allow(clippy::arc_with_non_send_sync)]
+             let data = SpecialElementData::TableRoot(Arc::new(table_context));
+             doc.nodes[container_node_id]
+@@ -1145,6 +1159,70 @@ pub(crate) fn build_inline_layout_into(
+         );
+     }
+ 
++    // Baseline shifts are not inherited CSS values, but moving an inline span
++    // moves all descendants. Accumulate them within this formatting context.
++    let mut shifts = HashMap::new();
++    fn collect_shifts(
++        nodes: &crate::NodeTree,
++        id: NodeId,
++        parent_size: f32,
++        inherited: f32,
++        heights: &HashMap<NodeId, f32>,
++        shifts: &mut HashMap<NodeId, f32>,
++    ) {
++        let node = &nodes[id];
++        let Some(style) = node.primary_styles() else {
++            return;
++        };
++        let display = style.get_box().display;
++        if display == Display::None {
++            return;
++        }
++        let contents = display.inside() == DisplayInside::Contents;
++        if !contents && !heights.contains_key(&id) {
++            return;
++        }
++        let shift = if contents {
++            0.0
++        } else {
++            match style.clone_baseline_shift() {
++                BaselineShift::Keyword(BaselineShiftKeyword::Super) => parent_size / 3.0,
++                BaselineShift::Keyword(BaselineShiftKeyword::Sub) => -parent_size / 5.0,
++                BaselineShift::Length(value) => {
++                    value.resolve(CSSPixelLength::new(heights[&id])).px()
++                }
++                _ => 0.0,
++            }
++        } + inherited;
++        shifts.insert(id, shift);
++        let size = style.get_font().font_size.used_size.0.px();
++        for child in children_and_pseudos(node) {
++            collect_shifts(nodes, child, size, shift, heights, shifts);
++        }
++    }
++    let root_size = parley_style.font_size;
++    // Percentages must use the span's own line-height, not the root strut.
++    let mut own_heights = HashMap::new();
++    for child in children_and_pseudos(root_node) {
++        collect_span_line_heights(nodes, font_ctx, child, 0.0, scale, &mut own_heights);
++        collect_shifts(nodes, child, root_size, 0.0, &own_heights, &mut shifts);
++    }
++    let shifted = shifts.values().any(|v| *v != 0.0);
++    if shifted {
++        span_line_heights = own_heights;
++    }
++    let strut = {
++        let metrics = root_node_style
++            .as_ref()
++            .and_then(|s| inline_font_metrics(font_ctx, s.get_font(), root_size, scale));
++        let (ascent, descent) = metrics
++            .map(|m| (m.ascent.round(), (-m.descent).round()))
++            .unwrap_or((root_size * scale * 0.8, root_size * scale * 0.2));
++        let leading = root_line_height * scale - ascent - descent;
++        let half = (leading * 0.5).floor();
++        Some((ascent + half, descent + leading - half))
++    };
++
+     // Create a parley tree builder
+     let mut builder = layout_ctx.tree_builder(font_ctx, scale, true, &parley_style);
+ 
+@@ -1220,6 +1298,14 @@ pub(crate) fn build_inline_layout_into(
+     }
+ 
+     text_layout.text = builder.build_into(&mut text_layout.layout);
++    text_layout.layout.set_baseline_shifts(
++        if shifted || !text_layout.layout.inline_boxes().is_empty() {
++            strut
++        } else {
++            None
++        },
++        |brush| shifts.get(&brush.id).copied().unwrap_or(0.0) * scale,
++    );
+     return;
+ 
+     fn build_inline_layout_recursive(
+diff --git a/vendor/blitz/packages/blitz-dom/src/layout/damage.rs b/vendor/blitz/packages/blitz-dom/src/layout/damage.rs
+index 26c86ba..9663234 100644
+--- a/vendor/blitz/packages/blitz-dom/src/layout/damage.rs
++++ b/vendor/blitz/packages/blitz-dom/src/layout/damage.rs
+@@ -339,7 +339,9 @@ pub(crate) fn compute_layout_damage(old: &ComputedValues, new: &ComputedValues)
+     };
+ 
+     let text_shaping_needs_recollect = || {
+-        if old.clone_direction() != new.clone_direction()
++        if old.clone_baseline_shift() != new.clone_baseline_shift()
++            || old.clone_alignment_baseline() != new.clone_alignment_baseline()
++            || old.clone_direction() != new.clone_direction()
+             || old.clone_unicode_bidi() != new.clone_unicode_bidi()
+         {
+             return true;
+diff --git a/vendor/blitz/packages/blitz-dom/src/layout/inline.rs b/vendor/blitz/packages/blitz-dom/src/layout/inline.rs
+index 4e6bc43..0c1b3be 100644
+--- a/vendor/blitz/packages/blitz-dom/src/layout/inline.rs
++++ b/vendor/blitz/packages/blitz-dom/src/layout/inline.rs
+@@ -294,6 +294,7 @@ impl BaseDocument {
+             ..child_inputs
+         };
+ 
++        let mut box_alignments = Vec::new();
+         // Update inline boxes
+         for ibox in inline_layout.layout.inline_boxes_mut() {
+             let style = self.nodes[NodeId::from_u64(ibox.id)].layout_style();
+@@ -318,9 +319,92 @@ impl BaseDocument {
+                 // Vertical margins adjust the space the box reserves in the line, but the
+                 // reserved space cannot be negative.
+                 ibox.height = (margin.top + margin.bottom + output.size.height).max(0.0) * scale;
++                use parley::InlineBoxAlignment as Alignment;
++                use style::values::{
++                    computed::BaselineShift, generics::box_::BaselineShiftKeyword,
++                    specified::box_::AlignmentBaseline,
++                };
++                let child = &self.nodes[NodeId::from_u64(ibox.id)];
++                let computed = child.primary_styles().unwrap();
++                let parent = child
++                    .parent
++                    .and_then(|id| self.nodes[id].primary_styles())
++                    .or_else(|| self.nodes[node_id].primary_styles())
++                    .unwrap();
++                let font_size = parent.get_font().font_size.used_size.0.px();
++                let metrics = crate::font_metrics::inline_font_metrics(
++                    &mut self.font_ctx.lock().unwrap(),
++                    parent.get_font(),
++                    font_size,
++                    scale,
++                );
++                let ascent = metrics
++                    .map(|m| m.ascent.round())
++                    .unwrap_or(font_size * scale * 0.8);
++                let descent = metrics
++                    .map(|m| (-m.descent).round())
++                    .unwrap_or(font_size * scale * 0.2);
++                let x_height = metrics
++                    .and_then(|m| m.x_height)
++                    .unwrap_or(font_size * scale * 0.5);
++                let distance = if computed.get_box().overflow_y.is_scrollable() {
++                    ibox.height
++                } else {
++                    output
++                        .baselines
++                        .last
++                        .or(output.baselines.first)
++                        .map(|baseline| (margin.top + baseline) * scale)
++                        .unwrap_or(ibox.height)
++                };
++                let alignment = match computed.clone_baseline_shift() {
++                    BaselineShift::Keyword(BaselineShiftKeyword::Top) => Alignment::Top,
++                    BaselineShift::Keyword(BaselineShiftKeyword::Bottom) => Alignment::Bottom,
++                    shift => {
++                        let baseline = match computed.clone_alignment_baseline() {
++                            AlignmentBaseline::Middle => (ibox.height + x_height) / 2.0,
++                            AlignmentBaseline::TextTop => ascent,
++                            AlignmentBaseline::TextBottom => ibox.height - descent,
++                            _ => distance,
++                        };
++                        let shift = match shift {
++                            BaselineShift::Keyword(BaselineShiftKeyword::Super) => font_size / 3.0,
++                            BaselineShift::Keyword(BaselineShiftKeyword::Sub) => -font_size / 5.0,
++                            BaselineShift::Length(length) => {
++                                let font = computed.get_font();
++                                let size = font.font_size.used_size.0.px();
++                                let height = match font.line_height {
++                                    style::values::computed::font::LineHeight::Normal => {
++                                        crate::font_metrics::normal_line_height(
++                                            &mut self.font_ctx.lock().unwrap(),
++                                            font,
++                                            size,
++                                            scale,
++                                        )
++                                        .unwrap_or(size * 1.2)
++                                    }
++                                    style::values::computed::font::LineHeight::Number(n) => {
++                                        size * n.0
++                                    }
++                                    style::values::computed::font::LineHeight::Length(n) => {
++                                        n.0.px()
++                                    }
++                                };
++                                length.resolve(CSSPixelLength::new(height)).px()
++                            }
++                            _ => 0.0,
++                        };
++                        Alignment::Baseline(baseline + shift * scale)
++                    }
++                };
++                box_alignments.push((ibox.id, alignment));
+             }
+         }
+ 
++        inline_layout
++            .layout
++            .set_inline_box_alignments(box_alignments);
++
+         // TODO: Resolve against style widths as well as known dimensions
+         let text_indent = self.nodes[node_id]
+             .primary_styles()
+@@ -886,6 +970,12 @@ impl BaseDocument {
+             .next()
+             .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
+ 
++        let last_baseline = inline_layout
++            .layout
++            .lines()
++            .next_back()
++            .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
++
+         // Put layout back
+         self.nodes[node_id]
+             .data
+@@ -907,7 +997,10 @@ impl BaseDocument {
+                     bottom: content_extent.height,
+                 }
+             },
+-            baselines: taffy::Baselines::from_first(first_baseline),
++            baselines: taffy::Baselines {
++                first: first_baseline,
++                last: last_baseline,
++            },
+             top_margin: CollapsibleMarginSet::ZERO,
+             bottom_margin: CollapsibleMarginSet::ZERO,
+             margins_can_collapse_through: !has_styles_preventing_being_collapsed_through
+diff --git a/vendor/blitz/packages/blitz-dom/src/layout/mod.rs b/vendor/blitz/packages/blitz-dom/src/layout/mod.rs
+index 9a4406f..e7ed55b 100644
+--- a/vendor/blitz/packages/blitz-dom/src/layout/mod.rs
++++ b/vendor/blitz/packages/blitz-dom/src/layout/mod.rs
+@@ -26,6 +26,7 @@ pub(crate) mod damage;
+ pub(crate) mod inline;
+ pub(crate) mod list;
+ pub(crate) mod replaced;
++pub(crate) mod ruby;
+ pub(crate) mod table;
+ 
+ use self::replaced::{
+@@ -114,6 +115,9 @@ impl BaseDocument {
+         inputs: taffy::tree::LayoutInput,
+         block_ctx: Option<&mut BlockContext<'_>>,
+     ) -> taffy::tree::LayoutOutput {
++        if ruby::is_ruby(&self.nodes[dom_node_id(node_id)]) {
++            return ruby::compute(self, dom_node_id(node_id), inputs);
++        }
+         let node = &mut self.nodes[dom_node_id(node_id)];
+ 
+         let font_styles = node.primary_styles().map(|style| {
+diff --git a/vendor/blitz/packages/blitz-dom/src/layout/ruby.rs b/vendor/blitz/packages/blitz-dom/src/layout/ruby.rs
+new file mode 100644
+index 0000000..9d85a38
+--- /dev/null
++++ b/vendor/blitz/packages/blitz-dom/src/layout/ruby.rs
+@@ -0,0 +1,140 @@
++//! Horizontal HTML ruby base/annotation pairs. Anonymous base boxes retain the
++//! source DOM and are owned by the normal reconstruction/deallocation path.
++use super::construct::LayoutChildren;
++use crate::{BaseDocument, Node};
++use blitz_traits::node_id::NodeId;
++use markup5ever::local_name;
++use style::values::computed::Display;
++use taffy::{
++    AvailableSpace, Baselines, LayoutInput, LayoutOutput, LayoutPartialTree, Point, RunMode, Size,
++};
++
++pub(super) fn is_ruby(node: &Node) -> bool {
++    node.element_data()
++        .is_some_and(|el| el.name.local == local_name!("ruby"))
++        && node.display_style() == Some(Display::InlineBlock)
++}
++fn is_annotation(node: &Node) -> bool {
++    node.element_data()
++        .is_some_and(|el| el.name.local == local_name!("rt"))
++}
++pub(super) fn construct(doc: &mut BaseDocument, root: NodeId, out: &mut LayoutChildren) {
++    let children = doc.nodes[root].children.clone();
++    let mut base = None;
++    for child in children {
++        let node = &doc.nodes[child];
++        if node.display_style() == Some(Display::None)
++            || node.data.kind() == crate::node::NodeKind::Comment
++        {
++            continue;
++        }
++        if is_annotation(node) {
++            out.children.push(child);
++            doc.nodes[child].layout_parent.set(Some(root));
++            base = None;
++        } else {
++            let wrapper = *base.get_or_insert_with(|| {
++                let mut generated = LayoutChildren::default();
++                generated.create_anonymous_block(root, doc);
++                let id = generated.anonymous_block_id.unwrap();
++                out.children.push(id);
++                out.anonymous_blocks.push(id);
++                id
++            });
++            doc.nodes[wrapper].children.push(child);
++        }
++    }
++}
++
++pub(super) fn compute(doc: &mut BaseDocument, root: NodeId, inputs: LayoutInput) -> LayoutOutput {
++    let children = doc.nodes[root]
++        .layout_children
++        .borrow()
++        .as_ref()
++        .cloned()
++        .unwrap_or_default();
++    let child_inputs = LayoutInput {
++        known_dimensions: Size::NONE,
++        available_space: Size {
++            width: AvailableSpace::MaxContent,
++            height: AvailableSpace::MaxContent,
++        },
++        vertical_margins_are_collapsible: taffy::Line::FALSE,
++        ..inputs
++    };
++    let mut pairs = Vec::new();
++    let mut index = 0;
++    let mut above = 0.0_f32;
++    let mut below = 0.0_f32;
++    let mut width = 0.0;
++    while index < children.len() {
++        let base = children[index];
++        let base_layout =
++            doc.compute_child_layout(taffy::NodeId::from(base.as_u64()), child_inputs);
++        let annotation = children
++            .get(index + 1)
++            .copied()
++            .filter(|id| is_annotation(&doc.nodes[*id]));
++        let annotation_layout = annotation
++            .map(|id| doc.compute_child_layout(taffy::NodeId::from(id.as_u64()), child_inputs));
++        let annotation_size = annotation_layout
++            .as_ref()
++            .map(|l| l.size)
++            .unwrap_or(Size::ZERO);
++        let baseline = base_layout
++            .baselines
++            .first
++            .unwrap_or(base_layout.size.height);
++        let pair_width = base_layout.size.width.max(annotation_size.width);
++        above = above.max(annotation_size.height + baseline);
++        below = below.max(base_layout.size.height - baseline);
++        pairs.push((
++            base,
++            base_layout,
++            annotation,
++            annotation_layout,
++            width,
++            pair_width,
++            baseline,
++        ));
++        width += pair_width;
++        index += if annotation.is_some() { 2 } else { 1 };
++    }
++    if inputs.run_mode == RunMode::PerformLayout {
++        for (base, base_layout, annotation, annotation_layout, x, pair_width, baseline) in pairs {
++            let layout = doc.nodes[base].unrounded_layout_mut();
++            layout.location = Point {
++                x: x + (pair_width - base_layout.size.width) / 2.0,
++                y: above - baseline,
++            };
++            layout.size = base_layout.size;
++            layout.scrollable_overflow_rect = base_layout.scrollable_overflow_rect;
++            if let Some((id, output)) = annotation.zip(annotation_layout) {
++                let layout = doc.nodes[id].unrounded_layout_mut();
++                layout.location = Point {
++                    x: x + (pair_width - output.size.width) / 2.0,
++                    y: above - baseline - output.size.height,
++                };
++                layout.size = output.size;
++                layout.scrollable_overflow_rect = output.scrollable_overflow_rect;
++            }
++        }
++    }
++    let size = Size {
++        width,
++        height: above + below,
++    };
++    LayoutOutput::from_sizes_and_baselines(
++        size,
++        taffy::Rect {
++            left: 0.0,
++            top: 0.0,
++            right: size.width,
++            bottom: size.height,
++        },
++        Baselines {
++            first: Some(above),
++            last: Some(above),
++        },
++    )
++}

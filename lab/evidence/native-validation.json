@@ -11,7 +11,7 @@
       "RGBA"
     ]
   },
-  "binary_sha256": "216b4e10a06c0a538c5d48a68440507e0a985a578cd896a8fe3a100001e557df",
+  "binary_sha256": "6318a00f14296245c5e509b2ffac3c1db551ff58a7ce94940fd5c97396ae943c",
   "window": [
     {
       "i": 0,
@@ -27,13 +27,13 @@
       "dpi": 2,
       "pos": [
         536,
-        64
+        63
       ]
     }
   ],
   "screenshots": {
-    "native-top.png": "ef603532b4802f28a2b61df42d985366fead544cad46e427aaaa9bd0932b4a1c",
-    "native-bottom.png": "107da78c1b2bfc9d8e9757bb5f2462d4afce4cc1544fad3b6ed62225b6f10747"
+    "native-top.png": "99ead13e4b607be3ef78454536f1505eb5fc53c5c8fd077dee38adeec05cee06",
+    "native-bottom.png": "353908ef1c94681f1aea0382d4488463061f91fc84f9d7bb52ad959aaa90830e"
   },
   "checks": [
     "isolated fixture process and owned loopback bridge",

@@ -1,0 +1,183 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 690.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 32.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 118.0
+      },
+      {
+        "height": 32.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 200.0
+      },
+      {
+        "height": 32.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 250.0
+      },
+      {
+        "height": 60.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 300.0
+      },
+      {
+        "height": 60.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 296.0
+      },
+      {
+        "height": 30.0,
+        "width": 36.0,
+        "x": 110.671875,
+        "y": 326.0
+      },
+      {
+        "height": 60.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 378.0
+      },
+      {
+        "height": 60.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 374.0
+      },
+      {
+        "height": 30.0,
+        "width": 36.0,
+        "x": 110.671875,
+        "y": 404.0
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 456.0
+      },
+      {
+        "height": 64.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 452.0
+      },
+      {
+        "height": 64.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 538.0
+      },
+      {
+        "height": 64.0,
+        "width": 36.0,
+        "x": 74.671875,
+        "y": 534.0
+      },
+      {
+        "height": 32.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 620.0
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 690.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    ],
+    "table": [],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1400,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:53469/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:53469/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:53469/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:53469/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": false,
+      "error": "The image format WebP is not supported",
+      "format": "WebP",
+      "url": "http://127.0.0.1:53469/assets/chart.webp"
+    }
+  ],
+  "local_patch": "none",
+  "product_admission": "accepted",
+  "resource_requests": [],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 690.0,
+  "scale": 2,
+  "width_css": 390,
+  "width_px": 780
+}
