@@ -26,6 +26,7 @@ bitflags! {
 /// A wrapper struct for anything that `Deref`s to a [`stylo::ComputedValues`](ComputedValues) (can be pointed to by an `&` reference, [`Arc`](std::sync::Arc),
 /// [`Ref`](std::cell::Ref), etc). It implements [`taffy`]'s [layout traits](taffy::traits) and can used with Taffy's [layout algorithms](taffy::compute).
 pub struct TaffyStyloStyle<T: Deref<Target = ComputedValues>> {
+    pub border_override: Option<taffy::Rect<f32>>,
     /// The stylo style
     pub style: T,
     /// Extra node-derived flags that are not part of the stylo style
@@ -35,7 +36,11 @@ pub struct TaffyStyloStyle<T: Deref<Target = ComputedValues>> {
 impl<T: Deref<Target = ComputedValues>> TaffyStyloStyle<T> {
     /// Create a new [`TaffyStyloStyle`] from a stylo style and [`StyleFlags`]
     pub fn new(style: T, flags: StyleFlags) -> Self {
-        Self { style, flags }
+        Self {
+            style,
+            flags,
+            border_override: None,
+        }
     }
 }
 
@@ -45,6 +50,7 @@ impl<T: Deref<Target = ComputedValues>> From<T> for TaffyStyloStyle<T> {
         Self {
             style: value,
             flags: StyleFlags::empty(),
+            border_override: None,
         }
     }
 }
@@ -54,6 +60,9 @@ impl<T: Deref<Target = ComputedValues>> From<TaffyStyloStyle<T>> for taffy::Styl
     fn from(value: TaffyStyloStyle<T>) -> Self {
         let mut style = convert::to_taffy_style(&value.style);
         style.item_is_replaced = value.flags.contains(StyleFlags::IS_REPLACED);
+        if let Some(border) = value.border_override {
+            style.border = border.map(taffy::style_helpers::length);
+        }
         style
     }
 }
@@ -170,6 +179,13 @@ impl<T: Deref<Target = ComputedValues>> taffy::CoreStyle for TaffyStyloStyle<T> 
 
     #[inline]
     fn padding(&self) -> taffy::Rect<taffy::LengthPercentage> {
+        if self.style.clone_display().inside()
+            == style::values::specified::box_::DisplayInside::Table
+            && self.style.clone_border_collapse()
+                == style::computed_values::border_collapse::T::Collapse
+        {
+            return taffy::Rect::ZERO.map(taffy::style_helpers::length);
+        }
         let padding_styles = self.style.get_padding();
         taffy::Rect {
             left: convert::length_percentage(&padding_styles.padding_left.0),
@@ -181,6 +197,9 @@ impl<T: Deref<Target = ComputedValues>> taffy::CoreStyle for TaffyStyloStyle<T> 
 
     #[inline]
     fn border(&self) -> taffy::Rect<taffy::LengthPercentage> {
+        if let Some(border) = self.border_override {
+            return border.map(taffy::style_helpers::length);
+        }
         let border_styles = self.style.get_border();
         taffy::Rect {
             left: convert::border(
@@ -213,6 +232,9 @@ impl<T: Deref<Target = ComputedValues>> taffy::BlockContainerStyle for TaffyStyl
 
     #[inline]
     fn align_content(&self) -> Option<taffy::AlignContent> {
+        if let Some(alignment) = convert::table_cell_alignment(&self.style) {
+            return Some(alignment);
+        }
         convert::content_alignment(
             self.style.get_position().align_content,
             self.style.clone_display(),

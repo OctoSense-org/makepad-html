@@ -154,3 +154,4 @@ pub fn build_single_font_ctx(font_data: &[u8]) -> FontContext {
     }
     ctx
 }
+pub use layout::collapsed_borders::BorderSide;

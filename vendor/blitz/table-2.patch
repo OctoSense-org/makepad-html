@@ -1,0 +1,1335 @@
+diff --git a/packages/blitz-dom/src/layout/collapsed_borders.rs b/packages/blitz-dom/src/layout/collapsed_borders.rs
+new file mode 100644
+index 0000000..354111e
+--- /dev/null
++++ b/packages/blitz-dom/src/layout/collapsed_borders.rs
+@@ -0,0 +1,297 @@
++//! CSS 2.2 collapsed borders. Resolve grid-edge intervals, never a dense slot
++//! matrix: a large rowspan must not allocate rows × columns border entries.
++use super::table::{TableCell, TableColumn, TableRow};
++use crate::{BaseDocument, NodeId};
++use std::collections::BTreeMap;
++use style::values::{computed::BorderStyle, specified::box_::DisplayInside};
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum BorderSide {
++    Top,
++    Right,
++    Bottom,
++    Left,
++}
++
++#[derive(Clone, Copy, Debug, PartialEq)]
++pub struct CollapsedBorder {
++    pub node_id: NodeId,
++    pub side: BorderSide,
++    pub width: f32,
++    pub style: BorderStyle,
++    priority: u8,
++    order: usize,
++}
++
++impl CollapsedBorder {
++    pub fn used_width(&self) -> f32 {
++        if self.style.none_or_hidden() {
++            0.0
++        } else {
++            self.width
++        }
++    }
++
++    fn rank(&self) -> (bool, bool, u32, u8, u8, std::cmp::Reverse<usize>) {
++        let style = match self.style {
++            BorderStyle::Hidden => 9,
++            BorderStyle::Double => 8,
++            BorderStyle::Solid => 7,
++            BorderStyle::Dashed => 6,
++            BorderStyle::Dotted => 5,
++            BorderStyle::Ridge => 4,
++            BorderStyle::Outset => 3,
++            BorderStyle::Groove => 2,
++            BorderStyle::Inset => 1,
++            BorderStyle::None => 0,
++        };
++        // Nonnegative finite computed widths have monotonically ordered bits.
++        (
++            self.style == BorderStyle::Hidden,
++            self.style != BorderStyle::None,
++            self.width.to_bits(),
++            style,
++            self.priority,
++            std::cmp::Reverse(self.order),
++        )
++    }
++}
++
++#[derive(Clone, Debug)]
++pub struct CollapsedBorderSegment {
++    pub horizontal: bool,
++    pub line: usize,
++    pub start: usize,
++    pub end: usize,
++    pub border: CollapsedBorder,
++}
++
++#[derive(Clone)]
++struct Candidate {
++    start: usize,
++    end: usize,
++    border: CollapsedBorder,
++}
++
++fn sides(
++    doc: &BaseDocument,
++    node_id: NodeId,
++    priority: u8,
++    order: usize,
++) -> Option<[CollapsedBorder; 4]> {
++    let style = doc.nodes[node_id].primary_styles()?;
++    let b = style.get_border();
++    Some(
++        [
++            (BorderSide::Top, b.border_top_width.0, b.border_top_style),
++            (
++                BorderSide::Right,
++                b.border_right_width.0,
++                b.border_right_style,
++            ),
++            (
++                BorderSide::Bottom,
++                b.border_bottom_width.0,
++                b.border_bottom_style,
++            ),
++            (BorderSide::Left, b.border_left_width.0, b.border_left_style),
++        ]
++        .map(|(side, width, style)| CollapsedBorder {
++            node_id,
++            side,
++            width: width.to_f32_px(),
++            style,
++            priority,
++            order,
++        }),
++    )
++}
++
++pub(super) fn resolve(
++    doc: &BaseDocument,
++    root: NodeId,
++    cells: &[TableCell],
++    rows: &[TableRow],
++    columns: &[TableColumn],
++    column_count: usize,
++) -> Vec<CollapsedBorderSegment> {
++    let row_count = rows.len();
++    let rtl = doc.nodes[root]
++        .primary_styles()
++        .is_some_and(|s| s.clone_direction() == style::computed_values::direction::T::Rtl);
++    if row_count == 0 || column_count == 0 {
++        return Vec::new();
++    }
++    let mut edges: BTreeMap<(bool, usize), Vec<Candidate>> = BTreeMap::new();
++    let mut add = |id, priority, order, r0, r1, c0, c1| {
++        if let Some(borders) = sides(doc, id, priority, order) {
++            let (left, right) = if rtl {
++                (borders[1], borders[3])
++            } else {
++                (borders[3], borders[1])
++            };
++            for (horizontal, line, start, end, border) in [
++                (true, r0, c0, c1, borders[0]),
++                (false, c1, r0, r1, right),
++                (true, r1, c0, c1, borders[2]),
++                (false, c0, r0, r1, left),
++            ] {
++                if start < end {
++                    edges
++                        .entry((horizontal, line))
++                        .or_default()
++                        .push(Candidate { start, end, border });
++                }
++            }
++        }
++    };
++    add(root, 0, 0, 0, row_count, 0, column_count);
++    // Equal-origin ties use logical start/top order, including RTL tables.
++    for (i, column) in columns.iter().take(column_count).enumerate() {
++        add(column.node_id, 2, i, 0, row_count, i, i + 1);
++    }
++    for (i, row) in rows.iter().enumerate() {
++        add(row.node_id, 4, i, i, i + 1, 0, column_count);
++    }
++    let mut groups: BTreeMap<NodeId, (u8, usize, usize)> = BTreeMap::new();
++    for (priority, items) in [
++        (1, columns.iter().map(|c| c.node_id).collect::<Vec<_>>()),
++        (3, rows.iter().map(|r| r.node_id).collect()),
++    ] {
++        for (i, id) in items.iter().enumerate() {
++            let mut parent = doc.nodes[*id].parent;
++            while let Some(id) = parent.filter(|id| *id != root) {
++                let node = &doc.nodes[id];
++                let group = node.primary_styles().is_some_and(|s| {
++                    matches!(
++                        s.clone_display().inside(),
++                        DisplayInside::TableColumnGroup
++                            | DisplayInside::TableRowGroup
++                            | DisplayInside::TableHeaderGroup
++                            | DisplayInside::TableFooterGroup
++                    )
++                });
++                if group {
++                    let range = groups.entry(id).or_insert((priority, i, i + 1));
++                    range.1 = range.1.min(i);
++                    range.2 = range.2.max(i + 1);
++                    break;
++                }
++                parent = node.parent;
++            }
++        }
++    }
++    for (id, (priority, start, end)) in groups {
++        if priority == 1 {
++            add(
++                id,
++                priority,
++                start,
++                0,
++                row_count,
++                start,
++                end.min(column_count),
++            );
++        } else {
++            add(id, priority, start, start, end, 0, column_count);
++        }
++    }
++    for (i, cell) in cells.iter().enumerate() {
++        add(
++            cell.node_id,
++            5,
++            i,
++            cell.row,
++            cell.row_end,
++            cell.column,
++            cell.column_end,
++        );
++    }
++    drop(add);
++
++    let mut result: Vec<CollapsedBorderSegment> = Vec::new();
++    for ((horizontal, line), candidates) in edges {
++        let mut points: Vec<_> = candidates.iter().flat_map(|c| [c.start, c.end]).collect();
++        // A spanning cell suppresses *all* borders inside it, including row and
++        // column borders. Its endpoints can split a longer candidate edge.
++        let spans: Vec<_> = cells
++            .iter()
++            .filter_map(|c| {
++                let (lo, hi, start, end) = if horizontal {
++                    (c.row, c.row_end, c.column, c.column_end)
++                } else {
++                    (c.column, c.column_end, c.row, c.row_end)
++                };
++                (lo < line && line < hi).then_some((start, end))
++            })
++            .collect();
++        for &(start, end) in &spans {
++            points.extend([start, end]);
++        }
++        points.sort_unstable();
++        points.dedup();
++        for pair in points.windows(2) {
++            let (start, end) = (pair[0], pair[1]);
++            if spans.iter().any(|&(lo, hi)| lo <= start && end <= hi) {
++                continue;
++            }
++            let Some(winner) = candidates
++                .iter()
++                .filter(|c| c.start <= start && end <= c.end)
++                .max_by_key(|c| c.border.rank())
++            else {
++                continue;
++            };
++            if let Some(last) = result.last_mut().filter(|last| {
++                last.horizontal == horizontal
++                    && last.line == line
++                    && last.end == start
++                    && last.border == winner.border
++            }) {
++                last.end = end;
++            } else {
++                result.push(CollapsedBorderSegment {
++                    horizontal,
++                    line,
++                    start,
++                    end,
++                    border: winner.border,
++                });
++            }
++        }
++    }
++    result
++}
++
++/// Half the winning edge width is reserved inside each adjacent cell.
++pub(super) fn cell_widths(
++    cell: &TableCell,
++    edges: &[CollapsedBorderSegment],
++    rtl: bool,
++) -> taffy::Rect<f32> {
++    let width = |horizontal, line, start, end| {
++        edges
++            .iter()
++            .filter(|e| {
++                e.horizontal == horizontal && e.line == line && e.start < end && start < e.end
++            })
++            .map(|e| e.border.used_width() / 2.0)
++            .fold(0.0, f32::max)
++    };
++    taffy::Rect {
++        top: width(true, cell.row, cell.column, cell.column_end),
++        bottom: width(true, cell.row_end, cell.column, cell.column_end),
++        left: width(
++            false,
++            if rtl { cell.column_end } else { cell.column },
++            cell.row,
++            cell.row_end,
++        ),
++        right: width(
++            false,
++            if rtl { cell.column } else { cell.column_end },
++            cell.row,
++            cell.row_end,
++        ),
++    }
++}
+diff --git a/packages/blitz-dom/src/layout/damage.rs b/packages/blitz-dom/src/layout/damage.rs
+index d3e4dee..26c86ba 100644
+--- a/packages/blitz-dom/src/layout/damage.rs
++++ b/packages/blitz-dom/src/layout/damage.rs
+@@ -109,12 +109,13 @@ impl BaseDocument {
+         // descendant styles change, even if Stylo only requests a repaint/layout.
+         #[cfg(feature = "svg")]
+         if !damage.is_empty()
+-            && node.element_data().is_some_and(|el| el.name.local == markup5ever::local_name!("svg"))
++            && node
++                .element_data()
++                .is_some_and(|el| el.name.local == markup5ever::local_name!("svg"))
+         {
+             damage.insert(CONSTRUCT_BOX);
+         }
+ 
+-
+         if damage.contains(CONSTRUCT_BOX) {
+             damage.insert(RestyleDamage::RELAYOUT);
+         }
+@@ -323,6 +324,17 @@ pub(crate) fn compute_layout_damage(old: &ComputedValues, new: &ComputedValues)
+             return true;
+         }
+ 
++        // Table contexts cache placement and resolved borders. Rebuild the
++        // owning table even for color-only changes on an internal table box.
++        if (new_box.display.outside() == DisplayOutside::InternalTable
++            || new_box.display.inside() == DisplayInside::Table)
++            && (old.get_border() != new.get_border()
++                || old.clone_border_collapse() != new.clone_border_collapse()
++                || old.clone_color() != new.clone_color())
++        {
++            return true;
++        }
++
+         false
+     };
+ 
+diff --git a/packages/blitz-dom/src/layout/inline.rs b/packages/blitz-dom/src/layout/inline.rs
+index 76e8272..4e6bc43 100644
+--- a/packages/blitz-dom/src/layout/inline.rs
++++ b/packages/blitz-dom/src/layout/inline.rs
+@@ -349,10 +349,14 @@ impl BaseDocument {
+             && !inline_layout.layout.inline_boxes().is_empty()
+             && inline_layout.layout.inline_boxes().iter().all(|ibox| {
+                 ibox.kind == parley::InlineBoxKind::InFlow
+-                    && self.nodes[NodeId::from_u64(ibox.id)].layout_parent.get()
++                    && self.nodes[NodeId::from_u64(ibox.id)]
++                        .layout_parent
++                        .get()
+                         .and_then(|id| self.nodes[id].primary_styles())
+-                        .is_some_and(|style| style.clone_text_wrap_mode()
+-                            == style::computed_values::text_wrap_mode::T::Nowrap)
++                        .is_some_and(|style| {
++                            style.clone_text_wrap_mode()
++                                == style::computed_values::text_wrap_mode::T::Nowrap
++                        })
+             });
+ 
+         let pbw = container_pb.horizontal_components().sum() * scale;
+@@ -366,7 +370,11 @@ impl BaseDocument {
+                 // and a min-content or max-content constraint. So if we want to compute both widths in one pass then
+                 // we need to store both a min-content and max-content size on each box.
+                 let content_sizes = inline_layout.layout.calculate_content_widths();
+-                let min_content_width = if boxes_do_not_wrap { content_sizes.max } else { content_sizes.min };
++                let min_content_width = if boxes_do_not_wrap {
++                    content_sizes.max
++                } else {
++                    content_sizes.min
++                };
+                 let max_content_width = content_sizes.max;
+ 
+                 #[cfg(feature = "floats")]
+@@ -515,7 +523,11 @@ impl BaseDocument {
+ 
+         #[cfg(not(feature = "floats"))]
+         {
+-            inline_layout.layout.break_all_lines(if boxes_do_not_wrap { None } else { Some(width) });
++            inline_layout.layout.break_all_lines(if boxes_do_not_wrap {
++                None
++            } else {
++                Some(width)
++            });
+         }
+ 
+         // Perform inline layout
+@@ -525,8 +537,16 @@ impl BaseDocument {
+             let initial_slot = block_ctx.find_content_slot(0.0, Clear::None, None);
+             let mut has_active_floats = initial_slot.segment_id.is_some();
+             let state = breaker.state_mut();
+-            state.set_layout_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { width });
+-            state.set_line_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { initial_slot.width * scale });
++            state.set_layout_max_advance(if boxes_do_not_wrap {
++                f32::INFINITY
++            } else {
++                width
++            });
++            state.set_line_max_advance(if boxes_do_not_wrap {
++                f32::INFINITY
++            } else {
++                initial_slot.width * scale
++            });
+             state.set_line_x(initial_slot.x * scale);
+             state.set_line_y((initial_slot.y * scale) as f64);
+ 
+@@ -717,6 +737,21 @@ impl BaseDocument {
+         .maybe_max(container_pb.sum_axes().map(Some));
+ 
+         let container_direction = self.nodes[node_id].layout_style().direction();
++        let cell_alignment = self.nodes[node_id]
++            .primary_styles()
++            .and_then(|s| stylo_taffy::convert::table_cell_alignment(&s));
++        let free_height =
++            (final_size.height - container_pb.sum_axes().height - measured_size.height).max(0.0);
++        let cell_offset = match cell_alignment {
++            Some(taffy::AlignContent::CENTER) => free_height / 2.0,
++            Some(taffy::AlignContent::END) => free_height,
++            _ => 0.0,
++        };
++        if inputs.run_mode == RunMode::PerformLayout {
++            self.nodes[node_id]
++                .layout_data_mut()
++                .table_cell_inline_offset = cell_offset;
++        }
+ 
+         // Store sizes and positions of inline boxes
+         for line in inline_layout.layout.lines() {
+@@ -830,6 +865,7 @@ impl BaseDocument {
+                         layout.location.y = (ibox.y / scale)
+                             + margin.top.max(0.0)
+                             + container_pb.top
++                            + cell_offset
+                             + inset_offset.y;
+                         layout.padding = padding; //.map(|p| p / scale);
+                         layout.border = border; //.map(|p| p / scale);
+@@ -848,7 +884,7 @@ impl BaseDocument {
+             .layout
+             .lines()
+             .next()
+-            .map(|line| (line.metrics().baseline / scale) + container_pb.top);
++            .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
+ 
+         // Put layout back
+         self.nodes[node_id]
+diff --git a/packages/blitz-dom/src/layout/mod.rs b/packages/blitz-dom/src/layout/mod.rs
+index 5699331..9a4406f 100644
+--- a/packages/blitz-dom/src/layout/mod.rs
++++ b/packages/blitz-dom/src/layout/mod.rs
+@@ -20,6 +20,7 @@ use taffy::{
+     compute_oof_layout, prelude::*,
+ };
+ 
++pub(crate) mod collapsed_borders;
+ pub(crate) mod construct;
+ pub(crate) mod damage;
+ pub(crate) mod inline;
+diff --git a/packages/blitz-dom/src/layout/table.rs b/packages/blitz-dom/src/layout/table.rs
+index a66e9d9..0ed71ec 100644
+--- a/packages/blitz-dom/src/layout/table.rs
++++ b/packages/blitz-dom/src/layout/table.rs
+@@ -3,7 +3,6 @@ use std::{ops::Range, sync::Arc};
+ 
+ use atomic_refcell::AtomicRefCell;
+ use markup5ever::local_name;
+-use style::properties::style_structs::Border;
+ use style::servo_arc::Arc as ServoArc;
+ use style::values::computed::length_percentage::{
+     CalcLengthPercentage, CalcNode, ComputedLeaf, Unpacked as UnpackedLengthPercentage,
+@@ -12,7 +11,7 @@ use style::values::computed::{Length, LengthPercentage, Percentage};
+ use style::values::specified::box_::{DisplayInside, DisplayOutside};
+ use style::{
+     Atom, computed_values::border_collapse::T as BorderCollapse,
+-    computed_values::table_layout::T as TableLayout, values::computed::BorderStyle,
++    computed_values::table_layout::T as TableLayout,
+ };
+ use style_traits::values::specified::AllowedNumericType;
+ use taffy::{
+@@ -21,9 +20,10 @@ use taffy::{
+ 
+ use crate::BaseDocument;
+ 
++use super::collapsed_borders::{self, CollapsedBorderSegment};
++use super::construct::LayoutChildren;
+ use super::damage::{CONSTRUCT_BOX, CONSTRUCT_DESCENDENT, CONSTRUCT_FC};
+ use super::resolve_calc_value;
+-use super::construct::LayoutChildren;
+ use style::values::computed::Display;
+ 
+ pub struct TableTreeWrapper<'doc> {
+@@ -39,7 +39,7 @@ pub struct TableContext {
+     pub rows: Vec<TableRow>,
+     pub columns: Vec<TableColumn>,
+     pub computed_grid_info: AtomicRefCell<Option<DetailedGridInfo<Atom>>>,
+-    pub border_style: Option<ServoArc<Border>>,
++    pub collapsed_borders: Vec<CollapsedBorderSegment>,
+     pub border_collapse: BorderCollapse,
+     /// Backing storage for `calc()` track sizes synthesised by the table layout code.
+     /// Taffy stores calc values as raw pointers, so these must outlive the `style`.
+@@ -56,8 +56,12 @@ pub struct TableContext {
+ #[derive(Debug, Clone)]
+ pub struct TableCell {
+     // kind: TableItemKind,
+-    node_id: NodeId,
++    pub node_id: NodeId,
+     style: taffy::Style<Atom>,
++    pub row: usize,
++    pub row_end: usize,
++    pub column: usize,
++    pub column_end: usize,
+ }
+ 
+ /// Tracks the current column position while walking the table's cells, so that
+@@ -95,7 +99,7 @@ impl ColumnCursor {
+             self.rowspans.resize(end as usize, 0);
+         }
+         for remaining in &mut self.rowspans[self.col as usize..end as usize] {
+-            *remaining = rowspan - 1;
++            *remaining = rowspan;
+         }
+         self.col = end;
+         self.num_columns = self.num_columns.max(end);
+@@ -114,17 +118,6 @@ pub struct TableRow {
+     pub height: f32,
+ }
+ 
+-/// The used width of one border side: border widths are not adjusted for
+-/// border-style in computed styles, so a border with `none`/`hidden` style
+-/// must be treated as zero-width.
+-fn side_width(width: app_units::Au, style: BorderStyle) -> f32 {
+-    if style.none_or_hidden() {
+-        0.0
+-    } else {
+-        width.to_f32_px()
+-    }
+-}
+-
+ /// Build a `calc(<percent> + <length>)` track sizing function. The calc value is
+ /// boxed and stored in `calc_values` so that the raw pointer Taffy holds stays valid.
+ fn percent_plus_length(
+@@ -174,11 +167,8 @@ pub(crate) fn build_table_context(
+ 
+     let mut style = stylo_taffy::to_taffy_style(&stylo_styles);
+     style.item_is_table = true;
+-    // Use `dense` row-flow so that each cell scans the row from its
+-    // leftmost column for the first free track. Without `dense`,
+-    // `place_definite_secondary_axis_item` keeps a per-item secondary
+-    // cursor across rows, which means cells in later rows do not
+-    // backfill columns freed up by rowspan cells from earlier rows.
++    // Cells receive explicit grid areas from ColumnCursor below. Retain row
++    // flow for any implicit tracks created by malformed table input.
+     style.grid_auto_flow = taffy::GridAutoFlow::RowDense;
+     style.grid_auto_columns = Vec::new();
+     style.grid_auto_rows = Vec::new();
+@@ -191,6 +181,7 @@ pub(crate) fn build_table_context(
+ 
+     let border_collapse = stylo_styles.clone_border_collapse();
+     let border_spacing = stylo_styles.clone_border_spacing().0;
++    let rtl = stylo_styles.clone_direction() == style::computed_values::direction::T::Rtl;
+ 
+     drop(stylo_styles);
+ 
+@@ -207,7 +198,6 @@ pub(crate) fn build_table_context(
+             }
+         }
+     }
+-    let mut first_cell_border: Option<ServoArc<Border>> = None;
+     // Percentage widths set on first-row cells: (column index, percentage, padding + border)
+     let mut percent_columns: Vec<(u16, f32, f32)> = Vec::new();
+     let mut calc_values: Vec<LengthPercentage> = Vec::new();
+@@ -238,12 +228,24 @@ pub(crate) fn build_table_context(
+                 &mut cells,
+                 &mut rows,
+                 &mut column_sizes,
+-                &mut first_cell_border,
+                 &mut percent_columns,
+                 anonymous,
+             );
+         }
+     }
++    // A cell cannot span beyond its row group (rowspan=0 means the remaining
++    // rows in that group). Keep the layout placement and painted edges equal.
++    for cell in &mut cells {
++        let parent = doc.nodes[rows[cell.row].node_id].parent;
++        let end = rows
++            .iter()
++            .enumerate()
++            .skip(cell.row + 1)
++            .find(|(_, r)| doc.nodes[r.node_id].parent != parent)
++            .map_or(rows.len(), |(i, _)| i);
++        cell.row_end = cell.row_end.min(end);
++        cell.style.grid_row.end = style_helpers::span((cell.row_end - cell.row) as u16);
++    }
+     let remaining_column = if is_fixed {
+         style_helpers::minmax(style_helpers::length(0.0), style_helpers::fr(1.0))
+     } else {
+@@ -301,6 +303,37 @@ pub(crate) fn build_table_context(
+     style.grid_template_columns = column_sizes.into_iter().map(|dim| dim.into()).collect();
+     style.grid_template_rows = vec![style_helpers::auto(); row as usize];
+ 
++    let collapsed_borders = if border_collapse == BorderCollapse::Collapse {
++        collapsed_borders::resolve(
++            doc,
++            table_root_node_id,
++            &cells,
++            &rows,
++            &columns,
++            num_columns as usize,
++        )
++    } else {
++        Vec::new()
++    };
++    for cell in &mut cells {
++        let border = if border_collapse == BorderCollapse::Collapse {
++            Some(collapsed_borders::cell_widths(
++                cell,
++                &collapsed_borders,
++                rtl,
++            ))
++        } else {
++            None
++        };
++        if doc.nodes[cell.node_id].layout_data().collapsed_border != border {
++            doc.nodes[cell.node_id].invalidate_layout_cache();
++        }
++        doc.nodes[cell.node_id].layout_data_mut().collapsed_border = border;
++        if let Some(border) = border {
++            cell.style.border = border.map(style_helpers::length);
++        }
++    }
++
+     style.gap = match border_collapse {
+         BorderCollapse::Separate => {
+             // In the separated borders model, `border-spacing` also applies between
+@@ -319,30 +352,32 @@ pub(crate) fn build_table_context(
+                 height: style_helpers::length(spacing_y),
+             }
+         }
+-        BorderCollapse::Collapse => first_cell_border
+-            .as_ref()
+-            .map(|border| {
+-                let x = side_width(border.border_left_width.0, border.border_left_style).max(
+-                    side_width(border.border_right_width.0, border.border_right_style),
+-                );
+-                let y = side_width(border.border_top_width.0, border.border_top_style).max(
+-                    side_width(border.border_bottom_width.0, border.border_bottom_style),
+-                );
+-                taffy::Size {
+-                    width: style_helpers::length(x),
+-                    height: style_helpers::length(y),
+-                }
+-            })
+-            .unwrap_or(taffy::Size::ZERO.map(style_helpers::length)),
++        BorderCollapse::Collapse => taffy::Size::ZERO.map(style_helpers::length),
+     };
+ 
+     if border_collapse == BorderCollapse::Collapse {
+-        style.border = taffy::Rect {
+-            left: style.gap.width,
+-            right: style.gap.width,
+-            top: style.gap.height,
+-            bottom: style.gap.height,
++        let width = |horizontal, line| {
++            collapsed_borders
++                .iter()
++                .filter(|e| {
++                    e.horizontal == horizontal && e.line == line
++                    // CSS 2.2 uses the first row for the table's lateral
++                    // border widths; wider later-row borders may overflow.
++                    && (horizontal || e.start == 0)
++                })
++                .map(|e| e.border.used_width() / 2.0)
++                .fold(0.0, f32::max)
+         };
++        // CSS collapsed tables have no padding. The outer half of each
++        // perimeter border sits outside the grid; cells reserve the inner half.
++        style.padding = taffy::Rect::ZERO.map(style_helpers::length);
++        style.border = taffy::Rect {
++            left: width(false, if rtl { num_columns as usize } else { 0 }),
++            right: width(false, if rtl { 0 } else { num_columns as usize }),
++            top: width(true, 0),
++            bottom: width(true, rows.len()),
++        }
++        .map(style_helpers::length);
+     }
+ 
+     let layout_children = cells.iter().map(|cell| cell.node_id).collect();
+@@ -357,7 +392,7 @@ pub(crate) fn build_table_context(
+             columns,
+             computed_grid_info: AtomicRefCell::new(None),
+             border_collapse,
+-            border_style: first_cell_border,
++            collapsed_borders,
+             calc_values,
+         },
+         layout_children,
+@@ -457,11 +492,16 @@ fn normalize_table_children(
+         let proper = if is_row {
+             display.inside() == DisplayInside::TableCell
+         } else {
+-            matches!(display.inside(), DisplayInside::TableRow
+-                | DisplayInside::TableRowGroup | DisplayInside::TableHeaderGroup
+-                | DisplayInside::TableFooterGroup | DisplayInside::TableColumn
+-                | DisplayInside::TableColumnGroup | DisplayInside::Contents)
+-                || display.outside() == DisplayOutside::TableCaption
++            matches!(
++                display.inside(),
++                DisplayInside::TableRow
++                    | DisplayInside::TableRowGroup
++                    | DisplayInside::TableHeaderGroup
++                    | DisplayInside::TableFooterGroup
++                    | DisplayInside::TableColumn
++                    | DisplayInside::TableColumnGroup
++                    | DisplayInside::Contents
++            ) || display.outside() == DisplayOutside::TableCaption
+         };
+         if proper {
+             open_wrapper = None;
+@@ -477,7 +517,11 @@ fn normalize_table_children(
+             let id = generated.anonymous_block_id.unwrap();
+             let mut data = doc.nodes[id].stylo_element_data_mut().ensure_init_mut();
+             let style = ServoArc::make_mut(data.styles.primary.as_mut().unwrap());
+-            style.mutate_box().display = if is_row { Display::TableCell } else { Display::TableRow };
++            style.mutate_box().display = if is_row {
++                Display::TableCell
++            } else {
++                Display::TableRow
++            };
+             owner.anonymous_blocks.push(id);
+             output.push(id);
+             id
+@@ -498,7 +542,6 @@ fn collect_table_cells(
+     cells: &mut Vec<TableCell>,
+     rows: &mut Vec<TableRow>,
+     columns: &mut Vec<TrackSizingFunction>,
+-    first_cell_border: &mut Option<ServoArc<Border>>,
+     percent_columns: &mut Vec<(u16, f32, f32)>,
+     anonymous: &mut LayoutChildren,
+ ) {
+@@ -524,6 +567,9 @@ fn collect_table_cells(
+         | DisplayInside::TableHeaderGroup
+         | DisplayInside::TableFooterGroup
+         | DisplayInside::Contents => {
++            if display.inside() != DisplayInside::Contents {
++                cursor.rowspans.fill(0);
++            }
+             let children = std::mem::take(&mut doc.nodes[node_id].children);
+             let normalized = normalize_table_children(doc, node_id, &children, anonymous);
+             for child_id in normalized {
+@@ -539,7 +585,6 @@ fn collect_table_cells(
+                     cells,
+                     rows,
+                     columns,
+-                    first_cell_border,
+                     percent_columns,
+                     anonymous,
+                 );
+@@ -569,7 +614,6 @@ fn collect_table_cells(
+                     cells,
+                     rows,
+                     columns,
+-                    first_cell_border,
+                     percent_columns,
+                     anonymous,
+                 );
+@@ -582,19 +626,16 @@ fn collect_table_cells(
+             let colspan: u16 = node
+                 .attr(local_name!("colspan"))
+                 .and_then(|val| val.parse().ok())
++                .map(|v: u16| v.clamp(1, 1000))
+                 .unwrap_or(1);
+             let rowspan: u16 = node
+                 .attr(local_name!("rowspan"))
+                 .and_then(|val| val.parse::<u16>().ok())
+-                .map(|v| v.clamp(1, 65534))
++                .map(|v| if v == 0 { 65534 } else { v.min(65534) })
+                 .unwrap_or(1);
+             let mut style = stylo_taffy::to_taffy_style(stylo_style);
+             let col = cursor.next_free();
+ 
+-            if first_cell_border.is_none() {
+-                *first_cell_border = Some(stylo_style.clone_border());
+-            }
+-
+             // In the fixed table layout algorithm the widths of columns are not
+             // affected by cell contents, so cells must not impose a min-content
+             // floor on their tracks.
+@@ -662,13 +703,10 @@ fn collect_table_cells(
+             // The margin properties do not apply to table-internal elements
+             style.margin = taffy::Rect::ZERO.map(style_helpers::length);
+ 
+-            // Let Taffy auto-place the column. Combined with
+-            // `grid_auto_flow: RowDense` set on the table root, each cell
+-            // scans from the first track in its row for a free position,
+-            // which makes cells automatically skip columns occupied by
+-            // rowspan cells from earlier rows.
++            // Placement, border resolution and first-row sizing share one
++            // cursor, including columns occupied by earlier rowspan cells.
+             style.grid_column = taffy::Line {
+-                start: style_helpers::auto(),
++                start: style_helpers::line(col as i16 + 1),
+                 end: style_helpers::span(colspan),
+             };
+             style.grid_row = taffy::Line {
+@@ -676,7 +714,20 @@ fn collect_table_cells(
+                 end: style_helpers::span(rowspan),
+             };
+             style.size.width = style_helpers::auto();
+-            cells.push(TableCell { node_id, style });
++            // A specified cell height is a minimum. The border box must still
++            // stretch across its entire grid area, especially for rowspan.
++            if style.size.height.tag() == taffy::CompactLength::LENGTH_TAG {
++                style.min_size.height = style_helpers::length(style.size.height.value());
++                style.size.height = style_helpers::auto();
++            }
++            cells.push(TableCell {
++                node_id,
++                style,
++                row: *row as usize - 1,
++                row_end: *row as usize - 1 + rowspan as usize,
++                column: col as usize,
++                column_end: col as usize + colspan as usize,
++            });
+ 
+             cursor.place(colspan, rowspan);
+         }
+@@ -753,7 +804,11 @@ impl taffy::LayoutPartialTree for TableTreeWrapper<'_> {
+ 
+     fn set_unrounded_layout(&mut self, node_id: taffy::NodeId, layout: &taffy::Layout) {
+         let node_id = crate::taffy_node_id(self.ctx.cells[usize::from(node_id)].node_id);
+-        self.doc.set_unrounded_layout(node_id, layout)
++        let mut layout = *layout;
++        layout.padding.top += self.doc.nodes[crate::dom_node_id(node_id)]
++            .layout_data()
++            .table_cell_inline_offset;
++        self.doc.set_unrounded_layout(node_id, &layout)
+     }
+ 
+     fn compute_child_layout(
+@@ -762,6 +817,14 @@ impl taffy::LayoutPartialTree for TableTreeWrapper<'_> {
+         inputs: taffy::tree::LayoutInput,
+     ) -> taffy::LayoutOutput {
+         let cell = &self.ctx.cells[usize::from(node_id)];
++        if self.doc.nodes[cell.node_id]
++            .element_data()
++            .is_none_or(|e| e.inline_layout_data.is_none())
++        {
++            self.doc.nodes[cell.node_id]
++                .layout_data_mut()
++                .table_cell_inline_offset = 0.0;
++        }
+         let node_id = crate::taffy_node_id(cell.node_id);
+         self.doc.compute_child_layout(node_id, inputs)
+     }
+diff --git a/packages/blitz-dom/src/lib.rs b/packages/blitz-dom/src/lib.rs
+index 04382e6..9365081 100644
+--- a/packages/blitz-dom/src/lib.rs
++++ b/packages/blitz-dom/src/lib.rs
+@@ -154,3 +154,4 @@ pub fn build_single_font_ctx(font_data: &[u8]) -> FontContext {
+     }
+     ctx
+ }
++pub use layout::collapsed_borders::BorderSide;
+diff --git a/packages/blitz-dom/src/node/element.rs b/packages/blitz-dom/src/node/element.rs
+index 501da7b..8e8beda 100644
+--- a/packages/blitz-dom/src/node/element.rs
++++ b/packages/blitz-dom/src/node/element.rs
+@@ -124,6 +124,9 @@ pub struct ElementData {
+ /// nodes on text-heavy pages never allocate one.
+ #[derive(Debug, Clone)]
+ pub struct LayoutData {
++    /// Used half-borders from the owning collapsed table, not authored CSS.
++    pub collapsed_border: Option<taffy::Rect<f32>>,
++    pub table_cell_inline_offset: f32,
+     pub cache: Cache,
+     pub unrounded_layout: Layout,
+     pub final_layout: Layout,
+@@ -134,6 +137,8 @@ pub struct LayoutData {
+ impl LayoutData {
+     pub const fn new() -> Self {
+         Self {
++            collapsed_border: None,
++            table_cell_inline_offset: 0.0,
+             cache: Cache::new(),
+             unrounded_layout: Layout::new(),
+             final_layout: Layout::new(),
+diff --git a/packages/blitz-dom/src/node/node.rs b/packages/blitz-dom/src/node/node.rs
+index ee0f01a..bd8130e 100644
+--- a/packages/blitz-dom/src/node/node.rs
++++ b/packages/blitz-dom/src/node/node.rs
+@@ -1194,7 +1194,27 @@ impl Node {
+             }
+         }
+ 
+-        stylo_taffy::TaffyStyloStyle::new(styles, flags)
++        let inside = styles.clone_display().inside();
++        let collapsed =
++            styles.clone_border_collapse() == style::computed_values::border_collapse::T::Collapse;
++        let mut result = stylo_taffy::TaffyStyloStyle::new(styles, flags);
++        if collapsed {
++            match inside {
++                style::values::specified::box_::DisplayInside::TableCell => {
++                    result.border_override = self.layout_data().collapsed_border
++                }
++                style::values::specified::box_::DisplayInside::Table => {
++                    if let Some(crate::node::SpecialElementData::TableRoot(context)) =
++                        self.element_data().map(|el| &el.special_data)
++                    {
++                        result.border_override =
++                            Some(context.style.border.map(|v| v.into_raw().value()));
++                    }
++                }
++                _ => {}
++            }
++        }
++        result
+     }
+ 
+     /// The node's `display` as a [`taffy::Display`]. Returns [`taffy::Display::Block`]
+diff --git a/packages/blitz-paint/src/render.rs b/packages/blitz-paint/src/render.rs
+index f6855c5..837351d 100644
+--- a/packages/blitz-paint/src/render.rs
++++ b/packages/blitz-paint/src/render.rs
+@@ -512,7 +512,6 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
+                         cx.draw_background(scene);
+                         cx.draw_inset_box_shadow(scene);
+                         cx.draw_table_row_backgrounds(scene);
+-                        cx.draw_table_borders(scene);
+                         cx.draw_border(scene);
+                         cx.stroke_devtools(scene);
+ 
+@@ -554,6 +553,7 @@ impl<'dom, 'a> BlitzDomPainter<'dom, 'a> {
+                                 cx.draw_inline_layout(scene, content_position);
+                                 cx.draw_marker(scene, content_position);
+                                 cx.draw_children(scene, cx.transform, child_clip_rect);
++                                cx.draw_table_borders(scene);
+                             },
+                         );
+ 
+diff --git a/packages/blitz-paint/src/render/border.rs b/packages/blitz-paint/src/render/border.rs
+index fd87ad9..5e1901a 100644
+--- a/packages/blitz-paint/src/render/border.rs
++++ b/packages/blitz-paint/src/render/border.rs
+@@ -1,6 +1,6 @@
+ use anyrender::PaintScene;
+ use blitz_dom::node::SpecialElementData;
+-use kurbo::{BezPath, Cap, Circle, Insets, Join, PathEl, Point, Rect, Shape as _, Stroke, Vec2};
++use kurbo::{BezPath, Cap, Circle, Insets, Join, PathEl, Point, Shape as _, Stroke, Vec2};
+ use peniko::{Color, Fill};
+ use smallvec::SmallVec;
+ use style::{
+@@ -11,7 +11,7 @@ use style::{
+ use crate::{
+     color::{ToColorColor as _, contrast_ratio},
+     kurbo_css::Edge,
+-    render::{ElementCx, PhysicalTracks},
++    render::ElementCx,
+ };
+ 
+ /// A darker version of a colour (mirrors WebKit/Blink's `Color::Dark`): the
+@@ -148,6 +148,15 @@ impl ElementCx<'_, '_> {
+     /// Draw all borders for a node
+     pub(crate) fn draw_border(&self, scene: &mut impl PaintScene) {
+         let style = &*self.style;
++        if style.clone_border_collapse() == BorderCollapse::Collapse
++            && matches!(
++                style.clone_display().inside(),
++                style::values::specified::box_::DisplayInside::Table
++                    | style::values::specified::box_::DisplayInside::TableCell
++            )
++        {
++            return;
++        }
+         let border = style.get_border();
+         let current_color = style.clone_color();
+ 
+@@ -510,101 +519,160 @@ impl ElementCx<'_, '_> {
+     }
+ 
+     pub(crate) fn draw_table_borders(&self, scene: &mut impl PaintScene) {
++        use blitz_dom::BorderSide;
+         let SpecialElementData::TableRoot(table) = &self.element.special_data else {
+             return;
+         };
+-        // Borders are only handled at the table level when BorderCollapse::Collapse
+         if table.border_collapse != BorderCollapse::Collapse {
+             return;
+         }
+-
+-        let Some(grid_info) = &mut *table.computed_grid_info.borrow_mut() else {
++        let info = table.computed_grid_info.borrow();
++        let Some(grid) = info.as_ref() else {
+             return;
+         };
+-        let Some(border_style) = table.border_style.as_deref() else {
+-            return;
++        // Track coordinates are already relative to the table border box.
++        // Logical column order reverses for RTL, but border sides are physical.
++        let coordinate = |positions: &[taffy::Line<f32>], index: usize| -> Option<f64> {
++            let first = positions.first()?;
++            let last = positions.last()?;
++            let rtl = first.start > last.start;
++            let value = if index == 0 {
++                if rtl { first.end } else { first.start }
++            } else if index == positions.len() {
++                if rtl { last.start } else { last.end }
++            } else {
++                let prev = positions.get(index - 1)?;
++                let next = positions.get(index)?;
++                if rtl {
++                    (prev.start + next.end) / 2.0
++                } else {
++                    (prev.end + next.start) / 2.0
++                }
++            };
++            Some(value as f64 * self.scale)
+         };
+-
+-        let outer_border_style = self.style.get_border();
+-
+-        let cols = PhysicalTracks::from_tracks(&grid_info.columns);
+-        let rows = PhysicalTracks::from_tracks(&grid_info.rows);
+-
+-        let inner_width = cols.span() as f64;
+-        let inner_height = rows.span() as f64;
+-
+-        // TODO: support different colors for different borders
+-        let current_color = self.style.clone_color();
+-        let border_color = border_style
+-            .border_top_color
+-            .resolve_to_absolute(&current_color)
++        // Paint weaker edges first so a stronger crossing edge owns the joint.
++        let mut segments: Vec<_> = table.collapsed_borders.iter().collect();
++        segments.sort_by(|a, b| a.border.used_width().total_cmp(&b.border.used_width()));
++        for segment in segments {
++            let border = segment.border;
++            let thickness = border.used_width() as f64 * self.scale;
++            if thickness <= 0.0 {
++                continue;
++            }
++            let Some(source) = self.context.dom.get_node(border.node_id) else {
++                continue;
++            };
++            let Some(style) = source.primary_styles() else {
++                continue;
++            };
++            let borders = style.get_border();
++            let color = match border.side {
++                BorderSide::Top => &borders.border_top_color,
++                BorderSide::Right => &borders.border_right_color,
++                BorderSide::Bottom => &borders.border_bottom_color,
++                BorderSide::Left => &borders.border_left_color,
++            }
++            .resolve_to_absolute(&style.clone_color())
+             .as_srgb_color();
+-
+-        // No need to draw transparent borders (as they won't be visible anyway)
+-        if border_color == Color::TRANSPARENT {
+-            return;
+-        }
+-
+-        // Border widths are not adjusted for border-style in computed styles,
+-        // so a border with `none`/`hidden` style must be treated as zero-width.
+-        if border_style.border_top_style.none_or_hidden() {
+-            return;
+-        }
+-
+-        let border_width = border_style.border_top_width.0.to_f64_px();
+-
+-        // Draw horizontal inner borders (the gutters between adjacent row tracks)
+-        let row_origin = rows.origin();
+-        for (prev, next) in rows.iter().zip(rows.iter().skip(1)) {
+-            let shape = Rect::new(
+-                0.0,
+-                (prev.end - row_origin) as f64,
+-                inner_width,
+-                (next.start - row_origin) as f64,
+-            )
+-            .scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+-        }
+-
+-        // Draw horizontal outer borders
+-        // Top border
+-        if outer_border_style.border_top_style != BorderStyle::Hidden {
+-            let shape =
+-                Rect::new(0.0, 0.0, inner_width, border_width).scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+-        }
+-        // Bottom border
+-        if outer_border_style.border_bottom_style != BorderStyle::Hidden {
+-            let shape = Rect::new(0.0, inner_height, inner_width, inner_height + border_width)
+-                .scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+-        }
+-
+-        // Draw vertical inner borders (the gutters between adjacent column tracks)
+-        let col_origin = cols.origin();
+-        for (prev, next) in cols.iter().zip(cols.iter().skip(1)) {
+-            let shape = Rect::new(
+-                (prev.end - col_origin) as f64,
+-                0.0,
+-                (next.start - col_origin) as f64,
+-                inner_height,
+-            )
+-            .scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+-        }
+-
+-        // Draw vertical outer borders
+-        // Left border
+-        if outer_border_style.border_left_style != BorderStyle::Hidden {
+-            let shape =
+-                Rect::new(0.0, 0.0, border_width, inner_height).scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+-        }
+-        // Right border
+-        if outer_border_style.border_right_style != BorderStyle::Hidden {
+-            let shape = Rect::new(inner_width, 0.0, inner_width + border_width, inner_height)
+-                .scale_from_origin(self.scale);
+-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
++            if color.components[3] == 0.0 {
++                continue;
++            }
++            let (across, along) = if segment.horizontal {
++                (&grid.rows.positions, &grid.columns.positions)
++            } else {
++                (&grid.columns.positions, &grid.rows.positions)
++            };
++            let (Some(axis), Some(start), Some(end)) = (
++                coordinate(across, segment.line),
++                coordinate(along, segment.start),
++                coordinate(along, segment.end),
++            ) else {
++                continue;
++            };
++            let (start, end) = (start.min(end), start.max(end));
++            let line = |offset| {
++                if segment.horizontal {
++                    kurbo::Line::new((start, axis + offset), (end, axis + offset))
++                } else {
++                    kurbo::Line::new((axis + offset, start), (axis + offset, end))
++                }
++            };
++            match border.style {
++                BorderStyle::None | BorderStyle::Hidden => {}
++                BorderStyle::Dashed => {
++                    let (dash, gap) = dashed_ratios(thickness, self.scale);
++                    let stroke = Stroke::new(thickness)
++                        .with_caps(Cap::Butt)
++                        .with_dashes(0.0, [dash * thickness, gap * thickness]);
++                    scene.stroke(&stroke, self.transform, color, None, &line(0.0));
++                }
++                BorderStyle::Dotted => {
++                    // Zero-length round-capped dashes disappear in the CPU
++                    // stroker. Emit actual circles, as for ordinary CSS borders.
++                    let count = ((end - start) / (2.0 * thickness)).ceil().max(1.0) as usize;
++                    let spacing = if count > 1 {
++                        (end - start - thickness) / (count - 1) as f64
++                    } else {
++                        0.0
++                    };
++                    for i in 0..count {
++                        let position = if count == 1 {
++                            (start + end) / 2.0
++                        } else {
++                            start + thickness / 2.0 + i as f64 * spacing
++                        };
++                        let center = if segment.horizontal {
++                            (position, axis)
++                        } else {
++                            (axis, position)
++                        };
++                        scene.fill(
++                            Fill::NonZero,
++                            self.transform,
++                            color,
++                            None,
++                            &Circle::new(center, thickness / 2.0),
++                        );
++                    }
++                }
++                BorderStyle::Double => {
++                    let stroke = Stroke::new(thickness / 3.0);
++                    for offset in [-thickness / 3.0, thickness / 3.0] {
++                        scene.stroke(&stroke, self.transform, color, None, &line(offset));
++                    }
++                }
++                BorderStyle::Groove
++                | BorderStyle::Ridge
++                | BorderStyle::Inset
++                | BorderStyle::Outset => {
++                    let ridge = matches!(border.style, BorderStyle::Ridge | BorderStyle::Inset);
++                    let edge = if segment.horizontal {
++                        Edge::Top
++                    } else {
++                        Edge::Left
++                    };
++                    let (outer, inner) = grooved_edge_colors(color, edge, ridge);
++                    let stroke = Stroke::new(thickness / 2.0);
++                    scene.stroke(
++                        &stroke,
++                        self.transform,
++                        outer,
++                        None,
++                        &line(-thickness / 4.0),
++                    );
++                    scene.stroke(&stroke, self.transform, inner, None, &line(thickness / 4.0));
++                }
++                BorderStyle::Solid => {
++                    scene.stroke(
++                        &Stroke::new(thickness).with_caps(Cap::Square),
++                        self.transform,
++                        color,
++                        None,
++                        &line(0.0),
++                    );
++                }
++            }
+         }
+     }
+ 
+diff --git a/packages/stylo_taffy/src/convert.rs b/packages/stylo_taffy/src/convert.rs
+index 32b2619..fbf1f1e 100644
+--- a/packages/stylo_taffy/src/convert.rs
++++ b/packages/stylo_taffy/src/convert.rs
+@@ -319,6 +319,29 @@ pub fn aspect_ratio(input: stylo::AspectRatio) -> Option<f32> {
+     }
+ }
+ 
++/// Map table-cell top/middle/bottom to content alignment. Row baseline sharing
++/// needs a separate table baseline pass; unsupported values retain start.
++#[inline]
++pub fn table_cell_alignment(
++    style: &style::properties::ComputedValues,
++) -> Option<taffy::AlignContent> {
++    use style::values::{
++        computed::BaselineShift, generics::box_::BaselineShiftKeyword,
++        specified::box_::AlignmentBaseline,
++    };
++    if style.clone_display().inside() != stylo::DisplayInside::TableCell {
++        return None;
++    }
++    Some(match style.clone_baseline_shift() {
++        BaselineShift::Keyword(BaselineShiftKeyword::Bottom) => taffy::AlignContent::END,
++        BaselineShift::Keyword(BaselineShiftKeyword::Top) => taffy::AlignContent::START,
++        _ if style.clone_alignment_baseline() == AlignmentBaseline::Middle => {
++            taffy::AlignContent::CENTER
++        }
++        _ => taffy::AlignContent::START,
++    })
++}
++
+ /// Convert `align-content`/`justify-content` for a container with the given `display`.
+ ///
+ /// In a block container the whole in-flow content is a single alignment subject, and positional
+diff --git a/packages/stylo_taffy/src/wrapper.rs b/packages/stylo_taffy/src/wrapper.rs
+index 004d6d1..624205e 100644
+--- a/packages/stylo_taffy/src/wrapper.rs
++++ b/packages/stylo_taffy/src/wrapper.rs
+@@ -26,6 +26,7 @@ bitflags! {
+ /// A wrapper struct for anything that `Deref`s to a [`stylo::ComputedValues`](ComputedValues) (can be pointed to by an `&` reference, [`Arc`](std::sync::Arc),
+ /// [`Ref`](std::cell::Ref), etc). It implements [`taffy`]'s [layout traits](taffy::traits) and can used with Taffy's [layout algorithms](taffy::compute).
+ pub struct TaffyStyloStyle<T: Deref<Target = ComputedValues>> {
++    pub border_override: Option<taffy::Rect<f32>>,
+     /// The stylo style
+     pub style: T,
+     /// Extra node-derived flags that are not part of the stylo style
+@@ -35,7 +36,11 @@ pub struct TaffyStyloStyle<T: Deref<Target = ComputedValues>> {
+ impl<T: Deref<Target = ComputedValues>> TaffyStyloStyle<T> {
+     /// Create a new [`TaffyStyloStyle`] from a stylo style and [`StyleFlags`]
+     pub fn new(style: T, flags: StyleFlags) -> Self {
+-        Self { style, flags }
++        Self {
++            style,
++            flags,
++            border_override: None,
++        }
+     }
+ }
+ 
+@@ -45,6 +50,7 @@ impl<T: Deref<Target = ComputedValues>> From<T> for TaffyStyloStyle<T> {
+         Self {
+             style: value,
+             flags: StyleFlags::empty(),
++            border_override: None,
+         }
+     }
+ }
+@@ -54,6 +60,9 @@ impl<T: Deref<Target = ComputedValues>> From<TaffyStyloStyle<T>> for taffy::Styl
+     fn from(value: TaffyStyloStyle<T>) -> Self {
+         let mut style = convert::to_taffy_style(&value.style);
+         style.item_is_replaced = value.flags.contains(StyleFlags::IS_REPLACED);
++        if let Some(border) = value.border_override {
++            style.border = border.map(taffy::style_helpers::length);
++        }
+         style
+     }
+ }
+@@ -170,6 +179,13 @@ impl<T: Deref<Target = ComputedValues>> taffy::CoreStyle for TaffyStyloStyle<T>
+ 
+     #[inline]
+     fn padding(&self) -> taffy::Rect<taffy::LengthPercentage> {
++        if self.style.clone_display().inside()
++            == style::values::specified::box_::DisplayInside::Table
++            && self.style.clone_border_collapse()
++                == style::computed_values::border_collapse::T::Collapse
++        {
++            return taffy::Rect::ZERO.map(taffy::style_helpers::length);
++        }
+         let padding_styles = self.style.get_padding();
+         taffy::Rect {
+             left: convert::length_percentage(&padding_styles.padding_left.0),
+@@ -181,6 +197,9 @@ impl<T: Deref<Target = ComputedValues>> taffy::CoreStyle for TaffyStyloStyle<T>
+ 
+     #[inline]
+     fn border(&self) -> taffy::Rect<taffy::LengthPercentage> {
++        if let Some(border) = self.border_override {
++            return border.map(taffy::style_helpers::length);
++        }
+         let border_styles = self.style.get_border();
+         taffy::Rect {
+             left: convert::border(
+@@ -213,6 +232,9 @@ impl<T: Deref<Target = ComputedValues>> taffy::BlockContainerStyle for TaffyStyl
+ 
+     #[inline]
+     fn align_content(&self) -> Option<taffy::AlignContent> {
++        if let Some(alignment) = convert::table_cell_alignment(&self.style) {
++            return Some(alignment);
++        }
+         convert::content_alignment(
+             self.style.get_position().align_content,
+             self.style.clone_display(),

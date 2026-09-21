@@ -92,4 +92,9 @@ selection, links, nested scrolling, accessibility and animation remain roadmap w
 Extracted from `OctoSense-org/robrix2`'s `wechat-ui` renderer work, based on Robrix
 commit `7f24f14ac5c59f65b84f078944443e3977c9f6f0` plus the reviewed CSS fixes.
 Original license notices are retained. Blitz source provenance and the exact
-local diff are recorded in `vendor/blitz/UPSTREAM.json` and `wechat-css-1.patch`.
+local diffs are recorded in `vendor/blitz/UPSTREAM.json`, `wechat-css-1.patch`
+and the subsequent `table-2.patch`.
+
+The table parity pass fixes merged-cell borders, border conflicts and cell
+alignment. It passes 27 default / 29 extended tests and retains the same
+production resource policy. See [measured results and remaining gaps](docs/table-parity.md).

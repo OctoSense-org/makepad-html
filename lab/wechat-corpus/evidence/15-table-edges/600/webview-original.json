@@ -1,0 +1,249 @@
+{
+  "engine" : "macOS WKWebView \/ WebKit",
+  "height_css" : 700,
+  "html_rewritten" : false,
+  "macos" : "Version 26.6.2 (Build 25G83)",
+  "observation" : {
+    "body_font" : "16px \/ 28px \"PingFang SC\", sans-serif",
+    "content_height_css" : 700,
+    "details" : [
+
+    ],
+    "elements" : {
+      "[data-probe]" : [
+        {
+          "height" : 474,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        },
+        {
+          "height" : 30,
+          "width" : 560,
+          "x" : 20,
+          "y" : 20
+        },
+        {
+          "height" : 186,
+          "width" : 300,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 122,
+          "width" : 149,
+          "x" : 21,
+          "y" : 69
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 26,
+          "y" : 124
+        },
+        {
+          "height" : 60,
+          "width" : 149,
+          "x" : 170,
+          "y" : 69
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 175,
+          "y" : 74
+        },
+        {
+          "height" : 62,
+          "width" : 149,
+          "x" : 170,
+          "y" : 129
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 177,
+          "y" : 172
+        },
+        {
+          "height" : 60,
+          "width" : 298,
+          "x" : 21,
+          "y" : 191
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 26,
+          "y" : 214
+        },
+        {
+          "height" : 60,
+          "width" : 300,
+          "x" : 20,
+          "y" : 266
+        },
+        {
+          "height" : 58,
+          "width" : 149,
+          "x" : 170,
+          "y" : 267
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 298,
+          "y" : 290
+        },
+        {
+          "height" : 58,
+          "width" : 149,
+          "x" : 21,
+          "y" : 267
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 147,
+          "y" : 290
+        },
+        {
+          "height" : 64,
+          "width" : 300,
+          "x" : 20,
+          "y" : 338
+        },
+        {
+          "height" : 60,
+          "width" : 147.5,
+          "x" : 22,
+          "y" : 340
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 28,
+          "y" : 364
+        },
+        {
+          "height" : 60,
+          "width" : 147.5,
+          "x" : 169.5,
+          "y" : 340
+        },
+        {
+          "height" : 12,
+          "width" : 16,
+          "x" : 173.5,
+          "y" : 364
+        },
+        {
+          "height" : 28,
+          "width" : 560,
+          "x" : 20,
+          "y" : 414
+        }
+      ],
+      "article" : [
+
+      ],
+      "article > ol" : [
+
+      ],
+      "article > p" : [
+
+      ],
+      "article > ul" : [
+
+      ],
+      "aside" : [
+
+      ],
+      "blockquote" : [
+
+      ],
+      "body > footer" : [
+
+      ],
+      "button" : [
+
+      ],
+      "details" : [
+
+      ],
+      "form" : [
+
+      ],
+      "h1" : [
+
+      ],
+      "img" : [
+
+      ],
+      "input" : [
+
+      ],
+      "nav" : [
+
+      ],
+      "pre" : [
+
+      ],
+      "section" : [
+        {
+          "height" : 474,
+          "width" : 600,
+          "x" : 0,
+          "y" : 0
+        }
+      ],
+      "table" : [
+        {
+          "height" : 186,
+          "width" : 300,
+          "x" : 20,
+          "y" : 68
+        },
+        {
+          "height" : 60,
+          "width" : 300,
+          "x" : 20,
+          "y" : 266
+        },
+        {
+          "height" : 64,
+          "width" : 300,
+          "x" : 20,
+          "y" : 338
+        }
+      ],
+      "textarea" : [
+
+      ]
+    },
+    "fonts" : [
+
+    ],
+    "images" : [
+
+    ],
+    "title" : "表格边界与对齐回归",
+    "viewport" : {
+      "dpr" : 2,
+      "height" : 700,
+      "width" : 600
+    }
+  },
+  "page_scripts_enabled" : false,
+  "scale" : 2,
+  "source_bytes" : 1792,
+  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/15-table-edges.html",
+  "source_sha256" : "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+  "tiles" : [
+    {
+      "file" : "webview-original-tile-0.png",
+      "y_css" : 0
+    }
+  ],
+  "width_css" : 600
+}

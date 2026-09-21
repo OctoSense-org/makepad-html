@@ -1,5 +1,5 @@
 {
-  "scope": "Observed in authored fixtures; not an official whitelist",
+  "scope": "Observed in authored fixtures; not an official whitelist. CSS properties in style elements are not counted as inline properties.",
   "cases": [
     {
       "case": "01-typography",
@@ -475,6 +475,45 @@
         "width",
         "word-wrap"
       ]
+    },
+    {
+      "case": "15-table-edges",
+      "tags": [
+        "body",
+        "col",
+        "colgroup",
+        "h2",
+        "head",
+        "html",
+        "i",
+        "meta",
+        "p",
+        "section",
+        "style",
+        "table",
+        "tbody",
+        "td",
+        "title",
+        "tr"
+      ],
+      "inline_css_properties": [
+        "background",
+        "border",
+        "border-bottom",
+        "border-left",
+        "border-right",
+        "box-sizing",
+        "color",
+        "direction",
+        "font",
+        "font-size",
+        "line-height",
+        "margin",
+        "max-width",
+        "padding",
+        "vertical-align",
+        "word-wrap"
+      ]
     }
   ],
   "all_tags": [
@@ -483,6 +522,8 @@
     "body",
     "circle",
     "code",
+    "col",
+    "colgroup",
     "defs",
     "del",
     "em",
@@ -493,6 +534,7 @@
     "head",
     "hr",
     "html",
+    "i",
     "img",
     "li",
     "lineargradient",
@@ -530,10 +572,12 @@
     "border-collapse",
     "border-left",
     "border-radius",
+    "border-right",
     "box-shadow",
     "box-sizing",
     "clip-path",
     "color",
+    "direction",
     "display",
     "fill",
     "flex",

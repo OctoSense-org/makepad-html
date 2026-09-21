@@ -6,7 +6,8 @@
     "renderer": "https://github.com/doocs/md/blob/cbcd3756e55d4982a37ff451753a69ce822e7a58/packages/core/src/renderer/renderer-impl.ts",
     "nice": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js",
     "syntax": "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md",
-    "blitz": "https://blitz.is/status/css"
+    "blitz": "https://blitz.is/status/css",
+    "tables": "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
   },
   "cases": [
     {
@@ -261,6 +262,24 @@
         "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/content.md"
       ],
       "provenance": "host-integration probe; not a claim of browser-native lazy loading"
+    },
+    {
+      "id": "15-table-edges",
+      "title": "表格边界与对齐回归",
+      "file": "fixtures/15-table-edges.html",
+      "sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+      "features": [
+        "collapsed border conflicts",
+        "rowspan/colspan",
+        "top/middle/bottom cell alignment",
+        "RTL",
+        "row/column group borders",
+        "hidden/dashed/dotted/double"
+      ],
+      "sources": [
+        "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
+      ],
+      "provenance": "authored CSS table regression; not a published WeChat acceptance claim"
     }
   ],
   "viewports": [

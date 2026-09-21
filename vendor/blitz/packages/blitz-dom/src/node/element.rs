@@ -124,6 +124,9 @@ pub struct ElementData {
 /// nodes on text-heavy pages never allocate one.
 #[derive(Debug, Clone)]
 pub struct LayoutData {
+    /// Used half-borders from the owning collapsed table, not authored CSS.
+    pub collapsed_border: Option<taffy::Rect<f32>>,
+    pub table_cell_inline_offset: f32,
     pub cache: Cache,
     pub unrounded_layout: Layout,
     pub final_layout: Layout,
@@ -134,6 +137,8 @@ pub struct LayoutData {
 impl LayoutData {
     pub const fn new() -> Self {
         Self {
+            collapsed_border: None,
+            table_cell_inline_offset: 0.0,
             cache: Cache::new(),
             unrounded_layout: Layout::new(),
             final_layout: Layout::new(),

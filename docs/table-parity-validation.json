@@ -1,0 +1,231 @@
+{
+  "date": "2026-09-21",
+  "baseline_commit": "4920a99cbfded4caa99d9133dc3736759af356d5",
+  "patches": [
+    "wechat-css-1",
+    "table-2"
+  ],
+  "rust": "1.98.0",
+  "platform": "aarch64 macOS",
+  "default_tests_passed": 27,
+  "extended_tests_passed": 29,
+  "table_regressions": {
+    "passed": 9,
+    "first_eight_failed_on_baseline": 8,
+    "ninth_checks_dotted_pixels_at_1x_and_2x": true
+  },
+  "native_verification": {
+    "passed": true,
+    "ocr": {
+      "top_contains_chinese_title": true,
+      "bottom_contains_table": true,
+      "table_markers_matched": [
+        "标题与正文",
+        "图片与样式",
+        "文章阅读",
+        "PingFang",
+        "RGBA"
+      ]
+    },
+    "binary_sha256": "cdbc8bb4567c921c741e77206c8ac9eb0adb104752f12de49427f40f53e3d52d",
+    "window": [
+      {
+        "i": 0,
+        "t": "Makepad [remote]",
+        "sz": [
+          440,
+          880
+        ],
+        "px": [
+          880,
+          1760
+        ],
+        "dpi": 2,
+        "pos": [
+          536,
+          64
+        ]
+      }
+    ],
+    "screenshots": {
+      "native-top.png": "ef603532b4802f28a2b61df42d985366fead544cad46e427aaaa9bd0932b4a1c",
+      "native-bottom.png": "107da78c1b2bfc9d8e9757bb5f2462d4afce4cc1544fad3b6ed62225b6f10747"
+    },
+    "checks": [
+      "isolated fixture process and owned loopback bridge",
+      "native Makepad widget ready",
+      "Blitz RGBA uploaded as native texture",
+      "native scroll changes displayed article pixels"
+    ],
+    "personal_accounts_used": false
+  },
+  "corpus_captures_completed": 30,
+  "unchanged_non_table_pngs": 26,
+  "changed_existing_cases": [
+    [
+      "04-tables",
+      390
+    ],
+    [
+      "04-tables",
+      600
+    ]
+  ],
+  "comparison_cases": [
+    {
+      "case": "04-tables",
+      "width": 390,
+      "source_sha256": "3055218678500f40cded0f2bc6913d5291bc83e3731d436a1ea13c5d40ec5976",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 31.696,
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            274.75,
+            274
+          ]
+        }
+      }
+    },
+    {
+      "case": "04-tables",
+      "width": 600,
+      "source_sha256": "3055218678500f40cded0f2bc6913d5291bc83e3731d436a1ea13c5d40ec5976",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "max_probe_delta_css": 6.75,
+          "median_probe_delta_css": 6.75,
+          "article_height_css": [
+            280.75,
+            274
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 28.52,
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
+          "article_height_css": [
+            274.75,
+            274
+          ]
+        }
+      }
+    },
+    {
+      "case": "15-table-edges",
+      "width": 390,
+      "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 90.662,
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            484.0,
+            502
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 90.662,
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            484.0,
+            502
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 64.411,
+          "max_probe_delta_css": 2.0,
+          "median_probe_delta_css": 2.0,
+          "article_height_css": [
+            504.0,
+            502
+          ]
+        }
+      }
+    },
+    {
+      "case": "15-table-edges",
+      "width": 600,
+      "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 90.75,
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            456.0,
+            474
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 90.75,
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            456.0,
+            474
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_pixels_differing_over_24_rgb_pct": 64.411,
+          "max_probe_delta_css": 2.0,
+          "median_probe_delta_css": 2.0,
+          "article_height_css": [
+            476.0,
+            474
+          ]
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Static bitmap native widget; no nested scroll events",
+    "Automatic table column widths differ from WebKit",
+    "Merged-edge height metrics and dash/junction rasterization remain imperfect",
+    "Table baseline sharing, vertical writing modes and full CSS tables coverage remain incomplete",
+    "Not a complete WeChat compatibility or 9/10 score"
+  ]
+}

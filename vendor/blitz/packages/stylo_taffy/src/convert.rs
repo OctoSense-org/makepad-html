@@ -319,6 +319,29 @@ pub fn aspect_ratio(input: stylo::AspectRatio) -> Option<f32> {
     }
 }
 
+/// Map table-cell top/middle/bottom to content alignment. Row baseline sharing
+/// needs a separate table baseline pass; unsupported values retain start.
+#[inline]
+pub fn table_cell_alignment(
+    style: &style::properties::ComputedValues,
+) -> Option<taffy::AlignContent> {
+    use style::values::{
+        computed::BaselineShift, generics::box_::BaselineShiftKeyword,
+        specified::box_::AlignmentBaseline,
+    };
+    if style.clone_display().inside() != stylo::DisplayInside::TableCell {
+        return None;
+    }
+    Some(match style.clone_baseline_shift() {
+        BaselineShift::Keyword(BaselineShiftKeyword::Bottom) => taffy::AlignContent::END,
+        BaselineShift::Keyword(BaselineShiftKeyword::Top) => taffy::AlignContent::START,
+        _ if style.clone_alignment_baseline() == AlignmentBaseline::Middle => {
+            taffy::AlignContent::CENTER
+        }
+        _ => taffy::AlignContent::START,
+    })
+}
+
 /// Convert `align-content`/`justify-content` for a container with the given `display`.
 ///
 /// In a block container the whole in-flow content is a single alignment subject, and positional

@@ -27,9 +27,12 @@ NOTES={
  '11-ruby':'严重：rt 注音落在汉字旁边；sup/sub 没有正确的基线位移。',
  '12-effects':'渐变、圆角和裁剪可见；文字阴影缺失。变换后的视觉边界不等同于未变换的布局框，几何指标需人工解释。',
  '13-layout':'未启用 floats 时超时；启用后可渲染环绕布局，但绝对定位标签相对错误的祖先定位，偏移 36px。该边界探针未验证微信发布接受度。',
+ '15-table-edges':'表格边界回归：原版未解析混合边框冲突，合并单元格与对齐存在错误。',
  '14-lazy-image':'两边都不会把 data-src 当作 src。需要宿主导入层解析并授权加载；这是适配需求，不是 Blitz 独有的渲染缺陷。',
 }
 PATCH_NOTES={
+ '04-tables':'已修复合并单元格内横线、单元格居中与混合边框；自动列宽和虚线节奏仍与 WebKit 不完全一致。原生内部横向滚动仍未接入。',
+ '15-table-edges':'新增覆盖：边框冲突、hidden、dashed/dotted/double、行列组、RTL 和 top/middle/bottom。具体几何与像素差见测量；不是完整 CSS 表格认证。',
  '02-headings-quotes':'已修复 display:table 标题丢字；圆角引用边框和文字阴影仍有差异。',
  '08-carousel':'已修复仅含卡片的 nowrap 图集纵排；Makepad 内部横向滚动交互尚未接入。混合文本与卡片的完整换行规则仍待补齐。',
  '10-svg-css':'已修复 HTML 继承的 currentColor；覆盖 SVG 属性、内联样式、内部 CSS 和动态颜色回归测试。生产入口仍拒绝 SVG。',
@@ -79,7 +82,7 @@ for run in runs:
     records.append(record)
 report={'method':'Raw-engine diagnostic, exact identical fixture bytes and resources. Real macOS WKWebView; page JS disabled. 2x. No registration or alignment. CSS font-family PingFang SC in both.',
  'scope':'Source-derived authored fixtures; not published WeChat captures, not an official exhaustive allowlist, not iOS/Android WeChat certification.',
- 'variants':{'patched':'Same extended features + repository vendor/blitz patches wechat-css-1','media':'woff + gif; other product defaults','extended':'woff + gif + blitz-paint/svg + blitz-dom/floats; WebP decoder enabled transitively by SVG'},
+ 'variants':{'patched':'Same extended features + repository vendor/blitz patches wechat-css-1 + table-2','media':'woff + gif; other product defaults','extended':'woff + gif + blitz-paint/svg + blitz-dom/floats; WebP decoder enabled transitively by SVG'},
  'metric_limits':'Pixel difference is measured only over the union of nonwhite content, threshold 24/255; it is not similarity or a 9/10 score. Font rasterization affects pixels. Probe rectangles can differ for transforms even when pixels agree. Exit 0 only means capture completed.',
  'results':records}
 (ROOT/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
@@ -87,7 +90,7 @@ data=json.dumps(report,ensure_ascii=False).replace('</','<\\/')
 page='''<!doctype html><html lang="zh"><meta charset="utf-8"><title>公众号 HTML/CSS · Blitz / WKWebView</title>
 <style>body{margin:24px;font:15px/1.65 system-ui;background:#eff2f6;color:#182638}h1{font-size:24px}select,button{padding:8px;margin:4px}label{margin-right:12px}.card{padding:16px;background:white;border-radius:12px;margin-bottom:16px}img{max-width:100%;background:white}a{color:#16658d}pre{white-space:pre-wrap;font-size:12px}#stats{display:flex;gap:20px}.warning{color:#934522}nav{position:sticky;top:0;background:#eff2f6;padding:8px 0}details{margin:12px 0}</style>
 <h1>公众号 HTML/CSS：真实渲染对照与缺口</h1>
-<div class="card">14 个样本 × 390 / 600 CSS px。来源：doocs/md、Markdown Nice；少量边界探针另有标注。<br>原始 HTML 和资源一致，字体声明均为 PingFang SC，页面 JS 关闭。右侧是真实 macOS WKWebView；这不是 iOS 或微信客户端验收。<br><a href="README.md">研究结论与修改路线</a> · <a href="corpus.json">样本及来源</a> · <a href="results.json">原始测量</a></div>
+<div class="card">15 个样本 × 390 / 600 CSS px。来源：doocs/md、Markdown Nice；少量边界探针另有标注。<br>原始 HTML 和资源一致，字体声明均为 PingFang SC，页面 JS 关闭。右侧是真实 macOS WKWebView；这不是 iOS 或微信客户端验收。<br><a href="README.md">研究结论与修改路线</a> · <a href="corpus.json">样本及来源</a> · <a href="results.json">原始测量</a></div>
 <nav><label>样本 <select id="case"></select></label><label>宽度 <select id="width"><option>390</option><option>600</option></select></label><label>Blitz 构建 <select id="variant"><option value="patched">本地修复后</option><option value="extended">图片 + SVG + float</option><option value="media">图片格式启用后</option></select></label><label>视图 <select id="mode"><option value="pair">并排</option><option value="diff">像素差异 ×3</option></select></label></nav>
 <div class="card"><strong id="title"></strong><p id="note"></p><div id="stats"></div><details><summary>样本来源、HTML 与测量</summary><div id="links"></div><pre id="details"></pre></details><p class="warning">像素差异百分比不是相似度评分；“完成截图”也不表示兼容通过。</p></div>
 <img id="capture" alt="真实引擎截图"><script>const report=DATA;

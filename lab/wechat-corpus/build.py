@@ -15,7 +15,7 @@ args = parser.parse_args()
 source = ROOT
 target = Path(os.environ.get('CARGO_TARGET_DIR', ROOT / 'target/html-corpus-build')).resolve()
 env = {**os.environ, 'CARGO_TARGET_DIR': str(target),
-       'MAKEPAD_HTML_PATCHSET': 'wechat-css-1' if args.variant == 'patched' else 'none'}
+       'MAKEPAD_HTML_PATCHSET': 'wechat-css-1+table-2' if args.variant == 'patched' else 'none'}
 features = 'blitz-dom/woff,image/gif'
 if args.variant != 'media':
     features += ',blitz-paint/svg,blitz-dom/floats'

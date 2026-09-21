@@ -1194,7 +1194,27 @@ impl Node {
             }
         }
 
-        stylo_taffy::TaffyStyloStyle::new(styles, flags)
+        let inside = styles.clone_display().inside();
+        let collapsed =
+            styles.clone_border_collapse() == style::computed_values::border_collapse::T::Collapse;
+        let mut result = stylo_taffy::TaffyStyloStyle::new(styles, flags);
+        if collapsed {
+            match inside {
+                style::values::specified::box_::DisplayInside::TableCell => {
+                    result.border_override = self.layout_data().collapsed_border
+                }
+                style::values::specified::box_::DisplayInside::Table => {
+                    if let Some(crate::node::SpecialElementData::TableRoot(context)) =
+                        self.element_data().map(|el| &el.special_data)
+                    {
+                        result.border_override =
+                            Some(context.style.border.map(|v| v.into_raw().value()));
+                    }
+                }
+                _ => {}
+            }
+        }
+        result
     }
 
     /// The node's `display` as a [`taffy::Display`]. Returns [`taffy::Display::Block`]

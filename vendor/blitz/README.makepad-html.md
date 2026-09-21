@@ -31,3 +31,22 @@ Regression tests: `tests/css_regressions.rs`.
 Same-source visual evidence and reproduction: `lab/wechat-corpus/README.md`.
 Production `makepad-html::render_html` still rejects SVG and active content;
 raw SVG tests opt into `test-svg`. No arbitrary resource access was added.
+
+## Patch set: table-2 (applies after wechat-css-1)
+
+- Resolve collapsed border intervals across cells, rows, row groups, columns,
+  column groups and the table. Honor hidden/none, width/style precedence,
+  logical-start/top ties and the source element's currentColor.
+- Suppress internal edges through rowspan/colspan cells. Share explicit grid
+  placement with sizing; handle rowspan=0 and stop spans at row groups.
+- Reserve half of resolved borders in cell layout and remove collapsed gaps.
+  Paint borders after cell backgrounds, including dashed/dotted/double edges.
+  CPU dotted borders use circles rather than zero-length strokes.
+- Apply top/middle/bottom cell alignment to block and inline content, preserving
+  full cell boxes; update after style changes without accumulating offsets.
+
+`table-2.patch` is the incremental diff against makepad-html `4920a99`'s vendor
+sources. This is not complete CSS table support: automatic column widths,
+spanning-edge height metrics, baseline sharing, vertical writing modes and exact
+dash/corner rasterization remain incomplete. Nine regressions live in
+`tests/table_regressions.rs`; validation is in `docs/table-parity-validation.json`.

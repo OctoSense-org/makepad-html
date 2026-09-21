@@ -349,10 +349,14 @@ impl BaseDocument {
             && !inline_layout.layout.inline_boxes().is_empty()
             && inline_layout.layout.inline_boxes().iter().all(|ibox| {
                 ibox.kind == parley::InlineBoxKind::InFlow
-                    && self.nodes[NodeId::from_u64(ibox.id)].layout_parent.get()
+                    && self.nodes[NodeId::from_u64(ibox.id)]
+                        .layout_parent
+                        .get()
                         .and_then(|id| self.nodes[id].primary_styles())
-                        .is_some_and(|style| style.clone_text_wrap_mode()
-                            == style::computed_values::text_wrap_mode::T::Nowrap)
+                        .is_some_and(|style| {
+                            style.clone_text_wrap_mode()
+                                == style::computed_values::text_wrap_mode::T::Nowrap
+                        })
             });
 
         let pbw = container_pb.horizontal_components().sum() * scale;
@@ -366,7 +370,11 @@ impl BaseDocument {
                 // and a min-content or max-content constraint. So if we want to compute both widths in one pass then
                 // we need to store both a min-content and max-content size on each box.
                 let content_sizes = inline_layout.layout.calculate_content_widths();
-                let min_content_width = if boxes_do_not_wrap { content_sizes.max } else { content_sizes.min };
+                let min_content_width = if boxes_do_not_wrap {
+                    content_sizes.max
+                } else {
+                    content_sizes.min
+                };
                 let max_content_width = content_sizes.max;
 
                 #[cfg(feature = "floats")]
@@ -515,7 +523,11 @@ impl BaseDocument {
 
         #[cfg(not(feature = "floats"))]
         {
-            inline_layout.layout.break_all_lines(if boxes_do_not_wrap { None } else { Some(width) });
+            inline_layout.layout.break_all_lines(if boxes_do_not_wrap {
+                None
+            } else {
+                Some(width)
+            });
         }
 
         // Perform inline layout
@@ -525,8 +537,16 @@ impl BaseDocument {
             let initial_slot = block_ctx.find_content_slot(0.0, Clear::None, None);
             let mut has_active_floats = initial_slot.segment_id.is_some();
             let state = breaker.state_mut();
-            state.set_layout_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { width });
-            state.set_line_max_advance(if boxes_do_not_wrap { f32::INFINITY } else { initial_slot.width * scale });
+            state.set_layout_max_advance(if boxes_do_not_wrap {
+                f32::INFINITY
+            } else {
+                width
+            });
+            state.set_line_max_advance(if boxes_do_not_wrap {
+                f32::INFINITY
+            } else {
+                initial_slot.width * scale
+            });
             state.set_line_x(initial_slot.x * scale);
             state.set_line_y((initial_slot.y * scale) as f64);
 
@@ -717,6 +737,21 @@ impl BaseDocument {
         .maybe_max(container_pb.sum_axes().map(Some));
 
         let container_direction = self.nodes[node_id].layout_style().direction();
+        let cell_alignment = self.nodes[node_id]
+            .primary_styles()
+            .and_then(|s| stylo_taffy::convert::table_cell_alignment(&s));
+        let free_height =
+            (final_size.height - container_pb.sum_axes().height - measured_size.height).max(0.0);
+        let cell_offset = match cell_alignment {
+            Some(taffy::AlignContent::CENTER) => free_height / 2.0,
+            Some(taffy::AlignContent::END) => free_height,
+            _ => 0.0,
+        };
+        if inputs.run_mode == RunMode::PerformLayout {
+            self.nodes[node_id]
+                .layout_data_mut()
+                .table_cell_inline_offset = cell_offset;
+        }
 
         // Store sizes and positions of inline boxes
         for line in inline_layout.layout.lines() {
@@ -830,6 +865,7 @@ impl BaseDocument {
                         layout.location.y = (ibox.y / scale)
                             + margin.top.max(0.0)
                             + container_pb.top
+                            + cell_offset
                             + inset_offset.y;
                         layout.padding = padding; //.map(|p| p / scale);
                         layout.border = border; //.map(|p| p / scale);
@@ -848,7 +884,7 @@ impl BaseDocument {
             .layout
             .lines()
             .next()
-            .map(|line| (line.metrics().baseline / scale) + container_pb.top);
+            .map(|line| (line.metrics().baseline / scale) + container_pb.top + cell_offset);
 
         // Put layout back
         self.nodes[node_id]

@@ -1,0 +1,233 @@
+{
+  "card_rect_css": null,
+  "denied_resources": [],
+  "elements": {
+    "[data-probe]": [
+      {
+        "height": 504.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      },
+      {
+        "height": 30.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 20.0
+      },
+      {
+        "height": 188.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 122.0,
+        "width": 149.0,
+        "x": 21.0,
+        "y": 69.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 26.0,
+        "y": 124.0
+      },
+      {
+        "height": 60.0,
+        "width": 149.0,
+        "x": 170.0,
+        "y": 69.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 175.0,
+        "y": 74.0
+      },
+      {
+        "height": 62.0,
+        "width": 149.0,
+        "x": 170.0,
+        "y": 129.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 177.0,
+        "y": 172.0
+      },
+      {
+        "height": 62.0,
+        "width": 298.0,
+        "x": 21.0,
+        "y": 191.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 26.0,
+        "y": 216.0
+      },
+      {
+        "height": 60.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 268.0
+      },
+      {
+        "height": 58.0,
+        "width": 149.0,
+        "x": 170.0,
+        "y": 269.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 298.0,
+        "y": 292.0
+      },
+      {
+        "height": 58.0,
+        "width": 149.0,
+        "x": 21.0,
+        "y": 269.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 147.0,
+        "y": 292.0
+      },
+      {
+        "height": 64.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 340.0
+      },
+      {
+        "height": 60.0,
+        "width": 147.5,
+        "x": 22.0,
+        "y": 342.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 28.0,
+        "y": 366.0
+      },
+      {
+        "height": 60.0,
+        "width": 147.5,
+        "x": 169.5,
+        "y": 342.0
+      },
+      {
+        "height": 12.0,
+        "width": 16.0,
+        "x": 173.5,
+        "y": 366.0
+      },
+      {
+        "height": 56.0,
+        "width": 350.0,
+        "x": 20.0,
+        "y": 416.0
+      }
+    ],
+    "article": [],
+    "article > ol": [],
+    "article > p": [],
+    "article > ul": [],
+    "aside": [],
+    "blockquote": [],
+    "body > footer": [],
+    "button": [],
+    "details": [],
+    "form": [],
+    "h1": [],
+    "img": [],
+    "input": [],
+    "nav": [],
+    "pre": [],
+    "section": [
+      {
+        "height": 504.0,
+        "width": 390.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    ],
+    "table": [
+      {
+        "height": 188.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 68.0
+      },
+      {
+        "height": 60.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 268.0
+      },
+      {
+        "height": 64.0,
+        "width": 300.0,
+        "x": 20.0,
+        "y": 340.0
+      }
+    ],
+    "textarea": []
+  },
+  "engine": "Blitz raw HTML/CSS (no JS)",
+  "full_height_px": 1400,
+  "height_css": 700,
+  "height_px": 1400,
+  "image_decode_probes": [
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 60,
+      "url": "http://127.0.0.1:64107/assets/animated.gif",
+      "width": 120
+    },
+    {
+      "decoded": true,
+      "format": "Gif",
+      "height": 240,
+      "url": "http://127.0.0.1:64107/assets/chart.gif",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Jpeg",
+      "height": 240,
+      "url": "http://127.0.0.1:64107/assets/chart.jpg",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "Png",
+      "height": 240,
+      "url": "http://127.0.0.1:64107/assets/chart.png",
+      "width": 400
+    },
+    {
+      "decoded": true,
+      "format": "WebP",
+      "height": 240,
+      "url": "http://127.0.0.1:64107/assets/chart.webp",
+      "width": 400
+    }
+  ],
+  "local_patch": "wechat-css-1+table-2",
+  "product_admission": "accepted",
+  "resource_requests": [],
+  "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
+  "root_content_height_css": 504.0,
+  "scale": 2,
+  "width_css": 390,
+  "width_px": 780
+}

@@ -4,7 +4,7 @@
   "elements": {
     "[data-probe]": [
       {
-        "height": 280.75,
+        "height": 274.75,
         "width": 600.0,
         "x": 0.0,
         "y": 0.0
@@ -16,13 +16,13 @@
         "y": 20.0
       },
       {
-        "height": 140.75,
+        "height": 134.75,
         "width": 560.0,
         "x": 20.0,
         "y": 68.0
       },
       {
-        "height": 140.75,
+        "height": 134.75,
         "width": 500.0,
         "x": 20.0,
         "y": 68.0
@@ -31,7 +31,7 @@
         "height": 28.0,
         "width": 560.0,
         "x": 20.0,
-        "y": 220.75
+        "y": 214.75
       }
     ],
     "article": [],
@@ -51,13 +51,13 @@
     "pre": [],
     "section": [
       {
-        "height": 280.75,
+        "height": 274.75,
         "width": 600.0,
         "x": 0.0,
         "y": 0.0
       },
       {
-        "height": 140.75,
+        "height": 134.75,
         "width": 560.0,
         "x": 20.0,
         "y": 68.0
@@ -65,7 +65,7 @@
     ],
     "table": [
       {
-        "height": 140.75,
+        "height": 134.75,
         "width": 500.0,
         "x": 20.0,
         "y": 68.0
@@ -82,43 +82,43 @@
       "decoded": true,
       "format": "Gif",
       "height": 60,
-      "url": "http://127.0.0.1:61834/assets/animated.gif",
+      "url": "http://127.0.0.1:64097/assets/animated.gif",
       "width": 120
     },
     {
       "decoded": true,
       "format": "Gif",
       "height": 240,
-      "url": "http://127.0.0.1:61834/assets/chart.gif",
+      "url": "http://127.0.0.1:64097/assets/chart.gif",
       "width": 400
     },
     {
       "decoded": true,
       "format": "Jpeg",
       "height": 240,
-      "url": "http://127.0.0.1:61834/assets/chart.jpg",
+      "url": "http://127.0.0.1:64097/assets/chart.jpg",
       "width": 400
     },
     {
       "decoded": true,
       "format": "Png",
       "height": 240,
-      "url": "http://127.0.0.1:61834/assets/chart.png",
+      "url": "http://127.0.0.1:64097/assets/chart.png",
       "width": 400
     },
     {
       "decoded": true,
       "format": "WebP",
       "height": 240,
-      "url": "http://127.0.0.1:61834/assets/chart.webp",
+      "url": "http://127.0.0.1:64097/assets/chart.webp",
       "width": 400
     }
   ],
-  "local_patch": "wechat-css-1",
+  "local_patch": "wechat-css-1+table-2",
   "product_admission": "accepted",
   "resource_requests": [],
   "revision": "e99fbdbd1d03b9f0aa1622c3f810d95daac92042",
-  "root_content_height_css": 281.0,
+  "root_content_height_css": 275.0,
   "scale": 2,
   "width_css": 600,
   "width_px": 1200

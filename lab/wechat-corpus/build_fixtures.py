@@ -21,6 +21,7 @@ SOURCES={
  'nice':NICE+'src/template/basic.js',
  'syntax':NICE+'src/template/content.md',
  'blitz':'https://blitz.is/status/css',
+ 'tables':'https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution',
 }
 pattern=Image.new('RGB',(400,240),'#ebf4fa'); d=ImageDraw.Draw(pattern)
 for i,c in enumerate(['#d45849','#e8b54b','#56a688','#5079bd']):
@@ -120,6 +121,15 @@ add('14-lazy-image','微信图片属性的宿主处理',
  '<img data-probe data-src="/assets/chart.png" data-type="png" data-ratio="0.6" data-w="400" style="display:block;width:100%;height:160px" alt="只有 data-src 的待加载图片">'+
  p('data-src 只是数据属性。两个普通 HTML 引擎都不会自动把它当作 src；需要导入层在资源授权后转换。'),
  ['data-src','data-ratio','data-w','host import normalization'],['syntax'],'host-integration probe; not a claim of browser-native lazy loading')
+
+add('15-table-edges','表格边界与对齐回归',
+ '<style>.edge{border-collapse:collapse;margin:12px 0;table-layout:fixed;width:300px}.edge td{border:2px solid #16836a;padding:4px;height:48px}.edge i{display:block;width:16px;height:12px;background:#3476c8}</style>'+
+ '<table class="edge" data-probe><tr><td data-probe rowspan="2"><i data-probe></i></td><td data-probe style="vertical-align:top"><i data-probe></i></td></tr><tr><td data-probe style="border:6px dashed #cf543a;vertical-align:bottom"><i data-probe></i></td></tr><tr><td data-probe colspan="2" style="border-bottom:6px double #3476c8"><i data-probe></i></td></tr></table>'+
+ '<table class="edge" data-probe style="direction:rtl"><tr><td data-probe style="border-left:6px solid #3476c8"><i data-probe></i></td><td data-probe style="border-right:4px solid #cf543a"><i data-probe></i></td></tr></table>'+
+ '<table class="edge" data-probe style="border:4px solid #3476c8"><colgroup style="border:4px solid #cf543a"><col><col></colgroup><tbody style="border:4px solid #16836a"><tr><td data-probe style="border:none"><i data-probe></i></td><td data-probe style="border-left:hidden;border-right:6px dotted #cf543a"><i data-probe></i></td></tr></tbody></table>'+
+ p('验证合并单元格、冲突边框、逻辑方向和单元格内对齐。'),
+ ['collapsed border conflicts','rowspan/colspan','top/middle/bottom cell alignment','RTL','row/column group borders','hidden/dashed/dotted/double'],['tables'],
+ 'authored CSS table regression; not a published WeChat acceptance claim')
 
 (ROOT/'corpus.json').write_text(json.dumps({'description':'Authored representative probes, not an exhaustive or official WeChat subset.',
  'sources':SOURCES,'cases':cases,'viewports':[[390,700],[600,700]],'scale':2},ensure_ascii=False,indent=2))

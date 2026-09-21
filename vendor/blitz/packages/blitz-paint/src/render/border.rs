@@ -1,6 +1,6 @@
 use anyrender::PaintScene;
 use blitz_dom::node::SpecialElementData;
-use kurbo::{BezPath, Cap, Circle, Insets, Join, PathEl, Point, Rect, Shape as _, Stroke, Vec2};
+use kurbo::{BezPath, Cap, Circle, Insets, Join, PathEl, Point, Shape as _, Stroke, Vec2};
 use peniko::{Color, Fill};
 use smallvec::SmallVec;
 use style::{
@@ -11,7 +11,7 @@ use style::{
 use crate::{
     color::{ToColorColor as _, contrast_ratio},
     kurbo_css::Edge,
-    render::{ElementCx, PhysicalTracks},
+    render::ElementCx,
 };
 
 /// A darker version of a colour (mirrors WebKit/Blink's `Color::Dark`): the
@@ -148,6 +148,15 @@ impl ElementCx<'_, '_> {
     /// Draw all borders for a node
     pub(crate) fn draw_border(&self, scene: &mut impl PaintScene) {
         let style = &*self.style;
+        if style.clone_border_collapse() == BorderCollapse::Collapse
+            && matches!(
+                style.clone_display().inside(),
+                style::values::specified::box_::DisplayInside::Table
+                    | style::values::specified::box_::DisplayInside::TableCell
+            )
+        {
+            return;
+        }
         let border = style.get_border();
         let current_color = style.clone_color();
 
@@ -510,101 +519,160 @@ impl ElementCx<'_, '_> {
     }
 
     pub(crate) fn draw_table_borders(&self, scene: &mut impl PaintScene) {
+        use blitz_dom::BorderSide;
         let SpecialElementData::TableRoot(table) = &self.element.special_data else {
             return;
         };
-        // Borders are only handled at the table level when BorderCollapse::Collapse
         if table.border_collapse != BorderCollapse::Collapse {
             return;
         }
-
-        let Some(grid_info) = &mut *table.computed_grid_info.borrow_mut() else {
+        let info = table.computed_grid_info.borrow();
+        let Some(grid) = info.as_ref() else {
             return;
         };
-        let Some(border_style) = table.border_style.as_deref() else {
-            return;
+        // Track coordinates are already relative to the table border box.
+        // Logical column order reverses for RTL, but border sides are physical.
+        let coordinate = |positions: &[taffy::Line<f32>], index: usize| -> Option<f64> {
+            let first = positions.first()?;
+            let last = positions.last()?;
+            let rtl = first.start > last.start;
+            let value = if index == 0 {
+                if rtl { first.end } else { first.start }
+            } else if index == positions.len() {
+                if rtl { last.start } else { last.end }
+            } else {
+                let prev = positions.get(index - 1)?;
+                let next = positions.get(index)?;
+                if rtl {
+                    (prev.start + next.end) / 2.0
+                } else {
+                    (prev.end + next.start) / 2.0
+                }
+            };
+            Some(value as f64 * self.scale)
         };
-
-        let outer_border_style = self.style.get_border();
-
-        let cols = PhysicalTracks::from_tracks(&grid_info.columns);
-        let rows = PhysicalTracks::from_tracks(&grid_info.rows);
-
-        let inner_width = cols.span() as f64;
-        let inner_height = rows.span() as f64;
-
-        // TODO: support different colors for different borders
-        let current_color = self.style.clone_color();
-        let border_color = border_style
-            .border_top_color
-            .resolve_to_absolute(&current_color)
+        // Paint weaker edges first so a stronger crossing edge owns the joint.
+        let mut segments: Vec<_> = table.collapsed_borders.iter().collect();
+        segments.sort_by(|a, b| a.border.used_width().total_cmp(&b.border.used_width()));
+        for segment in segments {
+            let border = segment.border;
+            let thickness = border.used_width() as f64 * self.scale;
+            if thickness <= 0.0 {
+                continue;
+            }
+            let Some(source) = self.context.dom.get_node(border.node_id) else {
+                continue;
+            };
+            let Some(style) = source.primary_styles() else {
+                continue;
+            };
+            let borders = style.get_border();
+            let color = match border.side {
+                BorderSide::Top => &borders.border_top_color,
+                BorderSide::Right => &borders.border_right_color,
+                BorderSide::Bottom => &borders.border_bottom_color,
+                BorderSide::Left => &borders.border_left_color,
+            }
+            .resolve_to_absolute(&style.clone_color())
             .as_srgb_color();
-
-        // No need to draw transparent borders (as they won't be visible anyway)
-        if border_color == Color::TRANSPARENT {
-            return;
-        }
-
-        // Border widths are not adjusted for border-style in computed styles,
-        // so a border with `none`/`hidden` style must be treated as zero-width.
-        if border_style.border_top_style.none_or_hidden() {
-            return;
-        }
-
-        let border_width = border_style.border_top_width.0.to_f64_px();
-
-        // Draw horizontal inner borders (the gutters between adjacent row tracks)
-        let row_origin = rows.origin();
-        for (prev, next) in rows.iter().zip(rows.iter().skip(1)) {
-            let shape = Rect::new(
-                0.0,
-                (prev.end - row_origin) as f64,
-                inner_width,
-                (next.start - row_origin) as f64,
-            )
-            .scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
-        }
-
-        // Draw horizontal outer borders
-        // Top border
-        if outer_border_style.border_top_style != BorderStyle::Hidden {
-            let shape =
-                Rect::new(0.0, 0.0, inner_width, border_width).scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
-        }
-        // Bottom border
-        if outer_border_style.border_bottom_style != BorderStyle::Hidden {
-            let shape = Rect::new(0.0, inner_height, inner_width, inner_height + border_width)
-                .scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
-        }
-
-        // Draw vertical inner borders (the gutters between adjacent column tracks)
-        let col_origin = cols.origin();
-        for (prev, next) in cols.iter().zip(cols.iter().skip(1)) {
-            let shape = Rect::new(
-                (prev.end - col_origin) as f64,
-                0.0,
-                (next.start - col_origin) as f64,
-                inner_height,
-            )
-            .scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
-        }
-
-        // Draw vertical outer borders
-        // Left border
-        if outer_border_style.border_left_style != BorderStyle::Hidden {
-            let shape =
-                Rect::new(0.0, 0.0, border_width, inner_height).scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
-        }
-        // Right border
-        if outer_border_style.border_right_style != BorderStyle::Hidden {
-            let shape = Rect::new(inner_width, 0.0, inner_width + border_width, inner_height)
-                .scale_from_origin(self.scale);
-            scene.fill(Fill::NonZero, self.transform, border_color, None, &shape);
+            if color.components[3] == 0.0 {
+                continue;
+            }
+            let (across, along) = if segment.horizontal {
+                (&grid.rows.positions, &grid.columns.positions)
+            } else {
+                (&grid.columns.positions, &grid.rows.positions)
+            };
+            let (Some(axis), Some(start), Some(end)) = (
+                coordinate(across, segment.line),
+                coordinate(along, segment.start),
+                coordinate(along, segment.end),
+            ) else {
+                continue;
+            };
+            let (start, end) = (start.min(end), start.max(end));
+            let line = |offset| {
+                if segment.horizontal {
+                    kurbo::Line::new((start, axis + offset), (end, axis + offset))
+                } else {
+                    kurbo::Line::new((axis + offset, start), (axis + offset, end))
+                }
+            };
+            match border.style {
+                BorderStyle::None | BorderStyle::Hidden => {}
+                BorderStyle::Dashed => {
+                    let (dash, gap) = dashed_ratios(thickness, self.scale);
+                    let stroke = Stroke::new(thickness)
+                        .with_caps(Cap::Butt)
+                        .with_dashes(0.0, [dash * thickness, gap * thickness]);
+                    scene.stroke(&stroke, self.transform, color, None, &line(0.0));
+                }
+                BorderStyle::Dotted => {
+                    // Zero-length round-capped dashes disappear in the CPU
+                    // stroker. Emit actual circles, as for ordinary CSS borders.
+                    let count = ((end - start) / (2.0 * thickness)).ceil().max(1.0) as usize;
+                    let spacing = if count > 1 {
+                        (end - start - thickness) / (count - 1) as f64
+                    } else {
+                        0.0
+                    };
+                    for i in 0..count {
+                        let position = if count == 1 {
+                            (start + end) / 2.0
+                        } else {
+                            start + thickness / 2.0 + i as f64 * spacing
+                        };
+                        let center = if segment.horizontal {
+                            (position, axis)
+                        } else {
+                            (axis, position)
+                        };
+                        scene.fill(
+                            Fill::NonZero,
+                            self.transform,
+                            color,
+                            None,
+                            &Circle::new(center, thickness / 2.0),
+                        );
+                    }
+                }
+                BorderStyle::Double => {
+                    let stroke = Stroke::new(thickness / 3.0);
+                    for offset in [-thickness / 3.0, thickness / 3.0] {
+                        scene.stroke(&stroke, self.transform, color, None, &line(offset));
+                    }
+                }
+                BorderStyle::Groove
+                | BorderStyle::Ridge
+                | BorderStyle::Inset
+                | BorderStyle::Outset => {
+                    let ridge = matches!(border.style, BorderStyle::Ridge | BorderStyle::Inset);
+                    let edge = if segment.horizontal {
+                        Edge::Top
+                    } else {
+                        Edge::Left
+                    };
+                    let (outer, inner) = grooved_edge_colors(color, edge, ridge);
+                    let stroke = Stroke::new(thickness / 2.0);
+                    scene.stroke(
+                        &stroke,
+                        self.transform,
+                        outer,
+                        None,
+                        &line(-thickness / 4.0),
+                    );
+                    scene.stroke(&stroke, self.transform, inner, None, &line(thickness / 4.0));
+                }
+                BorderStyle::Solid => {
+                    scene.stroke(
+                        &Stroke::new(thickness).with_caps(Cap::Square),
+                        self.transform,
+                        color,
+                        None,
+                        &line(0.0),
+                    );
+                }
+            }
         }
     }
 

@@ -20,6 +20,7 @@ use taffy::{
     compute_oof_layout, prelude::*,
 };
 
+pub(crate) mod collapsed_borders;
 pub(crate) mod construct;
 pub(crate) mod damage;
 pub(crate) mod inline;

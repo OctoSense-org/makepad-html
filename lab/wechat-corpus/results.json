@@ -2,7 +2,7 @@
   "method": "Raw-engine diagnostic, exact identical fixture bytes and resources. Real macOS WKWebView; page JS disabled. 2x. No registration or alignment. CSS font-family PingFang SC in both.",
   "scope": "Source-derived authored fixtures; not published WeChat captures, not an official exhaustive allowlist, not iOS/Android WeChat certification.",
   "variants": {
-    "patched": "Same extended features + repository vendor/blitz patches wechat-css-1",
+    "patched": "Same extended features + repository vendor/blitz patches wechat-css-1 + table-2",
     "media": "woff + gif; other product defaults",
     "extended": "woff + gif + blitz-paint/svg + blitz-dom/floats; WebP decoder enabled transitively by SVG"
   },
@@ -168,35 +168,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -363,35 +363,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -559,35 +559,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -755,35 +755,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -947,35 +947,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -1139,35 +1139,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -1205,7 +1205,7 @@
         "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
       ],
       "note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
-      "patched_note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "patched_note": "已修复合并单元格内横线、单元格居中与混合边框；自动列宽和虚线节奏仍与 WebKit 不完全一致。原生内部横向滚动仍未接入。",
       "variants": {
         "media": {
           "render_failed": false,
@@ -1314,16 +1314,16 @@
         },
         "patched": {
           "render_failed": false,
-          "content_union_pixels": 104905,
-          "content_pixels_differing_over_24_rgb_pct": 38.42,
+          "content_union_pixels": 96719,
+          "content_pixels_differing_over_24_rgb_pct": 31.696,
           "probe_count": [
             5,
             5
           ],
-          "max_probe_delta_css": 6.75,
-          "median_probe_delta_css": 6.75,
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
           "article_height_css": [
-            280.75,
+            274.75,
             274
           ],
           "production_admission": "accepted",
@@ -1332,35 +1332,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:64097/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:64097/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:64097/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:64097/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:64097/assets/chart.webp",
               "width": 400
             }
           ]
@@ -1398,7 +1398,7 @@
         "https://github.com/mdnice/markdown-nice/blob/6525a5aba371209c2840593e8f537b4a69137a4b/src/template/basic.js"
       ],
       "note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
-      "patched_note": "rowspan 的单元格仍画出中间横线、文字未正确居中，混合边框丢失；截图不能证明滚动事件已接入。",
+      "patched_note": "已修复合并单元格内横线、单元格居中与混合边框；自动列宽和虚线节奏仍与 WebKit 不完全一致。原生内部横向滚动仍未接入。",
       "variants": {
         "media": {
           "render_failed": false,
@@ -1507,16 +1507,16 @@
         },
         "patched": {
           "render_failed": false,
-          "content_union_pixels": 138439,
-          "content_pixels_differing_over_24_rgb_pct": 34.996,
+          "content_union_pixels": 129588,
+          "content_pixels_differing_over_24_rgb_pct": 28.52,
           "probe_count": [
             5,
             5
           ],
-          "max_probe_delta_css": 6.75,
-          "median_probe_delta_css": 6.75,
+          "max_probe_delta_css": 0.75,
+          "median_probe_delta_css": 0.75,
           "article_height_css": [
-            280.75,
+            274.75,
             274
           ],
           "production_admission": "accepted",
@@ -1525,35 +1525,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:64097/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:64097/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:64097/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:64097/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:64097/assets/chart.webp",
               "width": 400
             }
           ]
@@ -1719,35 +1719,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -1913,35 +1913,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -2109,35 +2109,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -2305,35 +2305,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -2499,35 +2499,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -2693,35 +2693,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -2886,35 +2886,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -3079,35 +3079,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -3272,35 +3272,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -3465,35 +3465,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -3657,35 +3657,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -3849,35 +3849,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4039,35 +4039,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4229,35 +4229,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4423,35 +4423,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4617,35 +4617,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4763,35 +4763,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -4909,35 +4909,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -5099,35 +5099,35 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
               "width": 400
             }
           ]
@@ -5289,35 +5289,419 @@
               "decoded": true,
               "format": "Gif",
               "height": 60,
-              "url": "http://127.0.0.1:61834/assets/animated.gif",
+              "url": "http://127.0.0.1:63797/assets/animated.gif",
               "width": 120
             },
             {
               "decoded": true,
               "format": "Gif",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.gif",
+              "url": "http://127.0.0.1:63797/assets/chart.gif",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Jpeg",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.jpg",
+              "url": "http://127.0.0.1:63797/assets/chart.jpg",
               "width": 400
             },
             {
               "decoded": true,
               "format": "Png",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.png",
+              "url": "http://127.0.0.1:63797/assets/chart.png",
               "width": 400
             },
             {
               "decoded": true,
               "format": "WebP",
               "height": 240,
-              "url": "http://127.0.0.1:61834/assets/chart.webp",
+              "url": "http://127.0.0.1:63797/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "15-table-edges",
+      "width": 390,
+      "height": 700,
+      "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "表格边界与对齐回归",
+      "features": [
+        "collapsed border conflicts",
+        "rowspan/colspan",
+        "top/middle/bottom cell alignment",
+        "RTL",
+        "row/column group borders",
+        "hidden/dashed/dotted/double"
+      ],
+      "sources": [
+        "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
+      ],
+      "note": "表格边界回归：原版未解析混合边框冲突，合并单元格与对齐存在错误。",
+      "patched_note": "新增覆盖：边框冲突、hidden、dashed/dotted/double、行列组、RTL 和 top/middle/bottom。具体几何与像素差见测量；不是完整 CSS 表格认证。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 98516,
+          "content_pixels_differing_over_24_rgb_pct": 90.662,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            484.0,
+            502
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:63760/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:63760/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 98516,
+          "content_pixels_differing_over_24_rgb_pct": 90.662,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            484.0,
+            502
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:63760/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 82244,
+          "content_pixels_differing_over_24_rgb_pct": 64.411,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 2.0,
+          "median_probe_delta_css": 2.0,
+          "article_height_css": [
+            504.0,
+            502
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:64107/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case": "15-table-edges",
+      "width": 600,
+      "height": 700,
+      "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+      "media": {
+        "exit_code": 0
+      },
+      "extended": {
+        "exit_code": 0
+      },
+      "webview": {
+        "exit_code": 0
+      },
+      "patched": {
+        "exit_code": 0
+      },
+      "title": "表格边界与对齐回归",
+      "features": [
+        "collapsed border conflicts",
+        "rowspan/colspan",
+        "top/middle/bottom cell alignment",
+        "RTL",
+        "row/column group borders",
+        "hidden/dashed/dotted/double"
+      ],
+      "sources": [
+        "https://www.w3.org/TR/CSS22/tables.html#border-conflict-resolution"
+      ],
+      "note": "表格边界回归：原版未解析混合边框冲突，合并单元格与对齐存在错误。",
+      "patched_note": "新增覆盖：边框冲突、hidden、dashed/dotted/double、行列组、RTL 和 top/middle/bottom。具体几何与像素差见测量；不是完整 CSS 表格认证。",
+      "variants": {
+        "media": {
+          "render_failed": false,
+          "content_union_pixels": 98747,
+          "content_pixels_differing_over_24_rgb_pct": 90.75,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            456.0,
+            474
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:63760/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": false,
+              "error": "The image format WebP is not supported",
+              "format": "WebP",
+              "url": "http://127.0.0.1:63760/assets/chart.webp"
+            }
+          ]
+        },
+        "extended": {
+          "render_failed": false,
+          "content_union_pixels": 98747,
+          "content_pixels_differing_over_24_rgb_pct": 90.75,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 66.0,
+          "median_probe_delta_css": 12.0,
+          "article_height_css": [
+            456.0,
+            474
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:63760/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:63760/assets/chart.webp",
+              "width": 400
+            }
+          ]
+        },
+        "patched": {
+          "render_failed": false,
+          "content_union_pixels": 82244,
+          "content_pixels_differing_over_24_rgb_pct": 64.411,
+          "probe_count": [
+            22,
+            22
+          ],
+          "max_probe_delta_css": 2.0,
+          "median_probe_delta_css": 2.0,
+          "article_height_css": [
+            476.0,
+            474
+          ],
+          "production_admission": "accepted",
+          "decode_probes": [
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 60,
+              "url": "http://127.0.0.1:64107/assets/animated.gif",
+              "width": 120
+            },
+            {
+              "decoded": true,
+              "format": "Gif",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.gif",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Jpeg",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.jpg",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "Png",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.png",
+              "width": 400
+            },
+            {
+              "decoded": true,
+              "format": "WebP",
+              "height": 240,
+              "url": "http://127.0.0.1:64107/assets/chart.webp",
               "width": 400
             }
           ]

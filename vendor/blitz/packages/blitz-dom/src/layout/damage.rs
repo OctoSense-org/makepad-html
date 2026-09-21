@@ -109,11 +109,12 @@ impl BaseDocument {
         // descendant styles change, even if Stylo only requests a repaint/layout.
         #[cfg(feature = "svg")]
         if !damage.is_empty()
-            && node.element_data().is_some_and(|el| el.name.local == markup5ever::local_name!("svg"))
+            && node
+                .element_data()
+                .is_some_and(|el| el.name.local == markup5ever::local_name!("svg"))
         {
             damage.insert(CONSTRUCT_BOX);
         }
-
 
         if damage.contains(CONSTRUCT_BOX) {
             damage.insert(RestyleDamage::RELAYOUT);
@@ -320,6 +321,17 @@ pub(crate) fn compute_layout_damage(old: &ComputedValues, new: &ComputedValues) 
         }
 
         if new.is_pseudo_style() && old.get_counters().content != new.get_counters().content {
+            return true;
+        }
+
+        // Table contexts cache placement and resolved borders. Rebuild the
+        // owning table even for color-only changes on an internal table box.
+        if (new_box.display.outside() == DisplayOutside::InternalTable
+            || new_box.display.inside() == DisplayInside::Table)
+            && (old.get_border() != new.get_border()
+                || old.clone_border_collapse() != new.clone_border_collapse()
+                || old.clone_color() != new.clone_color())
+        {
             return true;
         }
 

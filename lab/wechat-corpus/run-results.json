@@ -448,5 +448,35 @@
     "webview": {
       "exit_code": 0
     }
+  },
+  {
+    "case": "15-table-edges",
+    "width": 390,
+    "height": 700,
+    "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+    "media": {
+      "exit_code": 0
+    },
+    "extended": {
+      "exit_code": 0
+    },
+    "webview": {
+      "exit_code": 0
+    }
+  },
+  {
+    "case": "15-table-edges",
+    "width": 600,
+    "height": 700,
+    "source_sha256": "c6bf1f317b1ca37d6f61c41091643c2ee5239d2ee08481f569e0ac923b43af0d",
+    "media": {
+      "exit_code": 0
+    },
+    "extended": {
+      "exit_code": 0
+    },
+    "webview": {
+      "exit_code": 0
+    }
   }
 ]

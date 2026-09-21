@@ -2,9 +2,16 @@
   "passed": true,
   "ocr": {
     "top_contains_chinese_title": true,
-    "bottom_contains_table": true
+    "bottom_contains_table": true,
+    "table_markers_matched": [
+      "\u6807\u9898\u4e0e\u6b63\u6587",
+      "\u56fe\u7247\u4e0e\u6837\u5f0f",
+      "\u6587\u7ae0\u9605\u8bfb",
+      "PingFang",
+      "RGBA"
+    ]
   },
-  "binary_sha256": "8c305e58a5f52efec52ce941caa8a4c6c298ac0d0ea04ecb2f3d69ec95db4c21",
+  "binary_sha256": "cdbc8bb4567c921c741e77206c8ac9eb0adb104752f12de49427f40f53e3d52d",
   "window": [
     {
       "i": 0,
@@ -26,7 +33,7 @@
   ],
   "screenshots": {
     "native-top.png": "ef603532b4802f28a2b61df42d985366fead544cad46e427aaaa9bd0932b4a1c",
-    "native-bottom.png": "b0e55006219341edbb4d09fa27eddd54e0a4e7307656ff32ff20b1f42ad3dd29"
+    "native-bottom.png": "107da78c1b2bfc9d8e9757bb5f2462d4afce4cc1544fad3b6ed62225b6f10747"
   },
   "checks": [
     "isolated fixture process and owned loopback bridge",
