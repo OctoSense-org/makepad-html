@@ -5,6 +5,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 binary = pathlib.Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else ROOT / "target/debug/examples/viewer"
 output = ROOT / "lab/evidence"
 output.mkdir(parents=True, exist_ok=True)
+report_path = output / "native-validation.json"
+report_path.unlink(missing_ok=True)
 with socket.socket() as sock:
     sock.bind(("127.0.0.1", 0))
     port = sock.getsockname()[1]
@@ -47,10 +49,14 @@ with (output / "native-run.log").open("w") as log:
             subprocess.run(["swiftc", str(ROOT / "lab/ocr.swift"), "-o", str(ocr)], check=True)
         top_text = " ".join(row["text"] for row in json.loads(subprocess.check_output([str(ocr), str(top)], text=True)))
         bottom_text = " ".join(row["text"] for row in json.loads(subprocess.check_output([str(ocr), str(bottom)], text=True)))
+        (output / "native-ocr.json").write_text(json.dumps({"top": top_text, "bottom": bottom_text}, ensure_ascii=False, indent=2))
         assert "把周末还给山野" in top_text, top_text
-        assert "呈现方式" in bottom_text and "PingFang" in bottom_text, bottom_text
+        # Vision can confuse the small heading 呈/星 on a 1x CI display. Verify
+        # multiple table rows instead; retain the raw OCR and screenshots.
+        table_markers = ("标题与正文", "文章阅读", "PingFang", "Blitz", "RGBA")
+        assert all(marker in bottom_text for marker in table_markers), bottom_text
         report = {"passed": True, "ocr": {"top_contains_chinese_title": True, "bottom_contains_table": True}, "binary_sha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "window": status["w"], "screenshots": hashes, "checks": ["isolated fixture process and owned loopback bridge", "native Makepad widget ready", "Blitz RGBA uploaded as native texture", "native scroll changes displayed article pixels"], "personal_accounts_used": False}
-        (output / "native-validation.json").write_text(json.dumps(report, indent=2))
+        report_path.write_text(json.dumps(report, indent=2))
         print(json.dumps(report))
     finally:
         if app.poll() is None:
