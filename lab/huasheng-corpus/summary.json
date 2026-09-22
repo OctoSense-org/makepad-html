@@ -1,0 +1,53 @@
+{
+  "themes": 20,
+  "comparisons": 40,
+  "completed": 36,
+  "failed": [
+    {
+      "case": "ando-concrete",
+      "width": 390,
+      "blitz": {
+        "exit_code": 101
+      },
+      "webview": {
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "ando-concrete",
+      "width": 600,
+      "blitz": {
+        "exit_code": 101
+      },
+      "webview": {
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "lemonde",
+      "width": 390,
+      "blitz": {
+        "exit_code": 101
+      },
+      "webview": {
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "lemonde",
+      "width": 600,
+      "blitz": {
+        "exit_code": 101
+      },
+      "webview": {
+        "exit_code": 0
+      }
+    }
+  ],
+  "webview_images_decoded": 240,
+  "webview_images_expected": 240,
+  "blitz_denied_resource_count": 0,
+  "successful_render_snapshot_image_formats_decode": true,
+  "largest_absolute_height_delta_css": 84.0,
+  "source_html_bytes_unchanged": true
+}

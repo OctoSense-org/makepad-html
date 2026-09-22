@@ -1,0 +1,1076 @@
+{
+  "passed": true,
+  "repository_head": "f0d142c4c4004f4dd2c2babdf80d6639814b329a",
+  "lab_renderer_source_sha256": "feaf6dfc25ae913995b64feaaeacedd4cb075ad9d5e89e5fd6bb37dc8a43d742",
+  "html_sources": 20,
+  "capture_pairs": 40,
+  "successful_engine_captures": 76,
+  "visible_image_regions_verified": 456,
+  "meaning": "Artifact integrity and actual image paint checks, NOT visual parity approval. Four Blitz captures failed; see summary.json.",
+  "checks": [
+    {
+      "case": "wechat-default",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218753,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "wechat-default",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        176877,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "wechat-default",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243312,
+        243404,
+        166268,
+        259310,
+        240930,
+        122888
+      ]
+    },
+    {
+      "case": "wechat-default",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242351,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "latepost-depth",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        225088,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "latepost-depth",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        186069,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "latepost-depth",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        253630,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "latepost-depth",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        251877,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "wechat-ft",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        216330,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "wechat-ft",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        157822,
+        217800,
+        108874,
+        224384,
+        149830,
+        74554
+      ]
+    },
+    {
+      "case": "wechat-ft",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        258926,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    },
+    {
+      "case": "wechat-ft",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        257152,
+        237258,
+        140429,
+        257174,
+        230404,
+        115086
+      ]
+    },
+    {
+      "case": "wechat-anthropic",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        201348,
+        225116,
+        119776,
+        244532,
+        173592,
+        102640
+      ]
+    },
+    {
+      "case": "wechat-anthropic",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        131646,
+        210638,
+        105304,
+        212800,
+        141866,
+        70934
+      ]
+    },
+    {
+      "case": "wechat-anthropic",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243250,
+        243630,
+        166268,
+        273444,
+        238374,
+        124838
+      ]
+    },
+    {
+      "case": "wechat-anthropic",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242294,
+        238846,
+        136450,
+        261814,
+        227080,
+        113566
+      ]
+    },
+    {
+      "case": "wechat-tech",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        207169,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "wechat-tech",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        145667,
+        217800,
+        108874,
+        224384,
+        149830,
+        74554
+      ]
+    },
+    {
+      "case": "wechat-tech",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243312,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    },
+    {
+      "case": "wechat-tech",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242351,
+        237258,
+        140429,
+        257174,
+        230404,
+        115086
+      ]
+    },
+    {
+      "case": "wechat-elegant",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        207169,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "wechat-elegant",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        145667,
+        217800,
+        108874,
+        224384,
+        149830,
+        74554
+      ]
+    },
+    {
+      "case": "wechat-elegant",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243312,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    },
+    {
+      "case": "wechat-elegant",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242351,
+        237258,
+        140429,
+        257174,
+        230404,
+        115086
+      ]
+    },
+    {
+      "case": "wechat-deepread",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218753,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "wechat-deepread",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        176877,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "wechat-deepread",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243312,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "wechat-deepread",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242351,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "wechat-nyt",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218082,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "wechat-nyt",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        178009,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "wechat-nyt",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243422,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "wechat-nyt",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242460,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "wechat-jonyive",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        201346,
+        225116,
+        119776,
+        244532,
+        173592,
+        102640
+      ]
+    },
+    {
+      "case": "wechat-jonyive",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        130755,
+        210638,
+        105304,
+        212800,
+        141866,
+        70934
+      ]
+    },
+    {
+      "case": "wechat-jonyive",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243250,
+        243630,
+        166268,
+        273444,
+        238374,
+        124838
+      ]
+    },
+    {
+      "case": "wechat-jonyive",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242294,
+        238846,
+        136450,
+        261814,
+        227080,
+        113566
+      ]
+    },
+    {
+      "case": "wechat-medium",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218806,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "wechat-medium",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        176985,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "wechat-medium",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243422,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "wechat-medium",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242460,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "wechat-apple",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218722,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "wechat-apple",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        176818,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "wechat-apple",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243250,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "wechat-apple",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242294,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "kenya-emptiness",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        201430,
+        225116,
+        119776,
+        244532,
+        173592,
+        102640
+      ]
+    },
+    {
+      "case": "kenya-emptiness",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        130941,
+        210638,
+        105304,
+        212800,
+        141866,
+        70934
+      ]
+    },
+    {
+      "case": "kenya-emptiness",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243422,
+        243630,
+        166268,
+        273444,
+        238374,
+        124838
+      ]
+    },
+    {
+      "case": "kenya-emptiness",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242460,
+        238846,
+        136450,
+        261814,
+        227080,
+        113566
+      ]
+    },
+    {
+      "case": "hische-editorial",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        206498,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "hische-editorial",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        145774,
+        217800,
+        108874,
+        224384,
+        149830,
+        74554
+      ]
+    },
+    {
+      "case": "hische-editorial",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243422,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    },
+    {
+      "case": "hische-editorial",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242460,
+        237258,
+        140429,
+        257174,
+        230404,
+        115086
+      ]
+    },
+    {
+      "case": "ando-concrete",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        152456,
+        225116,
+        119776,
+        244532,
+        173592,
+        102640
+      ]
+    },
+    {
+      "case": "ando-concrete",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        194448,
+        243630,
+        166268,
+        273444,
+        238374,
+        124838
+      ]
+    },
+    {
+      "case": "gaudi-organic",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        207267,
+        225116,
+        119776,
+        244532,
+        173592,
+        102640
+      ]
+    },
+    {
+      "case": "gaudi-organic",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        138293,
+        210638,
+        105304,
+        212800,
+        141866,
+        70934
+      ]
+    },
+    {
+      "case": "gaudi-organic",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        253504,
+        243630,
+        166268,
+        273444,
+        238374,
+        124838
+      ]
+    },
+    {
+      "case": "gaudi-organic",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        252549,
+        238846,
+        136450,
+        261814,
+        227080,
+        113566
+      ]
+    },
+    {
+      "case": "guardian",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        225134,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "guardian",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        185801,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "guardian",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        253726,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "guardian",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        252764,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "nikkei",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        218082,
+        234276,
+        119776,
+        262076,
+        179552,
+        97016
+      ]
+    },
+    {
+      "case": "nikkei",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        176985,
+        228904,
+        114410,
+        247552,
+        165034,
+        82518
+      ]
+    },
+    {
+      "case": "nikkei",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243422,
+        243404,
+        166268,
+        259311,
+        240931,
+        122888
+      ]
+    },
+    {
+      "case": "nikkei",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242460,
+        237084,
+        151670,
+        247686,
+        236120,
+        118094
+      ]
+    },
+    {
+      "case": "warm-docs",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        207210,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "warm-docs",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        145746,
+        217800,
+        108874,
+        224384,
+        149830,
+        74554
+      ]
+    },
+    {
+      "case": "warm-docs",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243394,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    },
+    {
+      "case": "warm-docs",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242433,
+        237258,
+        140429,
+        257174,
+        230404,
+        115086
+      ]
+    },
+    {
+      "case": "warm-dossier",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        203562,
+        227004,
+        119776,
+        247566,
+        174816,
+        102054
+      ]
+    },
+    {
+      "case": "warm-dossier",
+      "width": 390,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        138367,
+        214402,
+        107180,
+        218592,
+        145486,
+        73106
+      ]
+    },
+    {
+      "case": "warm-dossier",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        243338,
+        243574,
+        166268,
+        271162,
+        238926,
+        124618
+      ]
+    },
+    {
+      "case": "warm-dossier",
+      "width": 600,
+      "engine": "blitz",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        242380,
+        237906,
+        138318,
+        259744,
+        228630,
+        114494
+      ]
+    },
+    {
+      "case": "lemonde",
+      "width": 390,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        172151,
+        228708,
+        119776,
+        250492,
+        175932,
+        100998
+      ]
+    },
+    {
+      "case": "lemonde",
+      "width": 600,
+      "engine": "webview",
+      "painted_image_regions": 6,
+      "color_pixels_per_image": [
+        191812,
+        243466,
+        166268,
+        269021,
+        239413,
+        124218
+      ]
+    }
+  ]
+}

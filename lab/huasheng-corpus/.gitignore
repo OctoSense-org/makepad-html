@@ -1,0 +1,4 @@
+# Keep the public renderer diagnostics with the captured evidence, including
+# failed captures. These logs contain only the pinned public test article.
+!evidence/**/blitz.log
+!evidence/**/webview.log

@@ -1,0 +1,725 @@
+{
+  "checks" : [
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5608
+      ],
+      "theme" : "wechat-default",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5558
+      ],
+      "theme" : "wechat-default",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5218
+      ],
+      "theme" : "wechat-default",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5168
+      ],
+      "theme" : "wechat-default",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6144
+      ],
+      "theme" : "latepost-depth",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6094
+      ],
+      "theme" : "latepost-depth",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5588
+      ],
+      "theme" : "latepost-depth",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5538
+      ],
+      "theme" : "latepost-depth",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6812
+      ],
+      "theme" : "wechat-ft",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6762
+      ],
+      "theme" : "wechat-ft",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        6070
+      ],
+      "theme" : "wechat-ft",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        6020
+      ],
+      "theme" : "wechat-ft",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6418
+      ],
+      "theme" : "wechat-anthropic",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6368
+      ],
+      "theme" : "wechat-anthropic",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5732
+      ],
+      "theme" : "wechat-anthropic",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5682
+      ],
+      "theme" : "wechat-anthropic",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5870
+      ],
+      "theme" : "wechat-tech",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5820
+      ],
+      "theme" : "wechat-tech",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5392
+      ],
+      "theme" : "wechat-tech",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5342
+      ],
+      "theme" : "wechat-tech",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6144
+      ],
+      "theme" : "wechat-elegant",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6094
+      ],
+      "theme" : "wechat-elegant",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5736
+      ],
+      "theme" : "wechat-elegant",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5686
+      ],
+      "theme" : "wechat-elegant",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5952
+      ],
+      "theme" : "wechat-deepread",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5902
+      ],
+      "theme" : "wechat-deepread",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5540
+      ],
+      "theme" : "wechat-deepread",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5490
+      ],
+      "theme" : "wechat-deepread",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6712
+      ],
+      "theme" : "wechat-nyt",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6662
+      ],
+      "theme" : "wechat-nyt",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        6266
+      ],
+      "theme" : "wechat-nyt",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        6216
+      ],
+      "theme" : "wechat-nyt",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6268
+      ],
+      "theme" : "wechat-jonyive",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6218
+      ],
+      "theme" : "wechat-jonyive",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5626
+      ],
+      "theme" : "wechat-jonyive",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5576
+      ],
+      "theme" : "wechat-jonyive",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5912
+      ],
+      "theme" : "wechat-medium",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5862
+      ],
+      "theme" : "wechat-medium",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5382
+      ],
+      "theme" : "wechat-medium",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5332
+      ],
+      "theme" : "wechat-medium",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5810
+      ],
+      "theme" : "wechat-apple",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5760
+      ],
+      "theme" : "wechat-apple",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5344
+      ],
+      "theme" : "wechat-apple",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5294
+      ],
+      "theme" : "wechat-apple",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        8560
+      ],
+      "theme" : "kenya-emptiness",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        8510
+      ],
+      "theme" : "kenya-emptiness",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        7790
+      ],
+      "theme" : "kenya-emptiness",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        7740
+      ],
+      "theme" : "kenya-emptiness",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6096
+      ],
+      "theme" : "hische-editorial",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6046
+      ],
+      "theme" : "hische-editorial",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5576
+      ],
+      "theme" : "hische-editorial",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5526
+      ],
+      "theme" : "hische-editorial",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6242
+      ],
+      "theme" : "ando-concrete",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6242
+      ],
+      "theme" : "ando-concrete",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5602
+      ],
+      "theme" : "ando-concrete",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5602
+      ],
+      "theme" : "ando-concrete",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6848
+      ],
+      "theme" : "gaudi-organic",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6798
+      ],
+      "theme" : "gaudi-organic",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        6306
+      ],
+      "theme" : "gaudi-organic",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        6256
+      ],
+      "theme" : "gaudi-organic",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6438
+      ],
+      "theme" : "guardian",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6388
+      ],
+      "theme" : "guardian",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5890
+      ],
+      "theme" : "guardian",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5840
+      ],
+      "theme" : "guardian",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5098
+      ],
+      "theme" : "nikkei",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5048
+      ],
+      "theme" : "nikkei",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        4828
+      ],
+      "theme" : "nikkei",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        4778
+      ],
+      "theme" : "nikkei",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        5938
+      ],
+      "theme" : "warm-docs",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        5888
+      ],
+      "theme" : "warm-docs",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5458
+      ],
+      "theme" : "warm-docs",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5408
+      ],
+      "theme" : "warm-docs",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6350
+      ],
+      "theme" : "warm-dossier",
+      "width" : "390"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        780,
+        6300
+      ],
+      "theme" : "warm-dossier",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5692
+      ],
+      "theme" : "warm-dossier",
+      "width" : "600"
+    },
+    {
+      "mode" : "diff",
+      "pixels" : [
+        1200,
+        5642
+      ],
+      "theme" : "warm-dossier",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6378
+      ],
+      "theme" : "lemonde",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        1584,
+        6378
+      ],
+      "theme" : "lemonde",
+      "width" : "390"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5810
+      ],
+      "theme" : "lemonde",
+      "width" : "600"
+    },
+    {
+      "mode" : "pair",
+      "pixels" : [
+        2424,
+        5810
+      ],
+      "theme" : "lemonde",
+      "width" : "600"
+    }
+  ],
+  "theme_options" : 20
+}

@@ -44,7 +44,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     let input = fs::read_to_string(&args[1])?;
     // This executable is a bounded lab probe, never the app's HTML entry point.
-    if input.len() > 16_384 {
+    // Complete editor exports include inline themes and data-URL images. Keep
+    // the same bounded input budget as the library instead of a tiny probe cap.
+    if input.len() > makepad_html::MAX_HTML_BYTES {
         return Err("comparison fixture too large".into());
     }
     let out = PathBuf::from(&args[2]);
