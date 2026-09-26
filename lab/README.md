@@ -1,5 +1,7 @@
 # Native HTML integration validation
 
+English | [简体中文](README.zh-CN.md)
+
 This integration supplies native HTML/CSS article previews to independent hosts. It is not a migration of Robrix to Dioxus, an OctoSense runtime dependency, or an implementation of arbitrary HTML rich-text editing.
 
 Source: this repository (`src/`). Engine commit: `e99fbdbd1d03b9f0aa1622c3f810d95daac92042`. Makepad commit: `47837267faf6970a6cc36acedf9f83846b277307`. Standalone lockfile records all resolved dependencies. Runtime tests: Rust 1.98.0, aarch64 macOS. Rust 1.94.0 `--no-default-features` build check also passed.
@@ -29,7 +31,7 @@ Known boundaries:
 - Output/resource budgets do not create a CPU or process sandbox. Upstream intermediate allocations and pathological CSS still require stronger containment before admitting arbitrary public documents.
 - Long documents beyond the bitmap budget are explicitly reported as clipped; the host must display that condition. Tiled rendering is future work.
 
-Reproduction commands and the host API are in `README.md`. No personal Matrix credentials, profiles or accounts were used.
+Reproduction commands and the host API are in the [repository README](../README.md). No personal Matrix credentials, profiles or accounts were used.
 
 Robrix's optional `article_blitz` feature now uses this renderer for validated
 local draft previews. Its integration checks, Palpo lifecycle checks and actual

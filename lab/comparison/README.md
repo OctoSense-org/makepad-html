@@ -1,8 +1,12 @@
 # DigitalOcean HTML: Blitz vs macOS WKWebView
 
+English | [简体中文](README.zh-CN.md)
+
 Open [the interactive comparison](index.html). It has side-by-side captures,
 desktop/narrow viewport selection, a same-coordinate wipe slider, text crops and
 difference images. Raw captures and DOM measurements are in `evidence/`.
+The page, `evidence/` and `results.json` are generated locally by the
+reproduction steps below; they are git-ignored and not committed.
 
 Source: [digitalocean/sample-html index.html](https://github.com/digitalocean/sample-html/blob/b658ada1c68912e9ac4026db63d687e8e2aa808a/index.html),
 commit `b658ada1c68912e9ac4026db63d687e8e2aa808a`.

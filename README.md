@@ -1,5 +1,7 @@
 # makepad-html
 
+English | [简体中文](README.zh-CN.md)
+
 Reusable native HTML/CSS rendering for Makepad applications. The standalone Rust core lays out and paints documents; the optional `HtmlView` widget displays them with native scrolling. Applications supply HTML, resource bytes, viewport size and lifecycle decisions.
 
 This repository owns the rendering API, Makepad adapter, standalone viewer, Blitz patches and compatibility lab. Robrix’s article editor is one consumer. [Architecture and responsibilities](docs/architecture.md).
@@ -105,7 +107,7 @@ Extracted from `OctoSense-org/robrix2`'s `wechat-ui` renderer work, based on Rob
 commit `7f24f14ac5c59f65b84f078944443e3977c9f6f0` plus the reviewed CSS fixes.
 Original license notices are retained. Blitz source provenance and the exact
 local diffs are recorded in `vendor/blitz/UPSTREAM.json`, `wechat-css-1.patch`
-and the subsequent `table-2.patch` and `text-shadow-3.patch`.
+and the subsequent `table-2.patch`, `text-shadow-3.patch` and `inline-4.patch`.
 
 The table parity pass fixes merged-cell borders, border conflicts and cell
 alignment. It passes 27 default / 29 extended tests and retains the same
