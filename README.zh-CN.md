@@ -2,6 +2,8 @@
 
 [English](README.md) | 简体中文
 
+> **要开发 OctoSense 应用？** 你不需要这个仓库：它是供 Makepad 应用使用的 Rust 库（Robrix 在用）。脚本应用显示富文本请使用 [SCRIPT-API](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/SCRIPT-API.md#widgets-available-to-an-app) 列出的 `Html` 和 `Markdown` 控件。请按 [OctoSense 组织主页](https://github.com/OctoSense-org)给出的顺序阅读：[OctoScript-App-Design-Flow `AGENTS.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/AGENTS.md) → [`flows/README.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/flows/README.md) → [`docs/QUICKSTART.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/QUICKSTART.md)。
+
 为 Makepad 应用提供可复用的原生 HTML/CSS 渲染。独立的 Rust 核心负责文档的布局与绘制；可选的 `HtmlView` 控件以原生滚动方式显示渲染结果。应用负责提供 HTML、资源字节、视口尺寸以及生命周期决策。
 
 本仓库负责渲染 API、Makepad 适配层、独立查看器、Blitz 补丁和兼容性实验室。Robrix 的文章编辑器是其中一个使用方。参见[架构与职责](docs/architecture.md)。

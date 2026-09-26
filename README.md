@@ -2,6 +2,8 @@
 
 English | [简体中文](README.zh-CN.md)
 
+> **Building an OctoSense app?** You do not need this repository: it is a Rust library for Makepad applications (Robrix uses it). A script app shows rich text with the `Html` and `Markdown` widgets listed in [SCRIPT-API](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/SCRIPT-API.md#widgets-available-to-an-app). Start from the [OctoSense organization profile](https://github.com/OctoSense-org)'s reading order: [OctoScript-App-Design-Flow `AGENTS.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/AGENTS.md) → [`flows/README.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/flows/README.md) → [`docs/QUICKSTART.md`](https://github.com/OctoSense-org/OctoScript-App-Design-Flow/blob/main/docs/QUICKSTART.md).
+
 Reusable native HTML/CSS rendering for Makepad applications. The standalone Rust core lays out and paints documents; the optional `HtmlView` widget displays them with native scrolling. Applications supply HTML, resource bytes, viewport size and lifecycle decisions.
 
 This repository owns the rendering API, Makepad adapter, standalone viewer, Blitz patches and compatibility lab. Robrix’s article editor is one consumer. [Architecture and responsibilities](docs/architecture.md).
