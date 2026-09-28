@@ -130,7 +130,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 918,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/11-ruby.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/11-ruby.html",
   "source_sha256" : "4eeb34337f42312056a0ba65668e04bf2cc661b7e4745d1ea6a16e808097339d",
   "tiles" : [
     {

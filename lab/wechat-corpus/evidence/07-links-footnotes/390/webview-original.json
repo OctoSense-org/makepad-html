@@ -148,7 +148,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1304,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/07-links-footnotes.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/07-links-footnotes.html",
   "source_sha256" : "439e77aeefd2970abb8efbe0654e876ebc886efaed32ea03b5517c6fa4ccd260",
   "tiles" : [
     {

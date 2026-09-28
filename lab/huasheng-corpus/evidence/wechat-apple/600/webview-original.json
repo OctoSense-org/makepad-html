@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39435,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-apple.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-apple.html",
   "source_sha256" : "d157274656a53f94d61d04dd90893d4b7611ed6faffba97ef0bdc5be5c5f47c5",
   "tiles" : [
     {

@@ -196,7 +196,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 2083,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/16-text-shadows.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/16-text-shadows.html",
   "source_sha256" : "723ccbd52d47e042c05aa4c079cc84fd5c8b1ef895da1ba4b62c67464a56949a",
   "tiles" : [
     {

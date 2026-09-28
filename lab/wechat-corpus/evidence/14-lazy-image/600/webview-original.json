@@ -122,7 +122,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 887,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/14-lazy-image.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/14-lazy-image.html",
   "source_sha256" : "306caceb48961a3b522fbff4b80d234650b76338702cc1133082659e1e2c3938",
   "tiles" : [
     {

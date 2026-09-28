@@ -206,7 +206,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1730,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/06-images.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/06-images.html",
   "source_sha256" : "63a3b6013a5f5f51f39ddade03c4f795b51f1bc7eecba9a7399bc7935a4c6ad0",
   "tiles" : [
     {

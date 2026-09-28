@@ -200,7 +200,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1540,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/08-carousel.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/08-carousel.html",
   "source_sha256" : "f7a54d37d07848d0258e450735483ed33d54a5b2bc9560dcebb0ed1c58619bf0",
   "tiles" : [
     {

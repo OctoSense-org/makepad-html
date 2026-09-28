@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39089,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/warm-docs.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/warm-docs.html",
   "source_sha256" : "d76ba5e590dd8fdbcc933986c8d8be5175aba54bda03a57d5dd89807131a7640",
   "tiles" : [
     {

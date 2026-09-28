@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39720,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-jonyive.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-jonyive.html",
   "source_sha256" : "eb8fc6076f24ba6d32d0c3b332eeba75cfc04321f140f57dc50fae794e8bea88",
   "tiles" : [
     {

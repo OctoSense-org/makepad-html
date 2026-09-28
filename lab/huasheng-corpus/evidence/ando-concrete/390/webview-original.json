@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39879,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/ando-concrete.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/ando-concrete.html",
   "source_sha256" : "e78cafef126987ed986f6392969712f47a69bfb5ed473fdb56d265b0f9ddaff4",
   "tiles" : [
     {

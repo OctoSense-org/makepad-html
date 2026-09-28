@@ -158,7 +158,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1206,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/12-effects.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/12-effects.html",
   "source_sha256" : "be1b7e6e6e52534437f31385d4c5b5d6b39f63e19a9fd4639bbd62308fa7a481",
   "tiles" : [
     {

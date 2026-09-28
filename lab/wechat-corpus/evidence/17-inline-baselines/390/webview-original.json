@@ -190,7 +190,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 2069,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/17-inline-baselines.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/wechat-corpus\/fixtures\/17-inline-baselines.html",
   "source_sha256" : "18d48c714b777d6beff605c022337fe8b0ff0706945585e7b705a87188a5a665",
   "tiles" : [
     {

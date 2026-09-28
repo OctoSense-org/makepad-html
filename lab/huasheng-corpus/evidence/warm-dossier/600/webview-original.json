@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 40917,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/warm-dossier.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/warm-dossier.html",
   "source_sha256" : "caf295b2492c6ea0d6ab8f18f7042eecfd89800a93bd677581665c7c805a74b6",
   "tiles" : [
     {

@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 38885,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-elegant.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-elegant.html",
   "source_sha256" : "55d170b7452a50d17388dc94263d6567359374c01cb76d0b7cdb44ba7f95954a",
   "tiles" : [
     {

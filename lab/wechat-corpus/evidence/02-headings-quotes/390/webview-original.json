@@ -147,7 +147,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1329,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/02-headings-quotes.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/02-headings-quotes.html",
   "source_sha256" : "577f13e3671054ac9f8271daffbf04fe9dffb7a7818423cdd4020466861fc25c",
   "tiles" : [
     {

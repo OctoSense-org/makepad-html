@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39404,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/kenya-emptiness.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/kenya-emptiness.html",
   "source_sha256" : "e242a1c03dcc2d5d1a4b78d9aae573cd0df26f3809fca34cf49adea4c5c31c5b",
   "tiles" : [
     {
