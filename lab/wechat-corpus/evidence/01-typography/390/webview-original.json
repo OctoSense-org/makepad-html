@@ -124,7 +124,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1343,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/01-typography.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/01-typography.html",
   "source_sha256" : "3fb4eb89a48a1d698794595be22e443d9ebb8726cbd9e7e834a35bdeec7c0af2",
   "tiles" : [
     {

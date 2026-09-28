@@ -124,7 +124,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1005,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/10-svg-css.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/10-svg-css.html",
   "source_sha256" : "257bfb7b23cc5a07808bea0a69826f54e6c03938830639994233da4fd0554c97",
   "tiles" : [
     {

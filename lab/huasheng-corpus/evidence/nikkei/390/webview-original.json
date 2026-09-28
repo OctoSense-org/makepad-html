@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39506,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/nikkei.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/nikkei.html",
   "source_sha256" : "9eb0f8ebf5107c08b8f434f277d84ba93be735e5b4fff483e3967f3e00507021",
   "tiles" : [
     {

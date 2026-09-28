@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 40722,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-anthropic.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/wechat-anthropic.html",
   "source_sha256" : "b9b7bb651e04d9dbda3b603dce66bb59a1514b867738027fdf3c76f6c5ef9753",
   "tiles" : [
     {

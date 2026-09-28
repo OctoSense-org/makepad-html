@@ -112,7 +112,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1126,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/09-svg-attributes.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/09-svg-attributes.html",
   "source_sha256" : "119dd005bcdf6c7e5a280e9193bca57f1aa357a05dfe0cc716e8aed9cfc156f1",
   "tiles" : [
     {

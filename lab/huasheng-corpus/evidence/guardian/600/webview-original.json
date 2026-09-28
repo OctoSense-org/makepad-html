@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39428,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/guardian.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/guardian.html",
   "source_sha256" : "a7132a703f05c67d17e54484cd375a1e1bcbe87a395dfc0fd6b8e9b519fd2b64",
   "tiles" : [
     {

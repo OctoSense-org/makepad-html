@@ -197,7 +197,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 39936,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/latepost-depth.html",
+  "source_path" : "~\/home\/octosense-org\/makepad-html\/lab\/huasheng-corpus\/fixtures\/latepost-depth.html",
   "source_sha256" : "734489c9528b079d696d4e114d13205a0f7ae58923b99d44882ee9be43e3eb80",
   "tiles" : [
     {

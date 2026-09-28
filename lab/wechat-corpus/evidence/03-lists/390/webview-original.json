@@ -130,7 +130,7 @@
   "page_scripts_enabled" : false,
   "scale" : 2,
   "source_bytes" : 1147,
-  "source_path" : "\/Users\/ychen\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/03-lists.html",
+  "source_path" : "~\/home\/octosense-org\/robrix2\/lab\/article-blitz\/wechat-corpus\/fixtures\/03-lists.html",
   "source_sha256" : "98c71ce2dd97c11037572fe4e591a31272f3aa1258a48188222f6634bf845dfe",
   "tiles" : [
     {
