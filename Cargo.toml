@@ -32,7 +32,7 @@ html5ever = "=0.39.0"
 image = { version = "0.25.9", default-features = false, features = ["png", "jpeg"] }
 thiserror = "2"
 
-makepad-widgets = { git = "https://github.com/kevinaboos/makepad", branch = "button-grab-key-focus", features = ["serde"], optional = true }
+makepad-widgets = { git = "https://github.com/kevinaboos/makepad", branch = "button-grab-key-focus", optional = true }
 
 [[example]]
 name = "viewer"
